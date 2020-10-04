@@ -1,10 +1,12 @@
 import React from "react";
-import ApplicationComponent from "../../../common/applicationComponent";
-import { GET_PICKUP_QR_CODE } from "../../../common/service";
+import ApplicationComponent from "online-shopping-cargo-parent/dist/applicationComponent";
+import { GET_PICKUP_QR_CODE } from "online-shopping-cargo-parent/dist/service";
 import QRCode from "qrcode.react";
-import View from "../../../common/view";
+import View from "online-shopping-cargo-parent/dist/view";
 
-const TextButton = React.lazy(() => import("../../../common/text/textButton"));
+const TextButton = React.lazy(() =>
+  import("online-shopping-cargo-parent/dist/text/textButton")
+);
 
 export default class PickupQRCode extends ApplicationComponent {
   state = {};

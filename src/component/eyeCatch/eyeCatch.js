@@ -1,5 +1,5 @@
 import React from "react";
-import EyeCatchImage from "../../common/assert/eye_catch.png";
+import EyeCatchImage from "online-shopping-cargo-parent/dist/assert/eye_catch.png";
 
 export default function EyeCatch(props) {
   return (

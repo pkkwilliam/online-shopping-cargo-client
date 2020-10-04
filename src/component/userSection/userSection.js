@@ -1,5 +1,5 @@
 import React from "react";
-import ApplicationComponent from "../../common/applicationComponent";
+import ApplicationComponent from "online-shopping-cargo-parent/dist/applicationComponent";
 import UserSectionView from "./userSection.view";
 
 export default class UserSection extends ApplicationComponent {

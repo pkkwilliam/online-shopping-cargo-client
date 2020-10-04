@@ -1,5 +1,5 @@
 import React, { Suspense } from "react";
-import { styleSchema } from "./common/styleSchema";
+import { styleSchema } from "online-shopping-cargo-parent/dist/styleSchema";
 import Header from "./component/header/header";
 import FooterView from "./component/footer/footer.view";
 import LandingPageView from "./component/landingPage/landingPage.view";

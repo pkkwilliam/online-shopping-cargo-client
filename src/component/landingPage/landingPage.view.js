@@ -1,8 +1,8 @@
 import React from "react";
 import TutorialView from "../tutorial/tutorial.view";
 import EyeCatch from "../eyeCatch/eyeCatch";
-import H1 from "../../common/text/h1";
-import P from "../../common/text/paragraph";
+import H1 from "online-shopping-cargo-parent/dist/text/h1";
+import P from "online-shopping-cargo-parent/dist/text/paragraph";
 import UserSection from "../userSection/userSection";
 
 export default function LandingPageView(props) {

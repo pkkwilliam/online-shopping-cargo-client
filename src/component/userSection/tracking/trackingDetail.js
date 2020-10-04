@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import TextButton from "../../../common/text/textButton";
-import P from "../../../common/text/paragraph";
+import TextButton from "online-shopping-cargo-parent/dist/text/textButton";
+import P from "online-shopping-cargo-parent/dist/text/paragraph";
 import Col from "react-bootstrap/esm/Col";
 import Container from "react-bootstrap/esm/Container";
 import Row from "react-bootstrap/esm/Row";

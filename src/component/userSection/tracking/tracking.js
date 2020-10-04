@@ -1,6 +1,6 @@
 import React from "react";
-import ApplicationComponent from "../../../common/applicationComponent";
-import { GET_PARCELS } from "../../../common/service";
+import ApplicationComponent from "online-shopping-cargo-parent/dist/applicationComponent";
+import { GET_PARCELS } from "online-shopping-cargo-parent/dist/service";
 import Table from "react-bootstrap/esm/Table";
 
 const TrackingDetail = React.lazy(() => import("./trackingDetail"));

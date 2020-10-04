@@ -1,7 +1,6 @@
-import H1 from "../../common/text/h1";
 import React from "react";
-import { styleSchema } from "../../common/styleSchema";
-import headerLogo from "../../common/assert/header_icon.png";
+import { styleSchema } from "online-shopping-cargo-parent/dist/styleSchema";
+import headerLogo from "online-shopping-cargo-parent/dist/assert/header_icon.png";
 
 export default function HeaderView(props) {
   return (

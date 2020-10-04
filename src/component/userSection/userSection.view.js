@@ -7,7 +7,9 @@ const PICKUP_QR_CODE = "PICKUP_QR_CODE";
 
 const Tracking = React.lazy(() => import("./tracking/tracking"));
 const PickupQRCode = React.lazy(() => import("./pickupQRCode/pickupQRCode"));
-const SmsAuth = React.lazy(() => import("../../common/smsAuth/smsAuth"));
+const SmsAuth = React.lazy(() =>
+  import("online-shopping-cargo-parent/dist/smsAuth/smsAuth")
+);
 
 export default function UserSectionView(props) {
   const { display, hasToken } = props;

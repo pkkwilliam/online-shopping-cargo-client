@@ -1,6 +1,6 @@
 import React from "react";
-import { styleSchema } from "../../common/styleSchema";
-import P from "../../common/text/paragraph";
+import { styleSchema } from "online-shopping-cargo-parent/dist/styleSchema";
+import P from "online-shopping-cargo-parent/dist/text/paragraph";
 
 export default function FooterView(props) {
   return (
