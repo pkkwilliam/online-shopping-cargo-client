@@ -1,8 +1,8 @@
 import React from "react";
-import ApplicationComponent from "online-shopping-cargo-parent/dist/applicationComponent";
 import UserSectionView from "./userSection.view";
+import ClientApplicationComponent from "../clientApplicationComponent";
 
-export default class UserSection extends ApplicationComponent {
+export default class UserSection extends ClientApplicationComponent {
   state = {
     display: "",
     userToken: "",

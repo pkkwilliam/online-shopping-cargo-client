@@ -7275,6 +7275,10 @@ onetime@^5.1.0:
   dependencies:
     mimic-fn "^2.1.0"
 
+"online-shopping-cargo-parent@git+https://github.com/pkkwilliam/online-shopping-cargo-parent.git":
+  version "0.1.0"
+  resolved "git+https://github.com/pkkwilliam/online-shopping-cargo-parent.git#10a388fd473c3fe10921dbc17c4c8acf0380649c"
+
 open@^7.0.2:
   version "7.0.3"
   resolved "https://registry.yarnpkg.com/open/-/open-7.0.3.tgz#db551a1af9c7ab4c7af664139930826138531c48"
