@@ -1,34 +1,34 @@
 import React from "react";
-import ApplicationComponent from "online-shopping-cargo-parent/dist/applicationComponent";
 import { GET_PICKUP_QR_CODE } from "online-shopping-cargo-parent/dist/service";
-import QRCode from "qrcode.react";
-import View from "online-shopping-cargo-parent/dist/view";
+import ClientApplicationComponent from "../../clientApplicationComponent";
+import PickupQRCodeView from "./pickupQRCode.view";
 
-const TextButton = React.lazy(() =>
-  import("online-shopping-cargo-parent/dist/text/textButton")
-);
-
-export default class PickupQRCode extends ApplicationComponent {
-  state = {};
+export default class PickupQRCode extends ClientApplicationComponent {
+  state = {
+    ...this.state,
+    pickupQrCodeResponse: {
+      pickupCode: undefined,
+      expire: 0,
+    },
+  };
 
   componentDidMount() {
     this.onGetPickupQrCode();
   }
 
   render() {
-    if (this.state.pickupQrCodeResponse) {
-      return (
-        <View style={styles.rootContainer}>
-          <QRCode value={this.state.pickupQrCodeResponse.pickupCode} />
-          <TextButton onClick={() => this.onGetPickupQrCode()}>刷新</TextButton>
-        </View>
-      );
-    } else {
-      return <div>讀取中</div>;
-    }
+    const { pickupCode } = this.state.pickupQrCodeResponse;
+    return (
+      <PickupQRCodeView
+        pickupCode={pickupCode}
+        onCloseModal={this.onCloseError}
+        onGetPickupQrCode={this.onGetPickupQrCode}
+        {...this.state}
+      />
+    );
   }
 
-  onGetPickupQrCode() {
+  onGetPickupQrCode = () => {
     this.serviceExecutor
       .execute(GET_PICKUP_QR_CODE())
       .then((pickupQrCodeResponse) => {
@@ -38,14 +38,13 @@ export default class PickupQRCode extends ApplicationComponent {
         setTimeout(() => {
           this.onGetPickupQrCode();
         }, pickupQrCodeResponse.expire * 1000);
+      })
+      .catch((ex) => {
+        this.props.showModal({
+          show: true,
+          body: `讀取QR Code出錯，請稍候再試\n${ex.message}`,
+          header: "出錯啦 🤪🤪",
+        });
       });
-  }
+  };
 }
-
-const styles = {
-  rootContainer: {
-    alignItems: "center",
-    flexDirection: "column",
-    padding: 5,
-  },
-};

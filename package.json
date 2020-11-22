@@ -18,7 +18,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "update-parent": "npm install git+https://github.com/pkkwilliam/online-shopping-cargo-parent.git",
+    "deploy": "yarn build && ssh -i \"pkkwilliam-online-shopping-cargo-management.pem\" ubuntu@ec2-54-180-142-68.ap-northeast-2.compute.amazonaws.com sudo rm -rf /var/www/html/* && scp -r -i \"pkkwilliam-online-shopping-cargo-management.pem\" build ubuntu@picktb.com:~/tmp && ssh -i \"pkkwilliam-online-shopping-cargo-management.pem\" ubuntu@ec2-54-180-142-68.ap-northeast-2.compute.amazonaws.com sudo mv tmp/build/* /var/www/html/"
   },
   "eslintConfig": {
     "extends": "react-app"

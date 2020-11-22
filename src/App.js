@@ -3,9 +3,10 @@ import { styleSchema } from "online-shopping-cargo-parent/dist/styleSchema";
 import Header from "./component/header/header";
 import FooterView from "./component/footer/footer.view";
 import LandingPageView from "./component/landingPage/landingPage.view";
+
 import "bootstrap/dist/css/bootstrap.min.css";
 
-export default function App() {
+export default function App(props) {
   return (
     <div style={styles.rootContainer}>
       <Suspense fallback={<div>loading...</div>}>
