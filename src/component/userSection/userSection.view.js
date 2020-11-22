@@ -35,7 +35,6 @@ export default class UserSectionView extends ApplicationCompoentnView {
       displayComponent = (
         <div style={styles.loginContainer}>
           <SmsAuth
-            mock
             onSuceed={() => window.location.reload()}
             serviceExecutor={serviceExecutor}
           />
@@ -113,9 +112,7 @@ export default class UserSectionView extends ApplicationCompoentnView {
 }
 
 const styles = {
-  cardBody: {
-    padding: 0,
-  },
+  cardBody: { padding: 10 },
   loginContainer: {
     padding: 10,
   },

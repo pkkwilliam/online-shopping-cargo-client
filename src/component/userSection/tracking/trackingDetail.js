@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import TextButton from "online-shopping-cargo-parent/dist/text/textButton";
 import P from "online-shopping-cargo-parent/dist/text/paragraph";
 import Col from "react-bootstrap/esm/Col";
 import Container from "react-bootstrap/esm/Container";
@@ -12,36 +11,29 @@ const Collapse = React.lazy(() => import("react-bootstrap/Collapse"));
 export default class TrackingDetail extends Component {
   render() {
     const {
-      carrierIdentifier,
       displayId,
       onClickShowDetail,
       parcelLocation,
       parcelStatus,
     } = this.props;
     const parcelDisplayUtil = new ParcelDisplayUtil();
-    const itemLocation = `${parcelDisplayUtil.getParcelLocation(
-      parcelLocation
-    )} ${carrierIdentifier !== null ? carrierIdentifier : ""}`;
+    const location = parcelDisplayUtil.getParcelLocation(parcelLocation);
     const parcelStatusBageAndLabel = parcelDisplayUtil.getParcelStatusBageAndLabel(
       parcelStatus
     );
     return (
       <>
-        <tr>
+        <tr
+          className="text-center"
+          onClick={() => onClickShowDetail(displayId)}
+        >
           <td style={styles.defaultText}>
             <Badge pill variant={parcelStatusBageAndLabel.badge}>
               {parcelStatusBageAndLabel.label}
             </Badge>
           </td>
-          <td style={styles.defaultText}>
-            {this.getTrackingNumber(displayId)}
-          </td>
-          <td style={styles.defaultText}>{itemLocation}</td>
-          <td>
-            <TextButton onClick={() => onClickShowDetail(displayId)}>
-              詳細
-            </TextButton>
-          </td>
+          <td style={styles.defaultText}>{displayId}</td>
+          <td style={styles.defaultText}>{location}</td>
         </tr>
         <this.ExpandItem {...this.props} />
       </>
@@ -59,6 +51,7 @@ export default class TrackingDetail extends Component {
     length,
     parcelLocation,
     parcelStatus,
+    shop,
     showDetaiDisplayId,
     weight,
     width,
@@ -83,20 +76,28 @@ export default class TrackingDetail extends Component {
               </Row>
               <Row>
                 <Col>
-                  <P>{`單號: ${this.getTrackingNumber(displayId)}`}</P>
-                </Col>
-                <Col>
-                  <P>{`原單尾號: ${this.getTrackingNumber(
-                    originalTrackingNumber
-                  )}`}</P>
+                  <P>{`原單號: ${originalTrackingNumber}`}</P>
                 </Col>
               </Row>
               <Row>
                 <Col>
-                  <P>{`空間重量: ${volumeWeight}`}</P>
+                  <P>{`重量: ${weight}`}</P>
                 </Col>
                 <Col>
-                  <P>{`重量: ${weight}`}</P>
+                  <P>{`空間重量: ${volumeWeight}`}</P>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <P>{`店名: ${shop.shopName} ${shop.shopNumber}`}</P>
+                </Col>
+                <Col>
+                  <P>{`電話: ${shop.shopPhoneNumber}`}</P>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <P>{`地址: ${shop.shopAddress}`}</P>
                 </Col>
               </Row>
               <Row>
@@ -119,10 +120,6 @@ export default class TrackingDetail extends Component {
     return `${date.getFullYear()}-${
       date.getMonth() + 1
     }-${date.getDate()} ${date.getHours()}:${date.getMinutes()}`;
-  }
-
-  getTrackingNumber(trackingNumber) {
-    return trackingNumber.substring(trackingNumber.length - 4);
   }
 }
 

@@ -28,6 +28,14 @@ export default class PickupQRCode extends ClientApplicationComponent {
     );
   }
 
+  onError = (exception) => {
+    this.setError({
+      show: true,
+      body: `讀取QR Code出錯，請稍候再試\n${exception.message}`,
+      header: "AWS 伺服器出錯 🤕🤕",
+    });
+  };
+
   onGetPickupQrCode = () => {
     this.serviceExecutor
       .execute(GET_PICKUP_QR_CODE())
@@ -39,12 +47,6 @@ export default class PickupQRCode extends ClientApplicationComponent {
           this.onGetPickupQrCode();
         }, pickupQrCodeResponse.expire * 1000);
       })
-      .catch((ex) => {
-        this.props.showModal({
-          show: true,
-          body: `讀取QR Code出錯，請稍候再試\n${ex.message}`,
-          header: "出錯啦 🤪🤪",
-        });
-      });
+      .catch((ex) => {});
   };
 }

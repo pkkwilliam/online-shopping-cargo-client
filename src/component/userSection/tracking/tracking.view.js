@@ -1,57 +1,43 @@
 import React from "react";
-import View from "online-shopping-cargo-parent/dist/view";
 import Table from "react-bootstrap/esm/Table";
-import ParcelDisplayUtil from "online-shopping-cargo-parent/dist/parcelDisplayUtil";
-import Badge from "react-bootstrap/esm/Badge";
 import TrackingDetail from "./trackingDetail";
+import ApplicationComponentView from "online-shopping-cargo-parent/dist/applicationComponent.view";
 
-export default function TrackingView(props) {
-  const { onClickShowDetail, showDetaiDisplayId, sortedParcels } = props;
-  const parcelRows = sortedParcels.map((parcel) => {
+export default class TrackingView extends ApplicationComponentView {
+  render() {
+    const { onClickShowDetail, showDetaiDisplayId, sortedParcels } = this.props;
+    const parcelRows = sortedParcels.map((parcel) => {
+      return (
+        <TrackingDetail
+          onClickShowDetail={onClickShowDetail}
+          showDetaiDisplayId={showDetaiDisplayId}
+          {...parcel}
+        />
+      );
+    });
     return (
-      <TrackingDetail
-        onClickShowDetail={onClickShowDetail}
-        showDetaiDisplayId={showDetaiDisplayId}
-        {...parcel}
-      />
+      <this.Wrapper>
+        <Table borderless>
+          <thead>
+            <tr className="text-center">
+              <th>狀態</th>
+              <th>單號</th>
+              <th>地點</th>
+            </tr>
+          </thead>
+          <tbody>{parcelRows}</tbody>
+        </Table>
+        <p style={styles.reminder}>
+          *僅顯示已進入倉庫並未進行最後收件或已收件30天內的包裹
+        </p>
+      </this.Wrapper>
     );
-  });
-  return (
-    <>
-      <Table borderless>
-        <thead>
-          <tr>
-            <th>狀態</th>
-            <th>單號</th>
-            <th>地點</th>
-          </tr>
-        </thead>
-        <tbody>{parcelRows}</tbody>
-      </Table>
-      <p>remind</p>
-    </>
-  );
+  }
 }
 
-function generateRow(parcels) {
-  console.log(parcels);
-  const parcelDisplayUtil = new ParcelDisplayUtil();
-  return parcels.map((parcel) => {
-    const parcelStatusBageAndLabel = parcelDisplayUtil.getParcelStatusBageAndLabel(
-      parcel.parcelStatus
-    );
-    const badge = (
-      <Badge pill variant={parcelStatusBageAndLabel.badge}>
-        {parcelStatusBageAndLabel.label}
-      </Badge>
-    );
-    const location = parcelDisplayUtil.getParcelLocation(parcel.parcelLocation);
-    return (
-      <tr>
-        <td>{badge}</td>
-        <td>{parcel.displayId}</td>
-        <td>{location}</td>
-      </tr>
-    );
-  });
-}
+const styles = {
+  reminder: {
+    fontSize: 9,
+    margin: 0,
+  },
+};

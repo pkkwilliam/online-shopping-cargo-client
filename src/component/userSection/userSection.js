@@ -4,6 +4,7 @@ import ClientApplicationComponent from "../clientApplicationComponent";
 
 export default class UserSection extends ClientApplicationComponent {
   state = {
+    ...this.state,
     display: "",
     userToken: "",
   };
