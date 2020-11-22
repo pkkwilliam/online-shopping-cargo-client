@@ -15,12 +15,22 @@ const Tracking = React.lazy(() => import("./tracking/tracking"));
 
 export default class UserSectionView extends ApplicationCompoentnView {
   render() {
-    const { display, hasToken, serviceExecutor, showModal } = this.props;
+    const {
+      display,
+      hasToken,
+      serviceExecutor,
+      onCloseModal,
+      showModal,
+    } = this.props;
     let displayComponent;
     if (hasToken && display === PICKUP_QR_CODE) {
-      displayComponent = <PickupQRCode showModal={showModal} />;
+      displayComponent = (
+        <PickupQRCode showModal={showModal} onCloseModal={onCloseModal} />
+      );
     } else if (hasToken || display === MY_PARCEL) {
-      displayComponent = <Tracking showModal={showModal} />;
+      displayComponent = (
+        <Tracking showModal={showModal} onCloseModal={onCloseModal} />
+      );
     } else {
       displayComponent = (
         <div style={styles.loginContainer}>
@@ -33,12 +43,12 @@ export default class UserSectionView extends ApplicationCompoentnView {
       );
     }
     return (
-      <>
+      <this.Wrapper>
         <this.Container {...this.props}>{displayComponent}</this.Container>
-      </>
+      </this.Wrapper>
     );
   }
-  Container({ children, display, hasToken, onClickSectionDirect }) {
+  Container = ({ children, display, hasToken, onClickSectionDirect }) => {
     // this is weird thing from react bootstrap
     let page = hasToken ? "#myParcel" : "#login";
     page = display ? undefined : page;
@@ -61,9 +71,9 @@ export default class UserSectionView extends ApplicationCompoentnView {
         <Card.Body style={styles.cardBody}>{children}</Card.Body>
       </Card>
     );
-  }
+  };
 
-  ParcelsPage({ hasToken, onClickSectionDirect }) {
+  ParcelsPage = ({ hasToken, onClickSectionDirect }) => {
     return (
       <Nav.Item>
         <Nav.Link
@@ -75,9 +85,9 @@ export default class UserSectionView extends ApplicationCompoentnView {
         </Nav.Link>
       </Nav.Item>
     );
-  }
+  };
 
-  QRCodePickupPage({ hasToken, onClickSectionDirect, showModal }) {
+  QRCodePickupPage = ({ hasToken, onClickSectionDirect, showModal }) => {
     return (
       <Nav.Item>
         <Nav.Link
@@ -89,9 +99,9 @@ export default class UserSectionView extends ApplicationCompoentnView {
         </Nav.Link>
       </Nav.Item>
     );
-  }
+  };
 
-  LoginPageItem({ hasToken }) {
+  LoginPageItem = ({ hasToken }) => {
     return !hasToken ? (
       <Nav.Item>
         <Nav.Link href={LOGIN} disabled={hasToken}>
@@ -99,7 +109,7 @@ export default class UserSectionView extends ApplicationCompoentnView {
         </Nav.Link>
       </Nav.Item>
     ) : null;
-  }
+  };
 }
 
 const styles = {

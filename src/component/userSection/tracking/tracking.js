@@ -18,14 +18,15 @@ export default class Tracking extends ClientApplicationComponent {
   }
 
   render() {
-    const sortedParcelds = new ParcelDisplayUtil().sortParcels(
+    const sortedParcels = new ParcelDisplayUtil().sortParcels(
       this.state.parcelResponses?.parcels
     );
     return (
       <TrackingView
         onClickShowDetail={this.onClickShowDetail}
         onCloseModal={this.onCloseError}
-        sortedParcelds={sortedParcelds}
+        showDetaiDisplayId={this.state.showDetaiDisplayId}
+        sortedParcels={sortedParcels}
         {...this.state}
       />
     );
@@ -46,7 +47,7 @@ export default class Tracking extends ClientApplicationComponent {
         })
       )
       .catch((ex) =>
-        this.props.showModal({
+        this.setError({
           show: true,
           body: `讀取包裹出錯，請稍候再試\n${ex.message}`,
           header: "出錯啦 🤪🤪",

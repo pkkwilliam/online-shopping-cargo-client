@@ -20,7 +20,11 @@ export default class UserSection extends ClientApplicationComponent {
       <UserSectionView
         display={display}
         hasToken={userToken}
+        showModal={this.setError}
         onClickSectionDirect={this.onClickSectionDirect}
+        onCloseModal={this.onCloseError}
+        serviceExecutor={this.serviceExecutor}
+        {...this.state}
       />
     );
   }

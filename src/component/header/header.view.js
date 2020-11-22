@@ -1,6 +1,6 @@
 import React from "react";
 import { styleSchema } from "online-shopping-cargo-parent/dist/styleSchema";
-import headerLogo from "online-shopping-cargo-parent/dist/assert/header_icon.png";
+import headerLogo from "online-shopping-cargo-parent/dist/assert/header_logo.svg";
 
 export default function HeaderView(props) {
   return (

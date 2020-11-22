@@ -4,42 +4,41 @@ import P from "online-shopping-cargo-parent/dist/text/paragraph";
 import Col from "react-bootstrap/esm/Col";
 import Container from "react-bootstrap/esm/Container";
 import Row from "react-bootstrap/esm/Row";
+import Badge from "react-bootstrap/esm/Badge";
+import ParcelDisplayUtil from "online-shopping-cargo-parent/dist/parcelDisplayUtil";
 
 const Collapse = React.lazy(() => import("react-bootstrap/Collapse"));
 
 export default class TrackingDetail extends Component {
-  state = {
-    show: false,
-  };
-
   render() {
     const {
       carrierIdentifier,
       displayId,
+      onClickShowDetail,
       parcelLocation,
       parcelStatus,
     } = this.props;
-    const itemLocation = `${this.getParcelLocation(parcelLocation)} ${
-      carrierIdentifier !== null ? carrierIdentifier : ""
-    }`;
+    const parcelDisplayUtil = new ParcelDisplayUtil();
+    const itemLocation = `${parcelDisplayUtil.getParcelLocation(
+      parcelLocation
+    )} ${carrierIdentifier !== null ? carrierIdentifier : ""}`;
+    const parcelStatusBageAndLabel = parcelDisplayUtil.getParcelStatusBageAndLabel(
+      parcelStatus
+    );
     return (
       <>
         <tr>
           <td style={styles.defaultText}>
-            {this.getParcelStatus(parcelStatus)}
+            <Badge pill variant={parcelStatusBageAndLabel.badge}>
+              {parcelStatusBageAndLabel.label}
+            </Badge>
           </td>
           <td style={styles.defaultText}>
             {this.getTrackingNumber(displayId)}
           </td>
           <td style={styles.defaultText}>{itemLocation}</td>
           <td>
-            <TextButton
-              onClick={() =>
-                this.setState((state) => ({
-                  show: !state.show,
-                }))
-              }
-            >
+            <TextButton onClick={() => onClickShowDetail(displayId)}>
               詳細
             </TextButton>
           </td>
@@ -50,7 +49,6 @@ export default class TrackingDetail extends Component {
   }
 
   ExpandItem = ({
-    carrierIdentifier,
     cost,
     createTime,
     updateTime,
@@ -61,6 +59,7 @@ export default class TrackingDetail extends Component {
     length,
     parcelLocation,
     parcelStatus,
+    showDetaiDisplayId,
     weight,
     width,
     volumeWeight,
@@ -68,7 +67,7 @@ export default class TrackingDetail extends Component {
     return (
       <tr>
         <td colSpan={100} style={{ padding: 0 }}>
-          <Collapse in={this.state.show}>
+          <Collapse in={displayId === showDetaiDisplayId}>
             <Container style={styles.collpaseContainer}>
               <Row>
                 <Col>
@@ -120,34 +119,6 @@ export default class TrackingDetail extends Component {
     return `${date.getFullYear()}-${
       date.getMonth() + 1
     }-${date.getDate()} ${date.getHours()}:${date.getMinutes()}`;
-  }
-
-  getParcelLocation(parcelLocation) {
-    switch (parcelLocation) {
-      case "MOBILE_DELIVERY_VEHICLE":
-        return "移動提貨車";
-      case "WAREHOUSE":
-        return "倉庫";
-      default:
-        return "";
-    }
-  }
-
-  getParcelStatus(parcelStatus) {
-    switch (parcelStatus) {
-      case "EXCEPTION":
-        return "請電客服";
-      case "DELIVERED":
-        return "送達";
-      case "IN_TRANSIT":
-        return "運輸中";
-      case "READY_TO_PICKUP":
-        return "可提";
-      case "PICKED_UP":
-        return "已提";
-      default:
-        return "";
-    }
   }
 
   getTrackingNumber(trackingNumber) {

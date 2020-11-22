@@ -6,7 +6,7 @@ export default function FooterView(props) {
   return (
     <div style={styles.rootContainer}>
       <P style={{ fontSize: 11 }}>擎思科技有限公司 X 龐志空運速遞有限公司</P>
-      <P style={{ fontSize: 11 }}>歡迎合作 電話: 28719871</P>
+      <P style={{ fontSize: 11 }}>歡迎合作 微信: PICKTB</P>
     </div>
   );
 }
