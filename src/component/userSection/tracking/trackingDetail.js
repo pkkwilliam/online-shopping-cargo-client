@@ -81,18 +81,7 @@ export default class TrackingDetail extends Component {
               </Row>
               <Row>
                 <Col>
-                  <P>{`重量: ${weight}`}</P>
-                </Col>
-                <Col>
-                  <P>{`空間重量: ${volumeWeight}`}</P>
-                </Col>
-              </Row>
-              <Row>
-                <Col>
                   <P>{`店名: ${shop.shopName} ${shop.shopNumber}`}</P>
-                </Col>
-                <Col>
-                  <P>{`電話: ${shop.shopPhoneNumber}`}</P>
                 </Col>
               </Row>
               <Row>
@@ -102,10 +91,25 @@ export default class TrackingDetail extends Component {
               </Row>
               <Row>
                 <Col>
-                  <P>{`目的地: ${destination}`}</P>
+                  <P>{`電話: ${shop.shopPhoneNumber}`}</P>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <P>{`營業時間: ${shop.openingHour}`}</P>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <P>{`重量: ${weight}`}</P>
                 </Col>
                 <Col>
-                  <P>{`金額: ${cost}`}</P>
+                  <P>{`空間重量: ${volumeWeight}`}</P>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <P>{`運費: ${cost}`}</P>
                 </Col>
               </Row>
             </Container>

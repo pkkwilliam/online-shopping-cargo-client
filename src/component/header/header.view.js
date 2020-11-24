@@ -13,7 +13,7 @@ export default function HeaderView(props) {
 const styles = {
   rootContainer: {
     backgroundColor: styleSchema.color.white,
-    boxShadow: styleSchema.shadow,
+    boxShadow: styleSchema.shadowLight,
     paddingBottom: 5,
     paddingLeft: 10,
     paddingRight: 10,

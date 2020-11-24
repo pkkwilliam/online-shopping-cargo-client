@@ -1,9 +1,9 @@
 import React from "react";
-import TutorialView from "../tutorial/tutorial.view";
 import EyeCatch from "../eyeCatch/eyeCatch";
-import H1 from "online-shopping-cargo-parent/dist/text/h1";
-import P from "online-shopping-cargo-parent/dist/text/paragraph";
 import UserSection from "../userSection/userSection";
+import TutorialView from "../tutorial/tutorial.view";
+import ComingFunctionality from "../comingFunctionality/comingFunctionality.view";
+import CostCalculatorView from "../costCalculator/costCalculator.view";
 
 export default function LandingPageView(props) {
   return (
@@ -18,17 +18,11 @@ export default function LandingPageView(props) {
         <TutorialView />
       </div>
       <div style={styles.borderContainer}>
-        <ComingFunctionalities />
+        <CostCalculatorView />
       </div>
-    </div>
-  );
-}
-
-function ComingFunctionalities() {
-  return (
-    <div>
-      <H1>待開發功能:</H1>
-      <P>淘寶代購</P>
+      <div style={styles.borderContainer}>
+        <ComingFunctionality />
+      </div>
     </div>
   );
 }

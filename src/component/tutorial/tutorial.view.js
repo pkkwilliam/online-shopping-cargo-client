@@ -1,36 +1,36 @@
 import React from "react";
 import { styleSchema } from "online-shopping-cargo-parent/dist/styleSchema";
-import H1 from "online-shopping-cargo-parent/dist/text/h1";
 import P from "online-shopping-cargo-parent/dist/text/paragraph";
+import ClientCard from "../common/clientCard";
 
 export default function TutorialView(props) {
-  return (
-    <div>
-      <H1>this is tutorial view</H1>
-      <P>使用教程</P>
-      <AddressContainer />
-    </div>
-  );
+  return <AddressContainer />;
 }
 
 function AddressContainer() {
   return (
-    <>
+    <ClientCard header={<P style={{ fontWeight: "bold" }}>使用教程</P>}>
       <P>可使用淘寶的地址智能填寫功能</P>
       <div style={styles.addressContainer}>
-        <P>收貨人: 潘嘉朞@63530392</P>
+        <P>收件人: 店號 用戶電話</P>
         <P>手機號碼: 15363530392</P>
-        <P>所在地區: 廣東省珠海市香州區</P>
-        <P>詳細地址: 問號路112</P>
+        <P>广东省珠海市香洲区九洲大道中2123号</P>
       </div>
-    </>
+      <br />
+      <P>范例</P>
+      <div style={styles.addressContainer}>
+        <P>收件人: 1130 63530392</P>
+        <P>手機號碼: 15363530392</P>
+        <P>广东省珠海市香洲区九洲大道中2123号</P>
+      </div>
+    </ClientCard>
   );
 }
 
 const styles = {
   addressContainer: {
-    boxShadow: styleSchema.shadow,
-    boxRadius: 25,
+    borderRadius: 8,
+    boxShadow: styleSchema.shadowLight,
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",

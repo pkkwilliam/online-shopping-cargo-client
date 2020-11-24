@@ -9,7 +9,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 export default function App(props) {
   return (
     <div style={styles.rootContainer}>
-      <Suspense fallback={<div>loading...</div>}>
+      <Suspense fallback={<div>loading page...</div>}>
         <Header />
         <LandingPageView />
         <FooterView />
