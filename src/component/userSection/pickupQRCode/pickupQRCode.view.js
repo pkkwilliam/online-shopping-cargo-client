@@ -1,7 +1,7 @@
 import React from "react";
 import View from "online-shopping-cargo-parent/dist/view";
 import QRCode from "qrcode.react";
-import Button from "react-bootstrap/esm/Button";
+import P from "online-shopping-cargo-parent/dist/text/paragraph";
 import ApplicationComponentView from "online-shopping-cargo-parent/dist/applicationComponent.view";
 
 export default class PickupQRCodeView extends ApplicationComponentView {
@@ -11,9 +11,9 @@ export default class PickupQRCodeView extends ApplicationComponentView {
       <this.Wrapper>
         <View style={styles.rootContainer}>
           <this.QRCodeSection value={pickupCode} />
-          <Button onClick={onGetPickupQrCode} variant={"link"}>
+          <P onClick={onGetPickupQrCode} style={styles.refreshButton}>
             刷新
-          </Button>
+          </P>
         </View>
       </this.Wrapper>
     );
@@ -25,10 +25,15 @@ export default class PickupQRCodeView extends ApplicationComponentView {
 }
 
 const styles = {
+  refreshButton: {
+    color: "#007AFF",
+    fontSize: 16,
+    marginTop: 10,
+  },
   rootContainer: {
     alignItems: "center",
     flexDirection: "column",
     justifyContent: "center",
-    paddingTop: 20,
+    paddingTop: 10,
   },
 };

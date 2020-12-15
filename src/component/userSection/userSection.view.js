@@ -35,28 +35,9 @@ export default class UserSectionView extends ApplicationCompoentnView {
       displayComponent = (
         <div style={styles.loginContainer}>
           <SmsAuth
-            mock
             onSuceed={() => window.location.reload()}
             serviceExecutor={serviceExecutor}
           />
-          {/* <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <p
-              style={{
-                margin: 20,
-                fontSize: 22,
-                fontWeight: "bold",
-                color: "#FF4200",
-              }}
-            >
-              即將上線 Coming Soon
-            </p>
-          </div> */}
         </div>
       );
     }

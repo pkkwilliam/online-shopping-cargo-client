@@ -4,8 +4,10 @@ import UserSection from "../userSection/userSection";
 import TutorialView from "../tutorial/tutorial.view";
 import ComingFunctionality from "../comingFunctionality/comingFunctionality.view";
 import CostCalculatorView from "../costCalculator/costCalculator.view";
+import P from "online-shopping-cargo-parent/dist/text/paragraph";
+import { styleSchema } from "online-shopping-cargo-parent/dist/styleSchema";
 
-export default function LandingPageView(props) {
+export default function LandingPage(props) {
   return (
     <div style={styles.rootContainer}>
       <div style={styles.eyeCatchContainer}>
@@ -23,6 +25,10 @@ export default function LandingPageView(props) {
       <div style={styles.borderContainer}>
         <ComingFunctionality />
       </div>
+      <P style={styles.quoteText}>
+        *
+        新用戶免費僅限使用1130店號(PickTB自營取件站)和空間重量或重量不大於2公斤的包裹
+      </P>
     </div>
   );
 }
@@ -35,10 +41,9 @@ const styles = {
   eyeCatchContainer: {
     paddingBottom: 10,
   },
-  rootContainer: {
-    flex: 1,
-    marginRight: 20,
-    marginLeft: 20,
-    paddingTop: 74,
+  rootContainer: {},
+  quoteText: {
+    color: styleSchema.color.secondaryDark,
+    fontSize: 8,
   },
 };
