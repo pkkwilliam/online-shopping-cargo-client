@@ -6,10 +6,11 @@ import ApplicationComponentView from "online-shopping-cargo-parent/dist/applicat
 
 export default class PickupQRCodeView extends ApplicationComponentView {
   render() {
-    const { onGetPickupQrCode, pickupCode } = this.props;
+    const { onGetPickupQrCode, pickupCode, qrCodeExpireCountDown } = this.props;
     return (
       <this.Wrapper>
-        <View style={styles.rootContainer}>
+        <p>{`自動刷新(${qrCodeExpireCountDown})`}</p>
+        <View style={styles.qrCodeContainer}>
           <this.QRCodeSection value={pickupCode} />
           <P onClick={onGetPickupQrCode} style={styles.refreshButton}>
             刷新
@@ -30,7 +31,7 @@ const styles = {
     fontSize: 16,
     marginTop: 10,
   },
-  rootContainer: {
+  qrCodeContainer: {
     alignItems: "center",
     flexDirection: "column",
     justifyContent: "center",

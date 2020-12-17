@@ -4,12 +4,13 @@ import ClientApplicationComponent from "../../clientApplicationComponent";
 import PickupQRCodeView from "./pickupQRCode.view";
 
 export default class PickupQRCode extends ClientApplicationComponent {
+  qrCodeExpireCountDownInterval;
+  qrCodeTimeout;
+
   state = {
     ...this.state,
-    pickupQrCodeResponse: {
-      pickupCode: undefined,
-      expire: 0,
-    },
+    pickupCode: undefined,
+    qrCodeExpireCountDown: 0,
   };
 
   componentDidMount() {
@@ -17,12 +18,13 @@ export default class PickupQRCode extends ClientApplicationComponent {
   }
 
   render() {
-    const { pickupCode } = this.state.pickupQrCodeResponse;
+    const { pickupCode, qrCodeExpireCountDown } = this.state;
     return (
       <PickupQRCodeView
-        pickupCode={pickupCode}
         onCloseModal={this.onCloseError}
         onGetPickupQrCode={this.onGetPickupQrCode}
+        pickupCode={pickupCode}
+        qrCodeExpireCountDown={qrCodeExpireCountDown}
         {...this.state}
       />
     );
@@ -41,12 +43,31 @@ export default class PickupQRCode extends ClientApplicationComponent {
       .execute(GET_PICKUP_QR_CODE())
       .then((pickupQrCodeResponse) => {
         this.setState({
-          pickupQrCodeResponse,
+          pickupCode: pickupQrCodeResponse.pickupCode,
         });
-        setTimeout(() => {
-          this.onGetPickupQrCode();
-        }, pickupQrCodeResponse.expire * 1000);
+        const qrExpire = pickupQrCodeResponse.expire;
+        this.qrCodeExpireAutoRequest(qrExpire);
+        this.qrCodeExpireCountDown(qrExpire);
       })
       .catch((ex) => {});
   };
+
+  qrCodeExpireAutoRequest(qrExpire) {
+    clearTimeout(this.qrCodeTimeout);
+    this.qrCodeTimeout = setTimeout(() => {
+      this.onGetPickupQrCode();
+    }, qrExpire * 1000);
+  }
+
+  qrCodeExpireCountDown(qrCodeExpireCountDown) {
+    clearInterval(this.qrCodeExpireCountDownInterval);
+    this.setState({
+      qrCodeExpireCountDown,
+    });
+    this.qrCodeExpireCountDownInterval = setInterval(() => {
+      this.setState((state) => ({
+        qrCodeExpireCountDown: state.qrCodeExpireCountDown - 1,
+      }));
+    }, 1000);
+  }
 }
