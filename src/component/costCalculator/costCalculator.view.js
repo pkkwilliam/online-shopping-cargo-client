@@ -5,6 +5,8 @@ import Container from "react-bootstrap/esm/Container";
 import FormControl from "react-bootstrap/esm/FormControl";
 import Row from "react-bootstrap/esm/Row";
 import Col from "react-bootstrap/esm/Col";
+import View from "online-shopping-cargo-parent/dist/view";
+import LineBreak from "online-shopping-cargo-parent/dist/lineBreak";
 
 const COST_PER_UNIT = 2;
 const DIVISOR = 6000;
@@ -24,21 +26,29 @@ export default class CostCalculatorView extends Component {
     const highWeight =
       weight > calculatedVolumnWeight ? weight : calculatedVolumnWeight;
     return (
-      <ClientCard header={<P style={{ fontWeight: "bold" }}>運費計算</P>}>
+      <ClientCard header={<P>運費計算</P>}>
         <Container>
-          <Row>
-            <this.TextField placeholder="重量" target="weight" />
-          </Row>
-          <Row>
-            <this.TextField placeholder="長" target="length" />
-            <this.TextField placeholder="寬" target="width" />
-            <this.TextField placeholder="高" target="height" />
-          </Row>
+          <View style={{ justifyContent: "flex-end" }}>
+            <P
+              style={{ fontSize: 9, margin: 0 }}
+            >{`*空間重量 = 長 x 寛 x 高 / ${DIVISOR}`}</P>
+          </View>
+          <Container>
+            <Row>
+              <this.TextField placeholder="重量(KG)" target="weight" />
+            </Row>
+            <LineBreak />
+            <Row>
+              <this.TextField placeholder="長(CM)" target="length" />
+              <this.TextField placeholder="寬(CM)" target="width" />
+              <this.TextField placeholder="高(CM)" target="height" />
+            </Row>
+          </Container>
+
+          <P>{`空間重量 = ${calculatedVolumnWeight} 重量: ${weight} 費用: ${
+            INITIAL_COST + COST_PER_UNIT * highWeight
+          }`}</P>
         </Container>
-        <P>{`*空間重量 = 長 x 寛 x 高 / ${DIVISOR}`}</P>
-        <P>{`空間重量 = ${calculatedVolumnWeight} 重量: ${weight} 費用: ${
-          INITIAL_COST + COST_PER_UNIT * highWeight
-        }`}</P>
       </ClientCard>
     );
   }
@@ -57,6 +67,8 @@ export default class CostCalculatorView extends Component {
           onChange={(event) => {
             this.onChangeValue(target, event.target.value);
           }}
+          size="sm"
+          style={{ border: 0 }}
         />
       </Col>
     );

@@ -3,6 +3,8 @@ import { styleSchema } from "online-shopping-cargo-parent/dist/styleSchema";
 import Header from "./component/header/header";
 import FooterView from "./component/footer/footer.view";
 import LandingPage from "./component/landingPage/landingPage";
+import View from "online-shopping-cargo-parent/dist/view";
+import Spinner from "react-bootstrap/esm/Spinner";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -20,7 +22,7 @@ export default function App(props) {
 
   return (
     <div style={styles.rootContainer}>
-      <Suspense fallback={<div>loading page...</div>}>
+      <Suspense fallback={<SuspenseLoading />}>
         <Header
           onClickSwitchLandingPage={() =>
             setConsumerLandingPage(!consumerLandingPage)
@@ -33,6 +35,20 @@ export default function App(props) {
         <FooterView />
       </Suspense>
     </div>
+  );
+}
+
+function SuspenseLoading() {
+  return (
+    <View
+      style={{
+        alignItems: "center",
+        justifyContent: "center",
+        height: "100vh",
+      }}
+    >
+      <Spinner animation="border" variant="warning" />
+    </View>
   );
 }
 

@@ -1,7 +1,7 @@
 import React from "react";
 import EyeCatch from "../eyeCatch/eyeCatch";
 import UserSection from "../userSection/userSection";
-import TutorialView from "../tutorial/tutorial.view";
+import AddressGenerator from "../addressGenerator/addressGenerator";
 import ComingFunctionality from "../comingFunctionality/comingFunctionality.view";
 import CostCalculatorView from "../costCalculator/costCalculator.view";
 import P from "online-shopping-cargo-parent/dist/text/paragraph";
@@ -17,7 +17,7 @@ export default function LandingPage(props) {
         <UserSection />
       </div>
       <div style={styles.borderContainer}>
-        <TutorialView />
+        <AddressGenerator />
       </div>
       <div style={styles.borderContainer}>
         <CostCalculatorView />

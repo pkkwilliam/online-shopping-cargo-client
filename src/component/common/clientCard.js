@@ -12,6 +12,7 @@ export default function ClientCard(props) {
 
 const styles = {
   cardHeader: {
+    fontWeight: "bold",
     paddingBottom: 5,
     paddingTop: 5,
   },
