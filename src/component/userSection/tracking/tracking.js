@@ -33,9 +33,10 @@ export default class Tracking extends ClientApplicationComponent {
   }
 
   onClickShowDetail = (displayId) => {
-    this.setState({
-      showDetaiDisplayId: displayId,
-    });
+    this.setState((state) => ({
+      showDetaiDisplayId:
+        state.showDetaiDisplayId !== displayId ? displayId : 0,
+    }));
   };
 
   onError = (exception) => {

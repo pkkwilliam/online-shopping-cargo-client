@@ -7,7 +7,9 @@ import Badge from "react-bootstrap/esm/Badge";
 import ParcelDisplayUtil from "online-shopping-cargo-parent/dist/parcelDisplayUtil";
 
 const Collapse = React.lazy(() => import("react-bootstrap/Collapse"));
-
+const LineBreak = React.lazy(() =>
+  import("online-shopping-cargo-parent/dist/lineBreak")
+);
 export default class TrackingDetail extends Component {
   render() {
     const {
@@ -40,82 +42,124 @@ export default class TrackingDetail extends Component {
     );
   }
 
-  ExpandItem = ({
-    cost,
-    createTime,
-    updateTime,
-    destination,
-    displayId,
-    originalTrackingNumber,
-    height,
-    length,
-    parcelLocation,
-    parcelStatus,
-    shop,
-    showDetaiDisplayId,
-    weight,
-    width,
-    volumeWeight,
-  }) => {
+  ExpandItem = ({ displayId, showDetaiDisplayId }) => {
     return (
       <tr>
         <td colSpan={100} style={{ padding: 0 }}>
           <Collapse in={displayId === showDetaiDisplayId}>
             <Container style={styles.collpaseContainer}>
-              <Row>
-                <Col>
-                  <P>{`入庫時間: ${this.getDate(createTime)}`}</P>
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                  <P>{`更新時間: ${this.getDate(
-                    updateTime !== null ? updateTime : createTime
-                  )}`}</P>
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                  <P>{`原單號: ${originalTrackingNumber}`}</P>
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                  <P>{`店名: ${shop.shopName} ${shop.shopNumber}`}</P>
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                  <P>{`地址: ${shop.shopAddress}`}</P>
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                  <P>{`電話: ${shop.shopPhoneNumber}`}</P>
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                  <P>{`營業時間: ${shop.openingHour}`}</P>
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                  <P>{`重量: ${weight}`}</P>
-                </Col>
-                <Col>
-                  <P>{`空間重量: ${volumeWeight}`}</P>
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                  <P>{`運費: ${cost}`}</P>
-                </Col>
-              </Row>
+              <this.TimeSection />
+              <this.ParcelDetailSection />
+              <this.ShopDetailSection />
+              <this.CostSection />
             </Container>
           </Collapse>
         </td>
       </tr>
+    );
+  };
+
+  CostSection = () => {
+    const { cost, dayStored, storageCost } = this.props;
+    return (
+      <this.SectionContainer header="費用">
+        <Row>
+          <Col>
+            <P>{`存放: ${dayStored}日`}</P>
+          </Col>
+          <Col>
+            <P>{`倉儲費: ${storageCost ? storageCost : 0}`}</P>
+          </Col>
+          <Col>
+            <P>{`運費: ${cost}`}</P>
+          </Col>
+        </Row>
+      </this.SectionContainer>
+    );
+  };
+
+  ParcelDetailSection = () => {
+    const { originalTrackingNumber, weight, volumeWeight } = this.props;
+    return (
+      <this.SectionContainer header="包裹詳細">
+        <Row>
+          <Col>
+            <P>{`原單號: ${originalTrackingNumber}`}</P>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <P>{`重量: ${weight} KG`}</P>
+          </Col>
+          <Col>
+            <P>{`空間重量: ${volumeWeight} KG`}</P>
+          </Col>
+        </Row>
+      </this.SectionContainer>
+    );
+  };
+
+  ShopDetailSection = () => {
+    const {
+      openingHour,
+      shopAddress,
+      shopName,
+      shopNumber,
+      shopPhoneNumber,
+    } = this.props.shop;
+    return (
+      <this.SectionContainer header="門店資科">
+        <Row>
+          <Col>
+            <P>{`店名: ${shopName} ${shopNumber}`}</P>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <P>{`地址: ${shopAddress}`}</P>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <P>{`電話: ${shopPhoneNumber}`}</P>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <P>{`營業時間: ${openingHour}`}</P>
+          </Col>
+        </Row>
+      </this.SectionContainer>
+    );
+  };
+
+  SectionContainer = ({ header, children }) => {
+    return (
+      <div style={{ marginTop: 5 }}>
+        <P style={{ fontWeight: "bold" }}>{header}</P>
+        <LineBreak />
+        {children}
+      </div>
+    );
+  };
+
+  TimeSection = () => {
+    const { createTime, updateTime } = this.props;
+    return (
+      <this.SectionContainer header="時間詳細">
+        <Row>
+          <Col>
+            <P>{`入庫時間: ${this.getDate(createTime)}`}</P>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <P>{`更新時間: ${this.getDate(
+              updateTime !== null ? updateTime : createTime
+            )}`}</P>
+          </Col>
+        </Row>
+      </this.SectionContainer>
     );
   };
 

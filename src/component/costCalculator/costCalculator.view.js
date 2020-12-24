@@ -28,23 +28,23 @@ export default class CostCalculatorView extends Component {
     return (
       <ClientCard header={<P>運費計算</P>}>
         <Container>
-          <View style={{ justifyContent: "flex-end" }}>
-            <P
-              style={{ fontSize: 9, margin: 0 }}
-            >{`*空間重量 = 長 x 寛 x 高 / ${DIVISOR}`}</P>
+          <View>
+            <Container style={{ padding: 0 }}>
+              <this.DisclaimerContainer>
+                {`*空間重量 = 長 x 寛 x 高 / ${DIVISOR}`}
+              </this.DisclaimerContainer>
+              <this.DisclaimerContainer>
+                *所有包裹均享有3天免費存放
+              </this.DisclaimerContainer>
+            </Container>
           </View>
-          <Container>
-            <Row>
-              <this.TextField placeholder="重量(KG)" target="weight" />
-            </Row>
-            <LineBreak />
-            <Row>
-              <this.TextField placeholder="長(CM)" target="length" />
-              <this.TextField placeholder="寬(CM)" target="width" />
-              <this.TextField placeholder="高(CM)" target="height" />
-            </Row>
-          </Container>
-
+          <this.TextField placeholder="重量(KG)" target="weight" />
+          <LineBreak />
+          <this.TextField placeholder="長(CM)" target="length" />
+          <LineBreak />
+          <this.TextField placeholder="寬(CM)" target="width" />
+          <LineBreak />
+          <this.TextField placeholder="高(CM)" target="height" />
           <P>{`空間重量 = ${calculatedVolumnWeight} 重量: ${weight} 費用: ${
             INITIAL_COST + COST_PER_UNIT * highWeight
           }`}</P>
@@ -58,6 +58,14 @@ export default class CostCalculatorView extends Component {
   onCalculateVolumnWeight(height, length, width) {
     return Math.ceil((height * length * width) / DIVISOR);
   }
+
+  DisclaimerContainer = ({ children }) => {
+    return (
+      <Row style={{ display: "flex", justifyContent: "flex-end" }}>
+        <P style={{ fontSize: 9, margin: 0 }}>{children}</P>
+      </Row>
+    );
+  };
 
   TextField = ({ placeholder, target }) => {
     return (
