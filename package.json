@@ -21,7 +21,13 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "update-parent": "npm install git+https://github.com/pkkwilliam/online-shopping-cargo-parent.git",
-    "deploy": "yarn build && ssh -i \"pkkwilliam-online-shopping-cargo-management.pem\" ubuntu@ec2-54-180-142-68.ap-northeast-2.compute.amazonaws.com sudo rm -rf /var/www/html/* && scp -r -i \"pkkwilliam-online-shopping-cargo-management.pem\" build ubuntu@picktb.com:~/tmp && ssh -i \"pkkwilliam-online-shopping-cargo-management.pem\" ubuntu@ec2-54-180-142-68.ap-northeast-2.compute.amazonaws.com sudo mv tmp/build/* /var/www/html/"
+    "deploy-old": "yarn build && ssh -i \"pkkwilliam-online-shopping-cargo-management.pem\" ubuntu@ec2-54-180-142-68.ap-northeast-2.compute.amazonaws.com sudo find /var/www/html/* \\! -name 'admin-panel' -delete && scp -r -i \"pkkwilliam-online-shopping-cargo-management.pem\" build ubuntu@picktb.com:~/tmp && ssh -i \"pkkwilliam-online-shopping-cargo-management.pem\" ubuntu@ec2-54-180-142-68.ap-northeast-2.compute.amazonaws.com sudo mv tmp/build/* /var/www/html/",
+    "deploy": "yarn build && yarn upload-app && yarn movePortalToUpperFolder && yarn remove-app && yarn movePortalToCorrectDirectory && yarn moveAppToFolder",
+    "movePortalToUpperFolder": "ssh -i \"pkkwilliam-online-shopping-cargo-management.pem\" ubuntu@ec2-54-180-142-68.ap-northeast-2.compute.amazonaws.com sudo mv /var/www/html/admin-panel/ /var/www/",
+    "movePortalToCorrectDirectory": "ssh -i \"pkkwilliam-online-shopping-cargo-management.pem\" ubuntu@ec2-54-180-142-68.ap-northeast-2.compute.amazonaws.com sudo mv /var/www/admin-panel/ /var/www/html/",
+    "remove-app": "ssh -i \"pkkwilliam-online-shopping-cargo-management.pem\" ubuntu@ec2-54-180-142-68.ap-northeast-2.compute.amazonaws.com sudo rm -rf /var/www/html/*",
+    "upload-app": "scp -r -i \"pkkwilliam-online-shopping-cargo-management.pem\" build ubuntu@picktb.com:~/tmp/client",
+    "moveAppToFolder": "ssh -i \"pkkwilliam-online-shopping-cargo-management.pem\" ubuntu@ec2-54-180-142-68.ap-northeast-2.compute.amazonaws.com sudo mv tmp/client/build/* /var/www/html/"
   },
   "eslintConfig": {
     "extends": "react-app"
