@@ -25,9 +25,12 @@ export default function LandingPage(props) {
       <div style={styles.borderContainer}>
         <ComingFunctionality />
       </div>
-      <P style={styles.quoteText}>
+      <P style={styles.disclaimerText}>
         *
-        新用戶免費僅限使用1130店號(PickTB自營取件站)和空間重量或重量不大於2公斤的包裹
+        小部分代收點因店租成本過高，無法提供免費試用，請提前諮詢該點是否提供新用戶免費代收
+      </P>
+      <P style={styles.disclaimerText}>
+        * 新用戶免費限空間重量或重量不大於2公斤的包裹
       </P>
     </div>
   );
@@ -42,7 +45,7 @@ const styles = {
     paddingBottom: 10,
   },
   rootContainer: {},
-  quoteText: {
+  disclaimerText: {
     color: styleSchema.color.secondaryDark,
     fontSize: 8,
   },

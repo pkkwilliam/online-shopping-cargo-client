@@ -1,13 +1,15 @@
 import React from "react";
 import View from "online-shopping-cargo-parent/dist/view";
 import { styleSchema } from "online-shopping-cargo-parent/dist/styleSchema";
-import headerLogo from "online-shopping-cargo-parent/dist/assert/header_logo.svg";
 import Button from "react-bootstrap/esm/Button";
+
+const HEADER_URL =
+  "https://raw.githubusercontent.com/pkkwilliam/github.io-contents/master/oscm/assert/logo.png";
 
 export default function HeaderView(props) {
   return (
     <View style={styles.rootContainer}>
-      <img alt={"header_icon"} src={headerLogo} style={{ height: 45 }} />
+      <img alt={"header_icon"} src={HEADER_URL} style={{ height: 45 }} />
       <Button
         onClick={props.onClickSwitchLandingPage}
         size="sm"

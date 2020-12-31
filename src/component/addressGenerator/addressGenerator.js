@@ -30,13 +30,21 @@ export default function AddressGenerator(props) {
   const buttonText = values.show ? "重新生成收貨地址" : "生成收貨地址";
 
   return (
-    <ClientCard header={<P>轉運地址</P>}>
+    <ClientCard
+      header={
+        <>
+          <P>轉運地址</P>
+          <P>1月10日正式營運</P>
+        </>
+      }
+    >
       <div style={{ marginTop: 10 }}>
         <Container>
           <P>淘寶智能地址填寫</P>
           {GeneratedAddress}
           <Button
             block
+            disabled
             onClick={buttonOnClick}
             size="sm"
             style={{ marginTop: 10 }}
