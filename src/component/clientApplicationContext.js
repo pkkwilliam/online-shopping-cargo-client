@@ -2,6 +2,6 @@ import applicationContext from "online-shopping-cargo-parent/dist/applicationCon
 
 export default class ClientApplicationContext extends applicationContext {
   get mock() {
-    return false;
+    return true;
   }
 }

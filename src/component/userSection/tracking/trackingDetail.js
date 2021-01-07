@@ -144,21 +144,31 @@ export default class TrackingDetail extends Component {
   };
 
   TimeSection = () => {
-    const { createTime, updateTime } = this.props;
+    const { createTime, readyToPickupDate, updateTime } = this.props;
+    const ReadyToPickUp = readyToPickupDate ? (
+      <Row>
+        <Col>
+          <P>{`到達門店: ${
+            readyToPickupDate ? readyToPickupDate : "未到達"
+          }`}</P>
+        </Col>
+      </Row>
+    ) : null;
     return (
       <this.SectionContainer header="時間詳細">
         <Row>
           <Col>
-            <P>{`入庫時間: ${this.getDate(createTime)}`}</P>
+            <P>{`入庫時間: ${createTime}`}</P>
           </Col>
         </Row>
         <Row>
           <Col>
-            <P>{`更新時間: ${this.getDate(
+            <P>{`更新時間: ${
               updateTime !== null ? updateTime : createTime
-            )}`}</P>
+            }`}</P>
           </Col>
         </Row>
+        {ReadyToPickUp}
       </this.SectionContainer>
     );
   };

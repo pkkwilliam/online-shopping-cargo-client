@@ -5,7 +5,6 @@ import PickupQRCodeView from "./pickupQRCode.view";
 
 export default class PickupQRCode extends ClientApplicationComponent {
   qrCodeExpireCountDownInterval;
-  qrCodeTimeout;
 
   state = {
     ...this.state,
@@ -44,30 +43,23 @@ export default class PickupQRCode extends ClientApplicationComponent {
       .then((pickupQrCodeResponse) => {
         this.setState({
           pickupCode: pickupQrCodeResponse.pickupCode,
+          qrCodeExpireCountDown: pickupQrCodeResponse.expire / 5,
         });
-        const qrExpire = pickupQrCodeResponse.expire;
-        this.qrCodeExpireAutoRequest(qrExpire);
-        this.qrCodeExpireCountDown(qrExpire);
+        this.startCountDown();
       })
       .catch((ex) => {});
   };
 
-  qrCodeExpireAutoRequest(qrExpire) {
-    clearTimeout(this.qrCodeTimeout);
-    this.qrCodeTimeout = setTimeout(() => {
-      this.onGetPickupQrCode();
-    }, qrExpire * 1000);
-  }
-
-  qrCodeExpireCountDown(qrCodeExpireCountDown) {
+  startCountDown() {
     clearInterval(this.qrCodeExpireCountDownInterval);
-    this.setState({
-      qrCodeExpireCountDown,
-    });
     this.qrCodeExpireCountDownInterval = setInterval(() => {
-      this.setState((state) => ({
-        qrCodeExpireCountDown: state.qrCodeExpireCountDown - 1,
-      }));
+      const { qrCodeExpireCountDown } = this.state;
+      if (qrCodeExpireCountDown === 0) {
+        this.onGetPickupQrCode();
+      }
+      this.setState({
+        qrCodeExpireCountDown: qrCodeExpireCountDown - 1,
+      });
     }, 1000);
   }
 }

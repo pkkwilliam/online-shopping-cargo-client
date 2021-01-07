@@ -7,11 +7,13 @@ import ClientCard from "../common/clientCard";
 const LOGIN = "#login";
 const MY_PARCEL = "#myParcel";
 const PICKUP_QR_CODE = "#myPickupQRCode";
+const USER_PROFILE = "#userProfile";
 
 const PickupQRCode = React.lazy(() => import("./pickupQRCode/pickupQRCode"));
 const SmsAuth = React.lazy(() =>
   import("online-shopping-cargo-parent/dist/smsAuth/smsAuth")
 );
+const UserProfile = React.lazy(() => import("./userProfile/userProfile"));
 const Tracking = React.lazy(() => import("./tracking/tracking"));
 export default class UserSectionView extends ApplicationCompoentnView {
   render() {
@@ -27,14 +29,19 @@ export default class UserSectionView extends ApplicationCompoentnView {
       displayComponent = (
         <PickupQRCode showModal={showModal} onCloseModal={onCloseModal} />
       );
+    } else if (hasToken && display === USER_PROFILE) {
+      displayComponent = (
+        <UserProfile showModal={showModal} onCloseModal={onCloseModal} />
+      );
     } else if (hasToken || display === MY_PARCEL) {
       displayComponent = (
         <Tracking showModal={showModal} onCloseModal={onCloseModal} />
       );
     } else {
       displayComponent = (
-        <div style={styles.loginContainer}>
+        <div>
           <SmsAuth
+            mock
             onSuceed={() => window.location.reload()}
             serviceExecutor={serviceExecutor}
           />
@@ -47,14 +54,22 @@ export default class UserSectionView extends ApplicationCompoentnView {
       </this.Wrapper>
     );
   }
+
   Container = ({ children, display, hasToken, onClickSectionDirect }) => {
     // this is weird thing from react bootstrap
     let page = hasToken ? "#myParcel" : "#login";
     page = display ? undefined : page;
-
+    const AccountPage = hasToken ? (
+      <this.UserProfilePage
+        hasToken={hasToken}
+        onClickSectionDirect={onClickSectionDirect}
+      />
+    ) : (
+      <this.LoginPageItem hasToken={hasToken} />
+    );
     const HEADER_NAV = (
       <Nav fill justify variant="tabs" activeKey={page}>
-        <this.LoginPageItem hasToken={hasToken} />
+        {AccountPage}
         <this.ParcelsPage
           hasToken={hasToken}
           onClickSectionDirect={onClickSectionDirect}
@@ -101,6 +116,20 @@ export default class UserSectionView extends ApplicationCompoentnView {
     );
   }
 
+  UserProfilePage({ hasToken, onClickSectionDirect }) {
+    return (
+      <Nav.Item>
+        <Nav.Link
+          disabled={!hasToken}
+          href={USER_PROFILE}
+          onClick={() => onClickSectionDirect(USER_PROFILE)}
+        >
+          賬戶
+        </Nav.Link>
+      </Nav.Item>
+    );
+  }
+
   LoginPageItem({ hasToken }) {
     return !hasToken ? (
       <Nav.Item>
@@ -113,5 +142,5 @@ export default class UserSectionView extends ApplicationCompoentnView {
 }
 
 const styles = {
-  cardBody: { padding: 10 },
+  cardBody: { padding: 0 },
 };

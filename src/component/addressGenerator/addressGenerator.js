@@ -44,7 +44,6 @@ export default function AddressGenerator(props) {
           {GeneratedAddress}
           <Button
             block
-            disabled
             onClick={buttonOnClick}
             size="sm"
             style={{ marginTop: 10 }}
@@ -94,7 +93,7 @@ function GeneratedAddressTextArea({ phoneNumber, shopNumber }) {
         ref={(textarea) => (textArea = textarea)}
         rows={3}
         style={{ fontSize: 12, resize: "none" }}
-        value={`收件人: ${shopNumber}@${phoneNumber}\n手机号码: 15363530392\n广东省珠海市香洲区九洲大道中2123号`}
+        value={`收件人: ${shopNumber}@${phoneNumber}\n手机号码: 15363530392\n珠海市香洲区吉柠路38号15号库`}
       />
       <Button block onClick={copyToClipboard} size="sm" variant="link">
         複制
