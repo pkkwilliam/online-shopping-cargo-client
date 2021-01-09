@@ -9,7 +9,7 @@ export default function UserProfileView(props) {
   const { balance } = userProfile;
   return (
     <Container>
-      <CashPointSection balance={balance} />
+      <CashPointSection balance={balance ?? 0} />
     </Container>
   );
 }
@@ -24,7 +24,7 @@ function CashPointSection({ balance }) {
       </Row>
       <Row>
         <Col>
-          <P style={styles.cashPoint}>{`$${balance}`}</P>
+          <P style={styles.cashPoint}>{`$${balance.toFixed(2)}`}</P>
         </Col>
       </Row>
     </>

@@ -41,7 +41,6 @@ export default class UserSectionView extends ApplicationCompoentnView {
       displayComponent = (
         <div>
           <SmsAuth
-            mock
             onSuceed={() => window.location.reload()}
             serviceExecutor={serviceExecutor}
           />
