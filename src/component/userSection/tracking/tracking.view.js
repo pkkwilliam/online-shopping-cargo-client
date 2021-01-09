@@ -8,12 +8,12 @@ import P from "online-shopping-cargo-parent/dist/text/paragraph";
 export default class TrackingView extends ApplicationComponentView {
   render() {
     const { onClickShowDetail, showDetaiDisplayId, sortedParcels } = this.props;
-    let parcelRows = sortedParcels.map((parcel) => {
+    let parcelRows = sortedParcels?.map((parcel) => {
       return (
         <TrackingDetail
           onClickShowDetail={onClickShowDetail}
+          parcel={parcel}
           showDetaiDisplayId={showDetaiDisplayId}
-          {...parcel}
         />
       );
     });
