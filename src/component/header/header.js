@@ -13,7 +13,8 @@ export default function HeaderView(props) {
       <Button
         onClick={props.onClickSwitchLandingPage}
         size="sm"
-        variant="outline-warning"
+        variant="outline"
+        style={{ color: "white" }}
       >
         {props.switchLandingPageText}
       </Button>
@@ -24,7 +25,8 @@ export default function HeaderView(props) {
 const styles = {
   rootContainer: {
     alignItems: "center",
-    backgroundColor: styleSchema.color.white,
+    background:
+      "linear-gradient(90deg, rgba(252,150,3,1) 0%, rgba(252,91,1,1) 100%)",
     boxShadow: styleSchema.shadowLight,
     justifyContent: "space-between",
     paddingBottom: 5,
