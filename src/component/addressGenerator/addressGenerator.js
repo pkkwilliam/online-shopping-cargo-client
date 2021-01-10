@@ -12,6 +12,7 @@ const INITIAL_STATE = {
   phoneNumber: "",
   shopNumber: "",
   show: false,
+  copied: false,
 };
 
 let textArea;
@@ -20,14 +21,14 @@ export default function AddressGenerator(props) {
   const [values, setValues] = useState(INITIAL_STATE);
 
   const GeneratedAddress = values.show ? (
-    <GeneratedAddressTextArea {...values} />
+    <GeneratedAddressTextArea setValues={setValues} values={values} />
   ) : (
     <InputField values={values} setValues={setValues} />
   );
   const buttonOnClick = () =>
     setValues(values.show ? INITIAL_STATE : { ...values, show: true });
 
-  const buttonText = values.show ? "重新生成收貨地址" : "生成收貨地址";
+  const buttonText = values.show ? "返回" : "生成收貨地址";
 
   return (
     <ClientCard
@@ -55,9 +56,11 @@ export default function AddressGenerator(props) {
   );
 }
 
-function copyToClipboard() {
+function copyToClipboard(values, setValues) {
   textArea.select();
   document.execCommand("copy");
+  textArea.blur();
+  setValues({ ...values, copied: true });
 }
 
 function InputField({ values, setValues }) {
@@ -84,7 +87,8 @@ function InputField({ values, setValues }) {
   );
 }
 
-function GeneratedAddressTextArea({ phoneNumber, shopNumber }) {
+function GeneratedAddressTextArea({ setValues, values }) {
+  const { copied, phoneNumber, shopNumber } = values;
   return (
     <>
       <Form.Control
@@ -94,8 +98,13 @@ function GeneratedAddressTextArea({ phoneNumber, shopNumber }) {
         style={{ fontSize: 12, resize: "none" }}
         value={`收件人: ${shopNumber}@${phoneNumber}\n手机号码: 15363530392\n珠海市香洲区吉柠路38号15号库`}
       />
-      <Button block onClick={copyToClipboard} size="sm" variant="link">
-        複制
+      <Button
+        block
+        onClick={() => copyToClipboard(values, setValues)}
+        size="sm"
+        variant="link"
+      >
+        {copied ? "已複制" : "複制"}
       </Button>
     </>
   );
