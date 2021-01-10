@@ -34,7 +34,6 @@ export default function AddressGenerator(props) {
       header={
         <>
           <P>轉運地址</P>
-          <P>1月10日正式營運</P>
         </>
       }
     >
