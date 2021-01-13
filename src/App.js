@@ -1,9 +1,10 @@
-import React, { Suspense, useState } from "react";
+import React, { Suspense } from "react";
 import View from "online-shopping-cargo-parent/dist/view";
 import Spinner from "react-bootstrap/esm/Spinner";
+import ClientApplicationComponent from "./component/clientApplicationComponent";
+import { LOGIN } from "./component/menu/menu";
 
 import "bootstrap/dist/css/bootstrap.min.css";
-
 const Accouncement = React.lazy(() =>
   import("./component/announcement/announcement")
 );
@@ -33,21 +34,56 @@ const Tracking = React.lazy(() => import("./component/tracking/tracking"));
 const UserProfile = React.lazy(() =>
   import("./component/userProfile/userProfile")
 );
-export default function App(props) {
-  const [currentPage, setCurrentPage] = useState("");
 
-  return (
-    <div style={styles.rootContainer}>
-      <Suspense fallback={<SuspenseLoading />}>
-        <Content currentPage={currentPage} setCurrentPage={setCurrentPage} />
-      </Suspense>
-    </div>
-  );
+export default class App extends ClientApplicationComponent {
+  state = {
+    ...this.state,
+    currentPage: {
+      label: "",
+      url: "",
+    },
+    userToken: "",
+  };
+
+  componentDidMount() {
+    const userToken = this.storage.getUserToken();
+    this.setState({
+      userToken,
+    });
+  }
+
+  render() {
+    const { currentPage, userToken } = this.state;
+    return (
+      <div style={styles.rootContainer}>
+        <Suspense fallback={<SuspenseLoading />}>
+          <Content
+            currentPage={currentPage}
+            userToken={userToken}
+            setCurrentPage={this.setCurrentPage}
+            serviceExecutor={this.serviceExecutor}
+          />
+        </Suspense>
+      </div>
+    );
+  }
+
+  setCurrentPage = (label, url) => {
+    this.setState({
+      currentPage: {
+        label,
+        url,
+      },
+    });
+  };
 }
 
-function Content({ currentPage, setCurrentPage }) {
+// TODO clean this ASAP!!!
+function Content({ currentPage, userToken, setCurrentPage, serviceExecutor }) {
   let content;
-  switch (currentPage) {
+  let { label, url } = currentPage;
+
+  switch (url) {
     case "#addressGenerator":
       content = <AddressGenerator />;
       break;
@@ -55,36 +91,66 @@ function Content({ currentPage, setCurrentPage }) {
       content = <CostCalculator />;
       break;
     case "#login":
-      content = <SmsAuth passwordLogin />;
+      content = <SmsAuthContent serviceExecutor={serviceExecutor} />;
       break;
     case "#myParcel":
-      content = <Tracking />;
+      content = checkPermission(userToken, serviceExecutor, <Tracking />);
       break;
     case "#myPickupQRCode":
-      content = <PickupQRCode />;
+      content = checkPermission(userToken, serviceExecutor, <PickupQRCode />);
       break;
     case "#shopLandingPage":
       content = <ShopLandingPage />;
       break;
     case "#userProfile":
-      content = <UserProfile />;
+      content = checkPermission(userToken, serviceExecutor, <UserProfile />);
       break;
     default:
       return (
-        <LandingPage>
-          <div>
-            <Menu onClickMenuItem={setCurrentPage} />
-          </div>
-          <div style={{ marginTop: 20 }}>
-            <Accouncement />
-          </div>
-        </LandingPage>
+        <LandingPageContent
+          setCurrentPage={setCurrentPage}
+          userToken={userToken}
+        />
       );
   }
   return (
-    <SectionContainer onClickHeaderBackButton={() => setCurrentPage("")}>
+    <SectionContainer
+      onClickHeaderBackButton={() => setCurrentPage("", "")}
+      title={label}
+    >
       {content}
     </SectionContainer>
+  );
+}
+
+function checkPermission(userToken, serviceExecutor, page) {
+  return userToken ? (
+    page
+  ) : (
+    <SmsAuthContent serviceExecutor={serviceExecutor} />
+  );
+}
+
+function LandingPageContent({ setCurrentPage, userToken }) {
+  return (
+    <LandingPage>
+      <div>
+        <Menu userToken={userToken} onClickMenuItem={setCurrentPage} />
+      </div>
+      <div style={{ marginTop: 20 }}>
+        <Accouncement />
+      </div>
+    </LandingPage>
+  );
+}
+
+function SmsAuthContent({ serviceExecutor }) {
+  return (
+    <SmsAuth
+      passwordLogin
+      onSuceed={() => window.location.reload()}
+      serviceExecutor={serviceExecutor}
+    />
   );
 }
 

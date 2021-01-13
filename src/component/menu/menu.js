@@ -1,53 +1,97 @@
 import React from "react";
-import ClientApplicationComponent from "../clientApplicationComponent";
 import MenuView from "./menu.view";
+import {
+  BoxSeam,
+  CalculatorFill,
+  GearWide,
+  KeyFill,
+  PersonFill,
+  Shop,
+  TextareaT,
+  UpcScan,
+} from "react-bootstrap-icons";
+import { styleSchema } from "online-shopping-cargo-parent/dist/styleSchema";
+
+export default function Menu(props) {
+  const { onClickMenuItem, userToken } = props;
+  return (
+    <MenuView
+      menuItems={generateMenuItemsData(MENU_ITEMS, userToken)}
+      onClick={onClickMenuItem}
+      userToken={userToken}
+    />
+  );
+}
+
+function generateMenuItemsData(menuItems, userToken) {
+  return menuItems.map((item) => {
+    if (item.disabledWhenUserTokenPresent && userToken) {
+      item = { ...item, disabled: true };
+    }
+    return item;
+  });
+}
+
+const styles = {
+  icon: {
+    fontSize: 26,
+  },
+};
 
 const ADDRESS_GENERATOR = {
-  backgroundColor: "",
-  children: null,
+  backgroundColor: styleSchema.color.primaryGradient,
+  children: <TextareaT style={styles.icon} />,
+  disabledWhenUserTokenPresent: false,
   label: "地址生成",
   url: "#addressGenerator",
 };
 const CALCULATOR = {
   backgroundColor: "",
-  children: null,
+  children: <CalculatorFill style={styles.icon} />,
+  disabledWhenUserTokenPresent: false,
   label: "費用計算",
   url: "#costCalculator",
 };
 const INSTALL = {
   backgroundColor: "",
-  children: null,
+  children: <GearWide style={styles.icon} />,
+  disabledWhenUserTokenPresent: false,
   disabled: true,
   label: "安裝App",
   url: "#install",
 };
-const LOGIN = {
+export const LOGIN = {
   backgroundColor: "",
-  children: null,
-  label: "登入  ",
+  children: <KeyFill style={styles.icon} />,
+  disabledWhenUserTokenPresent: true,
+  label: "登入",
   url: "#login",
 };
 const MY_PARCEL = {
   backgroundColor: "",
-  children: null,
+  children: <BoxSeam style={styles.icon} />,
+  disabledWhenUserTokenPresent: false,
   label: "我的包裹",
   url: "#myParcel",
 };
 const PICKUP_QR_CODE = {
   backgroundColor: "",
-  children: null,
+  children: <UpcScan style={styles.icon} />,
+  disabledWhenUserTokenPresent: false,
   label: "取件",
   url: "#myPickupQRCode",
 };
 const SHOP_LANDING_PAGE = {
   backgroundColor: "",
-  children: null,
+  children: <Shop style={styles.icon} />,
+  disabledWhenUserTokenPresent: false,
   label: "商戶加入",
   url: "#shopLandingPage",
 };
 const USER_PROFILE = {
   backgroundColor: "",
-  children: null,
+  children: <PersonFill style={styles.icon} />,
+  disabledWhenUserTokenPresent: false,
   label: "賬戶",
   url: "#userProfile",
 };
@@ -62,16 +106,3 @@ const MENU_ITEMS = [
   INSTALL,
   ADDRESS_GENERATOR,
 ];
-
-export default class Menu extends ClientApplicationComponent {
-  state = {
-    ...this.state,
-    display: "",
-    userToken: "",
-  };
-  render() {
-    return (
-      <MenuView menuItems={MENU_ITEMS} onClick={this.props.onClickMenuItem} />
-    );
-  }
-}

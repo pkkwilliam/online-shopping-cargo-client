@@ -14,8 +14,10 @@ export default function LandingPage(props) {
         <img alt={"header_icon"} src={HEADER_URL} style={{ height: 45 }} />
       </Header>
       <EyeCatch />
-      <div style={{ padding: 10 }}>{props.children}</div>
-      <Disclaimer />
+      <div style={{ padding: 10 }}>
+        {props.children}
+        <Disclaimer />
+      </div>
       <FooterView />
     </>
   );

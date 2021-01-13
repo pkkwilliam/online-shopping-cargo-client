@@ -5,8 +5,9 @@ import View from "online-shopping-cargo-parent/dist/view";
 import Container from "react-bootstrap/esm/Container";
 import Row from "react-bootstrap/esm/Row";
 import Col from "react-bootstrap/esm/Col";
+import { styleSchema } from "online-shopping-cargo-parent/dist/styleSchema";
 
-const BUTTON_SIZE = 56;
+const BUTTON_SIZE = 50;
 const ROW_SIZE = 4;
 
 export default function MenuView(props) {
@@ -46,14 +47,15 @@ function CircularButton({
   onClick,
   url,
 }) {
+  const { primaryGradient, primaryLight } = styleSchema.color;
   return (
     <View style={{ flexDirection: "column", alignItems: "center" }}>
       <Button
         disabled={disabled}
-        onClick={() => onClick(url)}
+        onClick={() => onClick(label, url)}
         style={{
-          backgroundColor,
-          borderColor: backgroundColor,
+          background: backgroundColor ? backgroundColor : primaryGradient,
+          borderColor: primaryLight,
           borderRadius: 30,
           boxShadow: "none",
           height: BUTTON_SIZE,
