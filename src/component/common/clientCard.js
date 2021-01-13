@@ -17,7 +17,7 @@ export default function ClientCard(props) {
 const styles = {
   cardHeader: {
     background:
-      "linear-gradient(90deg, rgb(247, 58, 72, 1) 0%, rgb(244, 56, 70, 1) 100%)",
+      "linear-gradient(90deg, rgb(247, 58, 72) 0%, rgb(244, 56, 70) 100%)",
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
     fontWeight: "bold",
