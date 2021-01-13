@@ -7,6 +7,7 @@ import Button from "react-bootstrap/esm/Button";
 import Container from "react-bootstrap/esm/Container";
 import LineBreak from "online-shopping-cargo-parent/dist/lineBreak";
 import Form from "react-bootstrap/esm/Form";
+import ApplicationButton from "online-shopping-cargo-parent/dist/applicationButton";
 
 const INITIAL_STATE = {
   phoneNumber: "",
@@ -42,14 +43,14 @@ export default function AddressGenerator(props) {
         <Container>
           <P>淘寶智能地址填寫</P>
           {GeneratedAddress}
-          <Button
+          <ApplicationButton
             block
             onClick={buttonOnClick}
             size="sm"
             style={{ marginTop: 10 }}
           >
             {buttonText}
-          </Button>
+          </ApplicationButton>
         </Container>
       </div>
     </ClientCard>

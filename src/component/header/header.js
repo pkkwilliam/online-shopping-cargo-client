@@ -25,8 +25,7 @@ export default function HeaderView(props) {
 const styles = {
   rootContainer: {
     alignItems: "center",
-    background:
-      "linear-gradient(90deg, rgba(252,150,3,1) 0%, rgba(252,91,1,1) 100%)",
+    background: styleSchema.color.primaryLight,
     boxShadow: styleSchema.shadowLight,
     justifyContent: "space-between",
     paddingBottom: 5,

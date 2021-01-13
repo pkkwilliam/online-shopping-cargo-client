@@ -9,7 +9,7 @@ import { styleSchema } from "online-shopping-cargo-parent/dist/styleSchema";
 
 export default function LandingPage(props) {
   return (
-    <div style={styles.rootContainer}>
+    <div>
       <div style={styles.eyeCatchContainer}>
         <EyeCatch />
       </div>
@@ -44,7 +44,6 @@ const styles = {
   eyeCatchContainer: {
     paddingBottom: 10,
   },
-  rootContainer: {},
   disclaimerText: {
     color: styleSchema.color.secondaryDark,
     fontSize: 8,
