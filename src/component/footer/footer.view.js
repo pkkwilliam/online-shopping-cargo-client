@@ -14,12 +14,15 @@ export default function FooterView(props) {
 const styles = {
   rootContainer: {
     alignItems: "center",
+    bottom: 0,
     boxShadow: styleSchema.shadow,
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
     paddingBottom: 5,
     paddingTop: 5,
+    position: "fixed",
     marginTop: 20,
+    width: "100%",
   },
 };

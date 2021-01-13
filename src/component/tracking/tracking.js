@@ -1,6 +1,6 @@
 import React from "react";
 import { GET_PARCELS } from "online-shopping-cargo-parent/dist/service";
-import ClientApplicationComponent from "../../clientApplicationComponent";
+import ClientApplicationComponent from "../clientApplicationComponent";
 import ParcelDisplayUtil from "online-shopping-cargo-parent/dist/parcelDisplayUtil";
 import TrackingView from "./tracking.view";
 

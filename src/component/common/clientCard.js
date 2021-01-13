@@ -1,20 +1,34 @@
 import React from "react";
-import Card from "react-bootstrap/esm/Card";
+import P from "online-shopping-cargo-parent/dist/text/paragraph";
 
 export default function ClientCard(props) {
+  const { children, header } = props;
+  const { cardBody, cardHeader } = styles;
   return (
-    <Card>
-      <Card.Header style={styles.cardHeader}>{props.header}</Card.Header>
-      <Card.Body style={styles.cardBody}>{props.children}</Card.Body>
-    </Card>
+    <div>
+      <div style={cardHeader}>
+        <P style={{ color: "white" }}>{header}</P>
+      </div>
+      <div style={cardBody}>{children}</div>
+    </div>
   );
 }
 
 const styles = {
   cardHeader: {
+    background:
+      "linear-gradient(90deg, rgb(247, 58, 72, 1) 0%, rgb(244, 56, 70, 1) 100%)",
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
     fontWeight: "bold",
-    paddingBottom: 5,
-    paddingTop: 5,
+    padding: 10,
+    paddingBottom: 25,
+    paddingTop: 15,
   },
-  cardBody: { padding: 10 },
+  cardBody: {
+    backgroundColor: "white",
+    borderRadius: 10,
+    padding: 10,
+    marginTop: -10,
+  },
 };

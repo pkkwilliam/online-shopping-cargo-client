@@ -1,5 +1,5 @@
 import React from "react";
-import ClientApplicationComponent from "../../clientApplicationComponent";
+import ClientApplicationComponent from "../clientApplicationComponent";
 import UserProfileView from "./userProfile.view";
 import { GET_USER_PROFILE } from "online-shopping-cargo-parent/dist/service";
 

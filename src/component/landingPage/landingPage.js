@@ -1,30 +1,29 @@
 import React from "react";
-import EyeCatch from "../eyeCatch/eyeCatch";
-import UserSection from "../userSection/userSection";
-import AddressGenerator from "../addressGenerator/addressGenerator";
-import ComingFunctionality from "../comingFunctionality/comingFunctionality.view";
-import CostCalculatorView from "../costCalculator/costCalculator.view";
 import P from "online-shopping-cargo-parent/dist/text/paragraph";
 import { styleSchema } from "online-shopping-cargo-parent/dist/styleSchema";
+import EyeCatch from "../eyeCatch/eyeCatch";
+import Header from "../header/header";
+import FooterView from "../footer/footer.view";
+
+const HEADER_URL = `https://raw.githubusercontent.com/pkkwilliam/github.io-contents/master/oscm/assert/logo.png`;
 
 export default function LandingPage(props) {
   return (
-    <div>
-      <div style={styles.eyeCatchContainer}>
-        <EyeCatch />
-      </div>
-      <div style={styles.borderContainer}>
-        <UserSection />
-      </div>
-      <div style={styles.borderContainer}>
-        <AddressGenerator />
-      </div>
-      <div style={styles.borderContainer}>
-        <CostCalculatorView />
-      </div>
-      <div style={styles.borderContainer}>
-        <ComingFunctionality />
-      </div>
+    <>
+      <Header>
+        <img alt={"header_icon"} src={HEADER_URL} style={{ height: 45 }} />
+      </Header>
+      <EyeCatch />
+      <div style={{ padding: 10 }}>{props.children}</div>
+      <Disclaimer />
+      <FooterView />
+    </>
+  );
+}
+
+function Disclaimer() {
+  return (
+    <>
       <P style={styles.disclaimerText}>
         *
         小部分代收點因店租成本過高，無法提供免費試用，請提前諮詢該點是否提供新用戶免費代收
@@ -32,18 +31,11 @@ export default function LandingPage(props) {
       <P style={styles.disclaimerText}>
         * 新用戶免費限空間重量或重量不大於2公斤的包裹
       </P>
-    </div>
+    </>
   );
 }
 
 const styles = {
-  borderContainer: {
-    borderTop: "1px solid white",
-    paddingTop: 10,
-  },
-  eyeCatchContainer: {
-    paddingBottom: 10,
-  },
   disclaimerText: {
     color: styleSchema.color.secondaryDark,
     fontSize: 8,

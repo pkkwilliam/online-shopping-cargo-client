@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { styleSchema } from "online-shopping-cargo-parent/dist/styleSchema";
 import P from "online-shopping-cargo-parent/dist/text/paragraph";
-import ClientCard from "../common/clientCard";
 import FormControl from "react-bootstrap/esm/FormControl";
 import Button from "react-bootstrap/esm/Button";
 import Container from "react-bootstrap/esm/Container";
@@ -29,31 +28,23 @@ export default function AddressGenerator(props) {
   const buttonOnClick = () =>
     setValues(values.show ? INITIAL_STATE : { ...values, show: true });
 
-  const buttonText = values.show ? "返回" : "生成收貨地址";
+  const buttonText = values.show ? "重新開始" : "生成收貨地址";
 
   return (
-    <ClientCard
-      header={
-        <>
-          <P>轉運地址</P>
-        </>
-      }
-    >
-      <div style={{ marginTop: 10 }}>
-        <Container>
-          <P>淘寶智能地址填寫</P>
-          {GeneratedAddress}
-          <ApplicationButton
-            block
-            onClick={buttonOnClick}
-            size="sm"
-            style={{ marginTop: 10 }}
-          >
-            {buttonText}
-          </ApplicationButton>
-        </Container>
-      </div>
-    </ClientCard>
+    <div style={{ marginTop: 10 }}>
+      <Container>
+        <P>淘寶智能地址填寫</P>
+        {GeneratedAddress}
+        <ApplicationButton
+          block
+          onClick={buttonOnClick}
+          size="sm"
+          style={{ marginTop: 10 }}
+        >
+          {buttonText}
+        </ApplicationButton>
+      </Container>
+    </div>
   );
 }
 

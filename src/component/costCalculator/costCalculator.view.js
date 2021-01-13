@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import P from "online-shopping-cargo-parent/dist/text/paragraph";
-import ClientCard from "../common/clientCard";
 import Container from "react-bootstrap/esm/Container";
 import FormControl from "react-bootstrap/esm/FormControl";
 import Row from "react-bootstrap/esm/Row";
@@ -26,30 +25,28 @@ export default class CostCalculatorView extends Component {
     const highWeight =
       weight > calculatedVolumnWeight ? weight : calculatedVolumnWeight;
     return (
-      <ClientCard header={<P>運費計算</P>}>
-        <Container>
-          <View>
-            <Container style={{ padding: 0 }}>
-              <this.DisclaimerContainer>
-                {`*空間重量 = 長 x 寛 x 高 / ${DIVISOR}`}
-              </this.DisclaimerContainer>
-              <this.DisclaimerContainer>
-                *所有包裹均享有3天免費存放
-              </this.DisclaimerContainer>
-            </Container>
-          </View>
-          <this.TextField placeholder="重量(KG)" target="weight" />
-          <LineBreak />
-          <this.TextField placeholder="長(CM)" target="length" />
-          <LineBreak />
-          <this.TextField placeholder="寬(CM)" target="width" />
-          <LineBreak />
-          <this.TextField placeholder="高(CM)" target="height" />
-          <P>{`空間重量 = ${calculatedVolumnWeight} 重量: ${weight} 費用: ${
-            INITIAL_COST + COST_PER_UNIT * highWeight
-          }`}</P>
-        </Container>
-      </ClientCard>
+      <Container>
+        <View>
+          <Container style={{ padding: 0 }}>
+            <this.DisclaimerContainer>
+              {`*空間重量 = 長 x 寛 x 高 / ${DIVISOR}`}
+            </this.DisclaimerContainer>
+            <this.DisclaimerContainer>
+              *所有包裹均享有3天免費存放
+            </this.DisclaimerContainer>
+          </Container>
+        </View>
+        <this.TextField placeholder="重量(KG)" target="weight" />
+        <LineBreak />
+        <this.TextField placeholder="長(CM)" target="length" />
+        <LineBreak />
+        <this.TextField placeholder="寬(CM)" target="width" />
+        <LineBreak />
+        <this.TextField placeholder="高(CM)" target="height" />
+        <P>{`空間重量 = ${calculatedVolumnWeight} 重量: ${weight} 費用: ${
+          INITIAL_COST + COST_PER_UNIT * highWeight
+        }`}</P>
+      </Container>
     );
   }
 

@@ -1,7 +1,6 @@
 import React from "react";
 import ClientApplicationComponent from "../clientApplicationComponent";
 import P from "online-shopping-cargo-parent/dist/text/paragraph";
-import ClientCard from "../common/clientCard";
 
 const Collapse = React.lazy(() => import("react-bootstrap/Collapse"));
 
@@ -28,11 +27,7 @@ export default class ShopListView extends ClientApplicationComponent {
   };
 
   render() {
-    return (
-      <ClientCard header="門店列表">
-        <this.Area />
-      </ClientCard>
-    );
+    return <this.Area />;
   }
 
   Area = () => {

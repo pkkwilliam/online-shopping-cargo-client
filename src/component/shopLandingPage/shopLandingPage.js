@@ -7,7 +7,7 @@ export default function ShopLandingPage(props) {
   return (
     <div>
       <p>
-        PickTB |澳提
+        PickTB | 澳提
         正招募澳門代收點，我們是一間由擎思科技有限公司及龐志空運速遞有限公司合作的電子商務平台。
       </p>
       <p>

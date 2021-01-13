@@ -1,6 +1,6 @@
 import React from "react";
 import { GET_PICKUP_QR_CODE } from "online-shopping-cargo-parent/dist/service";
-import ClientApplicationComponent from "../../clientApplicationComponent";
+import ClientApplicationComponent from "../clientApplicationComponent";
 import PickupQRCodeView from "./pickupQRCode.view";
 
 export default class PickupQRCode extends ClientApplicationComponent {
