@@ -1,7 +1,15 @@
 import React from "react";
 import Carousel from "react-bootstrap/esm/Carousel";
 
-const EYE_CATCH_URL = `https://raw.githubusercontent.com/pkkwilliam/github.io-contents/master/oscm/assert/eye_catch.png`;
+const GITHUB_REPO_URL =
+  "https://raw.githubusercontent.com/pkkwilliam/github.io-contents/master/oscm";
+
+const EYE_CATCHES = [
+  "/assert/eye_catch_1.png",
+  "/assert/eye_catch_2.png",
+  "/assert/eye_catch_3.png",
+];
+
 export default function EyeCatch(props) {
   return (
     <Carousel
@@ -11,7 +19,26 @@ export default function EyeCatch(props) {
       style={styles.carousel}
     >
       <Carousel.Item>
-        <img alt="eye_catch" src={EYE_CATCH_URL} style={{ width: "100%" }} />
+        <img
+          alt="eye_catch"
+          src={GITHUB_REPO_URL + EYE_CATCHES[0]}
+          style={{ width: "100%" }}
+        />
+      </Carousel.Item>
+      <Carousel.Item>
+        <img
+          alt="eye_catch"
+          src={GITHUB_REPO_URL + EYE_CATCHES[1]}
+          style={{ width: "100%" }}
+        />
+      </Carousel.Item>
+
+      <Carousel.Item>
+        <img
+          alt="eye_catch"
+          src={GITHUB_REPO_URL + EYE_CATCHES[2]}
+          style={{ width: "100%" }}
+        />
       </Carousel.Item>
     </Carousel>
   );
@@ -19,7 +46,7 @@ export default function EyeCatch(props) {
 
 const styles = {
   carousel: {
-    paddingTop: 74,
+    paddingTop: 55,
     paddingBottom: 10,
   },
 };

@@ -27,11 +27,10 @@ function Disclaimer() {
   return (
     <>
       <P style={styles.disclaimerText}>
-        *
-        小部分代收點因店租成本過高，無法提供免費試用，請提前諮詢該點是否提供新用戶免費代收
+        * 1135代收點因租金成本過高, 無法提供免費試用.
       </P>
       <P style={styles.disclaimerText}>
-        * 新用戶免費限空間重量或重量不大於2公斤的包裹
+        * 新用戶免費限重量或體積重量不大於2公斤的包裹
       </P>
     </>
   );
