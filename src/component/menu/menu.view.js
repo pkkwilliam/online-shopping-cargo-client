@@ -39,20 +39,14 @@ function MenuItems({ items, onClick }) {
   return menuItems;
 }
 
-function CircularButton({
-  backgroundColor,
-  children,
-  disabled,
-  label,
-  onClick,
-  url,
-}) {
+function CircularButton(item) {
+  const { backgroundColor, children, disabled, label, onClick, url } = item;
   const { primaryGradient, primaryLight } = styleSchema.color;
   return (
     <View style={{ flexDirection: "column", alignItems: "center" }}>
       <Button
         disabled={disabled}
-        onClick={() => onClick(label, url)}
+        onClick={() => onClick(item)}
         style={{
           background: backgroundColor ? backgroundColor : primaryGradient,
           borderColor: primaryLight,

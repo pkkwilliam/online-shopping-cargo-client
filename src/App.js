@@ -39,6 +39,8 @@ export default class App extends ClientApplicationComponent {
   state = {
     ...this.state,
     currentPage: {
+      backgroundColor: "",
+      headerColor: "",
       label: "",
       url: "",
     },
@@ -68,12 +70,9 @@ export default class App extends ClientApplicationComponent {
     );
   }
 
-  setCurrentPage = (label, url) => {
+  setCurrentPage = (currentPage) => {
     this.setState({
-      currentPage: {
-        label,
-        url,
-      },
+      currentPage,
     });
   };
 }
@@ -81,9 +80,7 @@ export default class App extends ClientApplicationComponent {
 // TODO clean this ASAP!!!
 function Content({ currentPage, userToken, setCurrentPage, serviceExecutor }) {
   let content;
-  let { label, url } = currentPage;
-
-  switch (url) {
+  switch (currentPage.url) {
     case "#addressGenerator":
       content = <AddressGenerator />;
       break;
@@ -115,8 +112,8 @@ function Content({ currentPage, userToken, setCurrentPage, serviceExecutor }) {
   }
   return (
     <SectionContainer
-      onClickHeaderBackButton={() => setCurrentPage("", "")}
-      title={label}
+      currentPage={currentPage}
+      onClickHeaderBackButton={() => setCurrentPage({})}
     >
       {content}
     </SectionContainer>
@@ -147,6 +144,7 @@ function LandingPageContent({ setCurrentPage, userToken }) {
 function SmsAuthContent({ serviceExecutor }) {
   return (
     <SmsAuth
+      passwordLogin
       onSuceed={() => window.location.reload()}
       serviceExecutor={serviceExecutor}
     />

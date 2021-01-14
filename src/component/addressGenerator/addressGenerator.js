@@ -31,7 +31,7 @@ export default function AddressGenerator(props) {
   const buttonText = values.show ? "重新開始" : "生成收貨地址";
 
   return (
-    <div style={{ marginTop: 10 }}>
+    <div style={{ marginTop: 10, width: "inherit" }}>
       <Container>
         <P>淘寶智能地址填寫</P>
         {GeneratedAddress}

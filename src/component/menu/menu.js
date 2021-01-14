@@ -39,7 +39,7 @@ const styles = {
 };
 
 const ADDRESS_GENERATOR = {
-  backgroundColor: styleSchema.color.primaryGradient,
+  backgroundColor: "",
   children: <TextareaT style={styles.icon} />,
   disabledWhenUserTokenPresent: false,
   label: "地址生成",
@@ -75,7 +75,7 @@ const MY_PARCEL = {
   url: "#myParcel",
 };
 const PICKUP_QR_CODE = {
-  backgroundColor: "",
+  backgroundColor: styleSchema.color.primaryLight,
   children: <UpcScan style={styles.icon} />,
   disabledWhenUserTokenPresent: false,
   label: "取件",
