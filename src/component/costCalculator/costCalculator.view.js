@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import P from "online-shopping-cargo-parent/dist/text/paragraph";
 import Container from "react-bootstrap/esm/Container";
-import FormControl from "react-bootstrap/esm/FormControl";
 import Row from "react-bootstrap/esm/Row";
 import Col from "react-bootstrap/esm/Col";
 import View from "online-shopping-cargo-parent/dist/view";
 import LineBreak from "online-shopping-cargo-parent/dist/lineBreak";
+import ApplicationTextField from "../common/applicationTextField";
 
 const COST_PER_UNIT = 2;
 const DIVISOR = 6000;
@@ -67,13 +67,11 @@ export default class CostCalculatorView extends Component {
   TextField = ({ placeholder, target }) => {
     return (
       <Col style={{ paddingLeft: 2, paddingRight: 2 }}>
-        <FormControl
+        <ApplicationTextField
           placeholder={placeholder}
           onChange={(event) => {
             this.onChangeValue(target, event.target.value);
           }}
-          size="sm"
-          style={{ border: 0 }}
         />
       </Col>
     );

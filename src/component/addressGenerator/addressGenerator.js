@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { styleSchema } from "online-shopping-cargo-parent/dist/styleSchema";
 import P from "online-shopping-cargo-parent/dist/text/paragraph";
-import FormControl from "react-bootstrap/esm/FormControl";
 import Button from "react-bootstrap/esm/Button";
 import Container from "react-bootstrap/esm/Container";
 import LineBreak from "online-shopping-cargo-parent/dist/lineBreak";
 import Form from "react-bootstrap/esm/Form";
 import ApplicationButton from "online-shopping-cargo-parent/dist/applicationButton";
+import ApplicationTextField from "../common/applicationTextField";
 
 const INITIAL_STATE = {
   phoneNumber: "",
@@ -58,22 +58,18 @@ function copyToClipboard(values, setValues) {
 function InputField({ values, setValues }) {
   return (
     <>
-      <FormControl
+      <ApplicationTextField
         placeholder={"代收店號"}
         onChange={(event) =>
           setValues({ ...values, shopNumber: event.target.value })
         }
-        size="sm"
-        style={{ border: 0 }}
       />
       <LineBreak />
-      <FormControl
+      <ApplicationTextField
         placeholder={"你的手機號"}
         onChange={(event) =>
           setValues({ ...values, phoneNumber: event.target.value })
         }
-        size="sm"
-        style={{ border: 0 }}
       />
     </>
   );
