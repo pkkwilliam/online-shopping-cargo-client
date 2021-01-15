@@ -144,7 +144,6 @@ function LandingPageContent({ setCurrentPage, userToken }) {
 function SmsAuthContent({ serviceExecutor }) {
   return (
     <SmsAuth
-      passwordLogin
       onSuceed={() => window.location.reload()}
       serviceExecutor={serviceExecutor}
     />
