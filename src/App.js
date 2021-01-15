@@ -143,10 +143,20 @@ function LandingPageContent({ setCurrentPage, userToken }) {
 
 function SmsAuthContent({ serviceExecutor }) {
   return (
-    <SmsAuth
-      onSuceed={() => window.location.reload()}
-      serviceExecutor={serviceExecutor}
-    />
+    <div
+      style={{
+        backgroundColor: "white",
+        borderRadius: 15,
+        padding: 10,
+        paddingBottom: 20,
+        paddingTop: 20,
+      }}
+    >
+      <SmsAuth
+        onSuceed={() => window.location.reload()}
+        serviceExecutor={serviceExecutor}
+      />
+    </div>
   );
 }
 
