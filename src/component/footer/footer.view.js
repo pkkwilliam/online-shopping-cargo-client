@@ -14,6 +14,7 @@ export default function FooterView(props) {
 const styles = {
   rootContainer: {
     alignItems: "center",
+    background: styleSchema.color.background,
     bottom: 0,
     boxShadow: styleSchema.shadow,
     display: "flex",
@@ -22,7 +23,6 @@ const styles = {
     paddingBottom: 5,
     paddingTop: 5,
     position: "fixed",
-    marginTop: 20,
     width: "100%",
   },
 };
