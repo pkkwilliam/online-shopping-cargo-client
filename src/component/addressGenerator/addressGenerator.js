@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { styleSchema } from "online-shopping-cargo-parent/dist/styleSchema";
 import P from "online-shopping-cargo-parent/dist/text/paragraph";
 import Button from "react-bootstrap/esm/Button";
 import Container from "react-bootstrap/esm/Container";
@@ -97,14 +96,3 @@ function GeneratedAddressTextArea({ setValues, values }) {
     </>
   );
 }
-
-const styles = {
-  addressContainer: {
-    borderRadius: 8,
-    boxShadow: styleSchema.shadowLight,
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    padding: 15,
-  },
-};

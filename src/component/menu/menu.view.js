@@ -40,7 +40,7 @@ function MenuItems({ items, onClick }) {
 }
 
 function CircularButton(item) {
-  const { backgroundColor, children, disabled, label, onClick, url } = item;
+  const { backgroundColor, children, disabled, label, onClick } = item;
   const { primaryGradient, primaryLight } = styleSchema.color;
   return (
     <View style={{ flexDirection: "column", alignItems: "center" }}>

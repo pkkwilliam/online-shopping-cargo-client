@@ -5,30 +5,29 @@ import Col from "react-bootstrap/esm/Col";
 import Row from "react-bootstrap/esm/Row";
 import LineBreak from "online-shopping-cargo-parent/dist/lineBreak";
 import Accordion from "react-bootstrap/esm/Accordion";
+import ClientApplicationComponent from "../clientApplicationComponent";
+import { GET_GITHUB_JSON_CONTENT } from "online-shopping-cargo-parent/dist/service";
+export default class Announcement extends ClientApplicationComponent {
+  state = {
+    ...this.state,
+    announcements: [],
+  };
 
-const CONTENTS = [
-  {
-    date: "2020/01/13",
-    detail:
-      "團隊設計並開發更加User Friednly的介面，有任何意見或改進歡迎與我們我客服溝通。",
-    header: "UI用戶介面更新為2.0",
-  },
-  {
-    date: "2020/01/10",
-    detail:
-      "當用戶使用任何形式支付，平台將會為用戶馬上返回1%以供下次消費使用。",
-    header: "用戶餘額",
-  },
-];
+  componentDidMount() {
+    this.serviceExecutor
+      .execute(GET_GITHUB_JSON_CONTENT("/label/accouncements.json"))
+      .then((announcements) => this.setState({ announcements }));
+  }
 
-export default function Announcement(props) {
-  return (
-    <ClientCard header="公告">
-      <Accordion>
-        <Contents contents={CONTENTS} />
-      </Accordion>
-    </ClientCard>
-  );
+  render() {
+    return (
+      <ClientCard header="公告">
+        <Accordion>
+          <Contents contents={this.state.announcements} />
+        </Accordion>
+      </ClientCard>
+    );
+  }
 }
 
 function Contents({ contents }) {
@@ -45,7 +44,10 @@ function Contents({ contents }) {
             </Row>
           </Accordion.Toggle>
           <Accordion.Collapse as={P} eventKey={`${index}`}>
-            <P>{detail}</P>
+            <div
+              dangerouslySetInnerHTML={{ __html: detail }}
+              style={{ paddingTop: 10 }}
+            />
           </Accordion.Collapse>
         </div>
         {lastItem ? null : <LineBreak />}

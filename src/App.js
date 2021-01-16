@@ -2,7 +2,6 @@ import React, { Suspense } from "react";
 import View from "online-shopping-cargo-parent/dist/view";
 import Spinner from "react-bootstrap/esm/Spinner";
 import ClientApplicationComponent from "./component/clientApplicationComponent";
-import { LOGIN } from "./component/menu/menu";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 const Accouncement = React.lazy(() =>
@@ -143,20 +142,10 @@ function LandingPageContent({ setCurrentPage, userToken }) {
 
 function SmsAuthContent({ serviceExecutor }) {
   return (
-    <div
-      style={{
-        backgroundColor: "white",
-        borderRadius: 15,
-        padding: 10,
-        paddingBottom: 20,
-        paddingTop: 20,
-      }}
-    >
-      <SmsAuth
-        onSuceed={() => window.location.reload()}
-        serviceExecutor={serviceExecutor}
-      />
-    </div>
+    <SmsAuth
+      onSuceed={() => window.location.reload()}
+      serviceExecutor={serviceExecutor}
+    />
   );
 }
 

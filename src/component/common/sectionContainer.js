@@ -32,7 +32,17 @@ export default function SectionContainer(props) {
           width: "100%",
         }}
       >
-        {children}
+        <div
+          style={{
+            backgroundColor: "white",
+            borderRadius: 15,
+            padding: 10,
+            paddingBottom: 20,
+            paddingTop: 20,
+          }}
+        >
+          {children}
+        </div>
       </View>
     </>
   );
