@@ -39,7 +39,7 @@ function MenuItems({ items, onClick }) {
   return menuItems;
 }
 
-function CircularButton(item) {
+export function CircularButton(item) {
   const { backgroundColor, children, disabled, label, onClick } = item;
   const { primaryGradient, primaryLight } = styleSchema.color;
   return (
@@ -48,10 +48,12 @@ function CircularButton(item) {
         disabled={disabled}
         onClick={() => onClick(item)}
         style={{
+          alignItems: "center",
           background: backgroundColor ? backgroundColor : primaryGradient,
           borderColor: primaryLight,
           borderRadius: 30,
           boxShadow: "none",
+          display: "flex",
           height: BUTTON_SIZE,
           width: BUTTON_SIZE,
         }}

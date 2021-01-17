@@ -3,6 +3,7 @@ import MenuView from "./menu.view";
 import {
   BoxSeam,
   CalculatorFill,
+  Eyeglasses,
   GearWide,
   KeyFill,
   PersonFill,
@@ -38,7 +39,7 @@ const styles = {
   },
 };
 
-const ADDRESS_GENERATOR = {
+export const ADDRESS_GENERATOR = {
   backgroundColor: "",
   children: <TextareaT style={styles.icon} />,
   disabledWhenUserTokenPresent: false,
@@ -88,6 +89,13 @@ const SHOP_LANDING_PAGE = {
   label: "商戶加入",
   url: "#shopLandingPage",
 };
+const TUTORIAL = {
+  backgroundColor: "",
+  children: <Eyeglasses style={styles.icon} />,
+  disabledWhenUserTokenPresent: false,
+  label: "教程",
+  url: "#tutorial",
+};
 const USER_PROFILE = {
   backgroundColor: "",
   children: <PersonFill style={styles.icon} />,
@@ -101,7 +109,7 @@ const MENU_ITEMS = [
   MY_PARCEL,
   PICKUP_QR_CODE,
   USER_PROFILE,
-  SHOP_LANDING_PAGE,
+  TUTORIAL,
   CALCULATOR,
   INSTALL,
   ADDRESS_GENERATOR,

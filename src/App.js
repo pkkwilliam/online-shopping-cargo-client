@@ -30,6 +30,7 @@ const ShopLandingPage = React.lazy(() =>
   import("./component/shopLandingPage/shopLandingPage")
 );
 const Tracking = React.lazy(() => import("./component/tracking/tracking"));
+const Tutorial = React.lazy(() => import("./component/tutorial/tutorial"));
 const UserProfile = React.lazy(() =>
   import("./component/userProfile/userProfile")
 );
@@ -97,6 +98,9 @@ function Content({ currentPage, userToken, setCurrentPage, serviceExecutor }) {
       break;
     case "#shopLandingPage":
       content = <ShopLandingPage />;
+      break;
+    case "#tutorial":
+      content = <Tutorial />;
       break;
     case "#userProfile":
       content = checkPermission(userToken, serviceExecutor, <UserProfile />);

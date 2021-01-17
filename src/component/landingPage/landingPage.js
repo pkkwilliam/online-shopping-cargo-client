@@ -4,14 +4,17 @@ import { styleSchema } from "online-shopping-cargo-parent/dist/styleSchema";
 import EyeCatch from "../eyeCatch/eyeCatch";
 import Header from "../header/header";
 import FooterView from "../footer/footer.view";
-
-const HEADER_URL = `https://raw.githubusercontent.com/pkkwilliam/github.io-contents/master/oscm/assert/logo.png`;
+import { GITHUB_CONTENT_URL } from "online-shopping-cargo-parent/dist/service";
 
 export default function LandingPage(props) {
   return (
     <>
       <Header>
-        <img alt={"header_icon"} src={HEADER_URL} style={{ height: 45 }} />
+        <img
+          alt={"header_icon"}
+          src={`${GITHUB_CONTENT_URL}/assert/logo.png`}
+          style={{ height: 45 }}
+        />
       </Header>
       <EyeCatch />
       <div style={{ padding: 10, marginBottom: 40 }}>
