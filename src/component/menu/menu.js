@@ -93,7 +93,7 @@ const TUTORIAL = {
   backgroundColor: "",
   children: <Eyeglasses style={styles.icon} />,
   disabledWhenUserTokenPresent: false,
-  label: "教程",
+  label: "如何使用",
   url: "#tutorial",
 };
 const USER_PROFILE = {

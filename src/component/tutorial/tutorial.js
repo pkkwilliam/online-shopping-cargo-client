@@ -136,7 +136,7 @@ function SectionLineBreak() {
 }
 
 function TutorialImage({ src }) {
-  return <img src={src} style={{ width: "100%" }} />;
+  return <img alt="tutorial_image" src={src} style={{ width: "100%" }} />;
 }
 
 function generateSectionText(steps) {
