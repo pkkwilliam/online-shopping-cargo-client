@@ -34,13 +34,18 @@ function Contents({ contents }) {
   return contents.map((content, index) => {
     const lastItem = index === contents.length - 1;
     const { date, header, detail } = content;
+    const { headerText } = styles;
     return (
       <>
         <div style={{ marginBottom: 10, marginTop: 10 }}>
           <Accordion.Toggle as={P} eventKey={`${index}`}>
             <Row>
-              <Col xs={3}>{date}</Col>
-              <Col>{header}</Col>
+              <Col xs={3}>
+                <P style={headerText}>{date}</P>
+              </Col>
+              <Col>
+                <P style={headerText}>{header}</P>
+              </Col>
             </Row>
           </Accordion.Toggle>
           <Accordion.Collapse as={P} eventKey={`${index}`}>
@@ -55,3 +60,9 @@ function Contents({ contents }) {
     );
   });
 }
+
+const styles = {
+  headerText: {
+    fontSize: "1rem",
+  },
+};

@@ -3,11 +3,10 @@ import { ADDRESS_GENERATOR, LOGIN } from "../menu/menu";
 import { CircularButton } from "../menu/menu.view";
 import LineBreak from "online-shopping-cargo-parent/dist/lineBreak";
 import P from "online-shopping-cargo-parent/dist/text/paragraph";
-import View from "online-shopping-cargo-parent/dist/view";
 import { GITHUB_CONTENT_URL } from "online-shopping-cargo-parent/dist/service";
 import Col from "react-bootstrap/esm/Col";
 import Row from "react-bootstrap/esm/Row";
-import { styleSchema } from "online-shopping-cargo-parent/dist/styleSchema";
+import ShadowCard from "../common/shadowCard";
 
 const HOW_TO_GENERATE_ADDRESS = [
   {
@@ -90,21 +89,10 @@ function AddAddressSection() {
 }
 function ButtonToClickContainer({ children, text }) {
   return (
-    <View
-      style={{
-        alignItems: "center",
-        borderRadius: 15,
-        boxShadow: styleSchema.shadow,
-        justifyContent: "space-evenly",
-        marginBottom: 10,
-        marginTop: 10,
-        padding: 10,
-        width: "100%",
-      }}
-    >
+    <ShadowCard style={{ alignItems: "center" }}>
       <P style={{ marginRight: 20 }}>{text}</P>
       {children}
-    </View>
+    </ShadowCard>
   );
 }
 

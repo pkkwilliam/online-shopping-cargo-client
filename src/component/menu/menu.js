@@ -4,7 +4,6 @@ import {
   BoxSeam,
   CalculatorFill,
   Eyeglasses,
-  GearWide,
   KeyFill,
   PersonFill,
   Shop,
@@ -43,6 +42,7 @@ export const ADDRESS_GENERATOR = {
   backgroundColor: "",
   children: <TextareaT style={styles.icon} />,
   disabledWhenUserTokenPresent: false,
+  hideCard: true,
   label: "地址生成",
   url: "#addressGenerator",
 };
@@ -53,14 +53,14 @@ const CALCULATOR = {
   label: "費用計算",
   url: "#costCalculator",
 };
-const INSTALL = {
-  backgroundColor: "",
-  children: <GearWide style={styles.icon} />,
-  disabledWhenUserTokenPresent: false,
-  disabled: true,
-  label: "安裝App",
-  url: "#install",
-};
+// const INSTALL = {
+//   backgroundColor: "",
+//   children: <GearWide style={styles.icon} />,
+//   disabledWhenUserTokenPresent: false,
+//   disabled: true,
+//   label: "安裝App",
+//   url: "#install",
+// };
 export const LOGIN = {
   backgroundColor: "",
   children: <KeyFill style={styles.icon} />,
@@ -82,12 +82,20 @@ const PICKUP_QR_CODE = {
   label: "取件",
   url: "#myPickupQRCode",
 };
-const SHOP_LANDING_PAGE = {
+// const SHOP_LANDING_PAGE = {
+//   backgroundColor: "",
+//   children: <Shop style={styles.icon} />,
+//   disabledWhenUserTokenPresent: false,
+//   label: "商戶加入",
+//   url: "#shopLandingPage",
+// };
+const SHOP_LIST = {
   backgroundColor: "",
   children: <Shop style={styles.icon} />,
   disabledWhenUserTokenPresent: false,
-  label: "商戶加入",
-  url: "#shopLandingPage",
+  hideCard: true,
+  label: "附近門店",
+  url: "#shopList",
 };
 const TUTORIAL = {
   backgroundColor: "",
@@ -111,6 +119,6 @@ const MENU_ITEMS = [
   USER_PROFILE,
   TUTORIAL,
   CALCULATOR,
-  INSTALL,
+  SHOP_LIST,
   ADDRESS_GENERATOR,
 ];

@@ -3,10 +3,11 @@ import Header from "../header/header";
 import { ChevronLeft } from "react-bootstrap-icons";
 import P from "online-shopping-cargo-parent/dist/text/paragraph";
 import View from "online-shopping-cargo-parent/dist/view";
+import BackgroundCard from "./backgroundCard";
 
 export default function SectionContainer(props) {
   const { children, currentPage, onClickHeaderBackButton } = props;
-  const { backgroundColor, label } = currentPage;
+  const { backgroundColor, hideCard, label } = currentPage;
   return (
     <>
       <Header>
@@ -32,20 +33,18 @@ export default function SectionContainer(props) {
           width: "100%",
         }}
       >
-        <div
-          style={{
-            backgroundColor: "white",
-            borderRadius: 15,
-            padding: 10,
-            paddingBottom: 20,
-            paddingTop: 20,
-          }}
-        >
-          {children}
-        </div>
+        <ChildrenSection hideCard={hideCard}>{children}</ChildrenSection>
       </View>
     </>
   );
+}
+
+function ChildrenSection({ children, hideCard }) {
+  if (hideCard) {
+    return children;
+  } else {
+    return <BackgroundCard>{children}</BackgroundCard>;
+  }
 }
 
 function BackIcon({ onClickHeaderBackButton }) {

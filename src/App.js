@@ -26,6 +26,7 @@ const PickupQRCode = React.lazy(() =>
 const SectionContainer = React.lazy(() =>
   import("./component/common/sectionContainer")
 );
+const ShopList = React.lazy(() => import("./component/shopList/shopList"));
 const ShopLandingPage = React.lazy(() =>
   import("./component/shopLandingPage/shopLandingPage")
 );
@@ -98,6 +99,9 @@ function Content({ currentPage, userToken, setCurrentPage, serviceExecutor }) {
       break;
     case "#shopLandingPage":
       content = <ShopLandingPage />;
+      break;
+    case "#shopList":
+      content = <ShopList />;
       break;
     case "#tutorial":
       content = <Tutorial />;

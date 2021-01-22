@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import P from "online-shopping-cargo-parent/dist/text/paragraph";
 import Button from "react-bootstrap/esm/Button";
-import Container from "react-bootstrap/esm/Container";
 import LineBreak from "online-shopping-cargo-parent/dist/lineBreak";
 import Form from "react-bootstrap/esm/Form";
 import ApplicationButton from "online-shopping-cargo-parent/dist/applicationButton";
 import ApplicationTextField from "../common/applicationTextField";
+import ShopList from "../shopList/shopList";
+import BackgroundCard from "../common/backgroundCard";
 
 const INITIAL_STATE = {
   phoneNumber: "",
@@ -30,20 +31,23 @@ export default function AddressGenerator(props) {
   const buttonText = values.show ? "重新開始" : "生成收貨地址";
 
   return (
-    <div style={{ marginTop: 10, width: "inherit" }}>
-      <Container>
-        <P>淘寶智能地址填寫</P>
-        {GeneratedAddress}
-        <ApplicationButton
-          block
-          onClick={buttonOnClick}
-          size="sm"
-          style={{ marginTop: 10 }}
-        >
-          {buttonText}
-        </ApplicationButton>
-      </Container>
-    </div>
+    <>
+      <BackgroundCard>
+        <div style={{ marginTop: 10, width: "inherit" }}>
+          <P>淘寶智能地址填寫</P>
+          {GeneratedAddress}
+          <ApplicationButton
+            block
+            onClick={buttonOnClick}
+            size="sm"
+            style={{ marginTop: 10 }}
+          >
+            {buttonText}
+          </ApplicationButton>
+        </div>
+      </BackgroundCard>
+      <ShopList />
+    </>
   );
 }
 
