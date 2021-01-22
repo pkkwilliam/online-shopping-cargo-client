@@ -60,7 +60,7 @@ export function CircularButton(item) {
       >
         {children}
       </Button>
-      <P style={{ fontSize: "0.9rem" }}>{label}</P>
+      <P style={{ fontSize: "0.8rem" }}>{label}</P>
     </View>
   );
 }
