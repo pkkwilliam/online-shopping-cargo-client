@@ -1,169 +1,83 @@
-import React from "react";
-import { ADDRESS_GENERATOR, LOGIN } from "../menu/menu";
-import { CircularButton } from "../menu/menu.view";
-import LineBreak from "online-shopping-cargo-parent/dist/lineBreak";
-import P from "online-shopping-cargo-parent/dist/text/paragraph";
+import React, { useState } from "react";
 import { GITHUB_CONTENT_URL } from "online-shopping-cargo-parent/dist/service";
-import Col from "react-bootstrap/esm/Col";
-import Row from "react-bootstrap/esm/Row";
-import ShadowCard from "../common/shadowCard";
-
-const HOW_TO_GENERATE_ADDRESS = [
-  {
-    content: "輸入店號",
-    extra: "如不清楚附近的店號，請諮詢微信客服:PickTB",
-  },
-  {
-    content: "輸入你的手機號",
-  },
-  {
-    content: "生成收貨地址",
-  },
-  {
-    content: "複制並帖至淘寶",
-    extra: "設為默認方便使用",
-  },
-];
-
-const HOW_TO_LOGIN = [
-  {
-    content: "輸入手機號",
-  },
-  {
-    content: "獲取驗證碼",
-  },
-  {
-    content: "輸入驗證碼",
-  },
-  {
-    content: "驗證",
-  },
-];
-
-const HOW_IT_WORKS = [
-  {
-    content: "用戶注冊/登入",
-  },
-  {
-    content: "生成收貨地址",
-  },
-  {
-    content: "地址添加到淘寶或其他購物網站",
-  },
-  {
-    content: "包裹發到用戶所選的店號",
-  },
-  {
-    content: "該店收到包裹後發出短信提醒用戶提取包裹",
-  },
-];
+import AddressGenerator from "../addressGenerator/addressGenerator";
+import BackgroundCard from "../common/backgroundCard";
+import SuceedIcon from "../common/suceedIcon";
+import ApplicationSmsAuth from "../common/applicationSmsAuth";
 
 export default function Tutorial(props) {
+  const { userToken } = props;
   return (
     <div>
-      <HowItWorks />
-      <SectionLineBreak />
-      <LoginSection />
-      <SectionLineBreak />
-      <AddAddressSection />
+      <LoginSection userToken={userToken} />
+      <GenerateAddressSection />
+      <AddAddressToEcommerce />
+      <MessageNotificationSection />
     </div>
   );
 }
 
-function AddAddressSection() {
+function AddAddressToEcommerce() {
   return (
-    <div>
-      <h5>收貨地址</h5>
-      <ButtonToClickContainer text="在主畫面輕觸生成地址">
-        <CircularButton {...ADDRESS_GENERATOR} label="" onClick={() => {}} />
-      </ButtonToClickContainer>
-      {generateSectionText(HOW_TO_GENERATE_ADDRESS)}
-      <TutorialImage
-        src={`${GITHUB_CONTENT_URL}/assert/address_generator_1.png`}
-      />
-      <TutorialImage
-        src={`${GITHUB_CONTENT_URL}/assert/address_generator_2.png`}
-      />
-    </div>
+    <TutorialCard header="第三步: 添加地址到淘寶">
+      <TutorialImage src="/assert/add_address_1.png" />
+      <TutorialImage src="/assert/add_address_2.png" />
+    </TutorialCard>
   );
 }
-function ButtonToClickContainer({ children, text }) {
+
+function GenerateAddressSection() {
   return (
-    <ShadowCard style={{ alignItems: "center" }}>
-      <P style={{ marginRight: 20 }}>{text}</P>
+    <TutorialCard header="第二步: 生成收貨地址">
+      <AddressGenerator />
+    </TutorialCard>
+  );
+}
+
+function LoginSection({ userToken }) {
+  const [loggedIn, setLoggedIn] = useState(userToken);
+  let Content;
+  if (loggedIn) {
+    Content = <SuceedLoggedIn />;
+  } else {
+    Content = (
+      <ApplicationSmsAuth
+        onSuceed={() => {
+          setLoggedIn(true);
+        }}
+      />
+    );
+  }
+  return <TutorialCard header="第一步: 登入">{Content}</TutorialCard>;
+}
+
+function SuceedLoggedIn() {
+  return <SuceedIcon>成功登入</SuceedIcon>;
+}
+
+function MessageNotificationSection() {
+  return (
+    <TutorialCard header="第四步: 短信提醒提取包裹">
+      <TutorialImage src="/assert/message_notification_1.png" />
+    </TutorialCard>
+  );
+}
+
+function TutorialCard({ children, header }) {
+  return (
+    <BackgroundCard style={{ marginTop: 20 }}>
+      <h5>{header}</h5>
       {children}
-    </ShadowCard>
+    </BackgroundCard>
   );
-}
-
-function HowItWorks() {
-  return (
-    <div>
-      <h5>如何運作</h5>
-      {generateSectionText(HOW_IT_WORKS)}
-    </div>
-  );
-}
-
-function LoginSection() {
-  return (
-    <div>
-      <h5>登入/注冊</h5>
-      <ButtonToClickContainer text="在主畫面輕觸">
-        <CircularButton {...LOGIN} label="" onClick={() => {}} />
-      </ButtonToClickContainer>
-      {generateSectionText(HOW_TO_LOGIN)}
-      <TutorialImage src={`${GITHUB_CONTENT_URL}/assert/login_1.png`} />
-      <TutorialImage src={`${GITHUB_CONTENT_URL}/assert/login_2.png`} />
-    </div>
-  );
-}
-
-function SectionLineBreak() {
-  return <LineBreak style={{ marginBottom: 15, marginTop: 15 }} />;
 }
 
 function TutorialImage({ src }) {
-  return <img alt="tutorial_image" src={src} style={{ width: "100%" }} />;
+  return (
+    <img
+      alt="tutorial_image"
+      src={GITHUB_CONTENT_URL + src}
+      style={{ width: "100%" }}
+    />
+  );
 }
-
-function generateSectionText(steps) {
-  const { column, extra, stepContainer } = styles;
-  return steps.map((step, index) => {
-    const extraContent = step.extra ? (
-      <Row>
-        <Col xs={1} />
-        <Col style={column}>
-          <P style={extra}>{step.extra}</P>
-        </Col>
-      </Row>
-    ) : null;
-    return (
-      <div style={stepContainer}>
-        <Row>
-          <Col xs={1}>
-            <P>{`${index + 1}.`}</P>
-          </Col>
-          <Col style={column}>
-            <P>{step.content}</P>
-          </Col>
-        </Row>
-        {extraContent}
-      </div>
-    );
-  });
-}
-
-const styles = {
-  column: {
-    padding: 0,
-  },
-  extra: {
-    color: "red",
-    fontSize: 11,
-  },
-  stepContainer: {
-    marginBottom: 2,
-    marginTop: 2,
-  },
-};

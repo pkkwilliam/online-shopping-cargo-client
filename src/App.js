@@ -10,14 +10,14 @@ const Accouncement = React.lazy(() =>
 const AddressGenerator = React.lazy(() =>
   import("./component/addressGenerator/addressGenerator")
 );
+const ApplicationSmsAuth = React.lazy(() =>
+  import("./component/common/applicationSmsAuth")
+);
 const CostCalculator = React.lazy(() =>
   import("./component/costCalculator/costCalculator.view")
 );
 const LandingPage = React.lazy(() =>
   import("./component/landingPage/landingPage")
-);
-const SmsAuth = React.lazy(() =>
-  import("online-shopping-cargo-parent/dist/smsAuth/smsAuth")
 );
 const Menu = React.lazy(() => import("./component/menu/menu"));
 const PickupQRCode = React.lazy(() =>
@@ -64,7 +64,6 @@ export default class App extends ClientApplicationComponent {
             currentPage={currentPage}
             userToken={userToken}
             setCurrentPage={this.setCurrentPage}
-            serviceExecutor={this.serviceExecutor}
           />
         </Suspense>
       </div>
@@ -79,7 +78,7 @@ export default class App extends ClientApplicationComponent {
 }
 
 // TODO clean this ASAP!!!
-function Content({ currentPage, userToken, setCurrentPage, serviceExecutor }) {
+function Content({ currentPage, userToken, setCurrentPage }) {
   let content;
   switch (currentPage.url) {
     case "#addressGenerator":
@@ -89,13 +88,13 @@ function Content({ currentPage, userToken, setCurrentPage, serviceExecutor }) {
       content = <CostCalculator />;
       break;
     case "#login":
-      content = <SmsAuthContent serviceExecutor={serviceExecutor} />;
+      content = <ApplicationSmsAuth />;
       break;
     case "#myParcel":
-      content = checkPermission(userToken, serviceExecutor, <Tracking />);
+      content = checkPermission(userToken, <Tracking />);
       break;
     case "#myPickupQRCode":
-      content = checkPermission(userToken, serviceExecutor, <PickupQRCode />);
+      content = checkPermission(userToken, <PickupQRCode />);
       break;
     case "#shopLandingPage":
       content = <ShopLandingPage />;
@@ -104,10 +103,10 @@ function Content({ currentPage, userToken, setCurrentPage, serviceExecutor }) {
       content = <ShopList />;
       break;
     case "#tutorial":
-      content = <Tutorial />;
+      content = <Tutorial userToken={userToken} />;
       break;
     case "#userProfile":
-      content = checkPermission(userToken, serviceExecutor, <UserProfile />);
+      content = checkPermission(userToken, <UserProfile />);
       break;
     default:
       return (
@@ -127,12 +126,8 @@ function Content({ currentPage, userToken, setCurrentPage, serviceExecutor }) {
   );
 }
 
-function checkPermission(userToken, serviceExecutor, page) {
-  return userToken ? (
-    page
-  ) : (
-    <SmsAuthContent serviceExecutor={serviceExecutor} />
-  );
+function checkPermission(userToken, page) {
+  return userToken ? page : <ApplicationSmsAuth />;
 }
 
 function LandingPageContent({ setCurrentPage, userToken }) {
@@ -145,15 +140,6 @@ function LandingPageContent({ setCurrentPage, userToken }) {
         <Accouncement />
       </div>
     </LandingPage>
-  );
-}
-
-function SmsAuthContent({ serviceExecutor }) {
-  return (
-    <SmsAuth
-      onSuceed={() => window.location.reload()}
-      serviceExecutor={serviceExecutor}
-    />
   );
 }
 

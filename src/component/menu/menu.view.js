@@ -40,7 +40,7 @@ function MenuItems({ items, onClick }) {
 }
 
 export function CircularButton(item) {
-  const { backgroundColor, children, disabled, label, onClick } = item;
+  const { buttonBackgroundColor, children, disabled, label, onClick } = item;
   const { primaryGradient, primaryLight } = styleSchema.color;
   return (
     <View style={{ flexDirection: "column", alignItems: "center" }}>
@@ -49,8 +49,12 @@ export function CircularButton(item) {
         onClick={() => onClick(item)}
         style={{
           alignItems: "center",
-          background: backgroundColor ? backgroundColor : primaryGradient,
-          borderColor: primaryLight,
+          background: buttonBackgroundColor
+            ? buttonBackgroundColor
+            : primaryGradient,
+          borderColor: buttonBackgroundColor
+            ? buttonBackgroundColor
+            : primaryLight,
           borderRadius: 30,
           boxShadow: "none",
           display: "flex",

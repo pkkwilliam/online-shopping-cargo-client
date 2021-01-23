@@ -29,7 +29,7 @@ export default function SectionContainer(props) {
           flex: 1,
           flexDirection: "column",
           padding: 10,
-          paddingTop: 60,
+          paddingTop: 50,
           width: "100%",
         }}
       >
@@ -43,7 +43,9 @@ function ChildrenSection({ children, hideCard }) {
   if (hideCard) {
     return children;
   } else {
-    return <BackgroundCard>{children}</BackgroundCard>;
+    return (
+      <BackgroundCard style={{ marginTop: 10 }}>{children}</BackgroundCard>
+    );
   }
 }
 

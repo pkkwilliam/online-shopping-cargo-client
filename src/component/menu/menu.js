@@ -39,15 +39,12 @@ const styles = {
 };
 
 export const ADDRESS_GENERATOR = {
-  backgroundColor: "",
   children: <TextareaT style={styles.icon} />,
   disabledWhenUserTokenPresent: false,
-  hideCard: true,
   label: "地址生成",
   url: "#addressGenerator",
 };
 const CALCULATOR = {
-  backgroundColor: "",
   children: <CalculatorFill style={styles.icon} />,
   disabledWhenUserTokenPresent: false,
   label: "費用計算",
@@ -62,14 +59,12 @@ const CALCULATOR = {
 //   url: "#install",
 // };
 export const LOGIN = {
-  backgroundColor: "",
   children: <KeyFill style={styles.icon} />,
   disabledWhenUserTokenPresent: true,
   label: "登入",
   url: "#login",
 };
 const MY_PARCEL = {
-  backgroundColor: "",
   children: <BoxSeam style={styles.icon} />,
   disabledWhenUserTokenPresent: false,
   label: "我的包裹",
@@ -90,7 +85,6 @@ const PICKUP_QR_CODE = {
 //   url: "#shopLandingPage",
 // };
 const SHOP_LIST = {
-  backgroundColor: "",
   children: <Shop style={styles.icon} />,
   disabledWhenUserTokenPresent: false,
   hideCard: true,
@@ -98,14 +92,14 @@ const SHOP_LIST = {
   url: "#shopList",
 };
 const TUTORIAL = {
-  backgroundColor: "",
+  buttonBackgroundColor: "#2db85c",
   children: <Eyeglasses style={styles.icon} />,
   disabledWhenUserTokenPresent: false,
+  hideCard: true,
   label: "如何使用",
   url: "#tutorial",
 };
 const USER_PROFILE = {
-  backgroundColor: "",
   children: <PersonFill style={styles.icon} />,
   disabledWhenUserTokenPresent: false,
   label: "賬戶",
