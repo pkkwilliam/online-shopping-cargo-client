@@ -48,15 +48,9 @@ export default class App extends ClientApplicationComponent {
     userToken: "",
   };
 
-  componentDidMount() {
-    const userToken = this.storage.getUserToken();
-    this.setState({
-      userToken,
-    });
-  }
-
   render() {
     const { currentPage, userToken } = this.state;
+    this.checkUserToken();
     return (
       <div style={styles.rootContainer}>
         <Suspense fallback={<SuspenseLoading />}>
@@ -68,6 +62,15 @@ export default class App extends ClientApplicationComponent {
         </Suspense>
       </div>
     );
+  }
+
+  checkUserToken() {
+    const storageUserToken = this.storage.getUserToken();
+    if (!this.state.userToken && storageUserToken) {
+      this.setState({
+        userToken: storageUserToken,
+      });
+    }
   }
 
   setCurrentPage = (currentPage) => {

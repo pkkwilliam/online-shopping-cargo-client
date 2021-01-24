@@ -72,5 +72,5 @@ function ShopCard({ index, shop }) {
 }
 
 function ShopImage({ imageUrl }) {
-  return <img src={imageUrl} style={{ width: "100%" }} />;
+  return <img alt="shop_image" src={imageUrl} style={{ width: "100%" }} />;
 }
