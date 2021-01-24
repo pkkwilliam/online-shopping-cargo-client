@@ -52,12 +52,12 @@ function LoginSection({ userToken }) {
 }
 
 function SuceedLoggedIn() {
-  return <SuceedIcon>成功登入</SuceedIcon>;
+  return <SuceedIcon>登入成功</SuceedIcon>;
 }
 
 function MessageNotificationSection() {
   return (
-    <TutorialCard header="第四步: 短信提醒提取包裹">
+    <TutorialCard header="第四步: 短信通知提取包裹">
       <TutorialImage src="/assert/message_notification_1.png" />
     </TutorialCard>
   );

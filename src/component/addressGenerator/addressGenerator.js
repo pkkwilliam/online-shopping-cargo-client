@@ -77,7 +77,7 @@ function GeneratedAddressTextAreaSection({ setValues, values }) {
   const { copied, phoneNumber, shopNumber } = values;
   let Content;
   if (copied) {
-    Content = <SuceedIcon style={{ marginTop: 10 }}>成功複制</SuceedIcon>;
+    Content = <SuceedIcon style={{ marginTop: 10 }}>複制成功</SuceedIcon>;
   } else {
     Content = (
       <SubmitButton onClick={() => copyToClipboard(values, setValues)}>
@@ -115,7 +115,7 @@ function ShopListSecrtion({ setValues, values }) {
         onClick={() => setValues({ ...values, showShopList: !showShopList })}
       >
         <View style={{ alignItems: "center" }}>
-          <P>附近門店</P>
+          <P>附近代收店</P>
           {showShopList ? <CaretUpFill /> : <CaretDownFill />}
         </View>
       </ApplicationTextButton>
