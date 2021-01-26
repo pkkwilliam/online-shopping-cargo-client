@@ -1,149 +1,51 @@
 import React, { Suspense } from "react";
 import View from "online-shopping-cargo-parent/dist/view";
 import Spinner from "react-bootstrap/esm/Spinner";
-import ClientApplicationComponent from "./component/clientApplicationComponent";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.min.css";
-const Accouncement = React.lazy(() =>
-  import("./component/announcement/announcement")
-);
-const AddressGenerator = React.lazy(() =>
-  import("./component/addressGenerator/addressGenerator")
-);
-const ApplicationSmsAuth = React.lazy(() =>
-  import("./component/common/applicationSmsAuth")
-);
-const CostCalculator = React.lazy(() =>
-  import("./component/costCalculator/costCalculator.view")
-);
-const LandingPage = React.lazy(() =>
-  import("./component/landingPage/landingPage")
-);
-const Menu = React.lazy(() => import("./component/menu/menu"));
-const PickupQRCode = React.lazy(() =>
-  import("./component/pickupQRCode/pickupQRCode")
-);
+import Routes from "./routes";
+
 const SectionContainer = React.lazy(() =>
   import("./component/common/sectionContainer")
 );
-const ShopList = React.lazy(() => import("./component/shopList/shopList"));
-const ShopLandingPage = React.lazy(() =>
-  import("./component/shopLandingPage/shopLandingPage")
-);
-const Tracking = React.lazy(() => import("./component/tracking/tracking"));
-const Tutorial = React.lazy(() => import("./component/tutorial/tutorial"));
-const UserProfile = React.lazy(() =>
-  import("./component/userProfile/userProfile")
-);
-
-export default class App extends ClientApplicationComponent {
-  state = {
-    ...this.state,
-    currentPage: {
-      backgroundColor: "",
-      headerColor: "",
-      label: "",
-      url: "",
-    },
-    userToken: "",
-  };
-
-  render() {
-    const { currentPage, userToken } = this.state;
-    this.checkUserToken();
-    return (
-      <div style={styles.rootContainer}>
-        <Suspense fallback={<SuspenseLoading />}>
-          <Content
-            currentPage={currentPage}
-            userToken={userToken}
-            setCurrentPage={this.setCurrentPage}
-          />
-        </Suspense>
-      </div>
-    );
-  }
-
-  checkUserToken() {
-    const storageUserToken = this.storage.getUserToken();
-    if (!this.state.userToken && storageUserToken) {
-      this.setState({
-        userToken: storageUserToken,
-      });
-    }
-  }
-
-  setCurrentPage = (currentPage) => {
-    this.setState({
-      currentPage,
-    });
-  };
-}
-
-// TODO clean this ASAP!!!
-function Content({ currentPage, userToken, setCurrentPage }) {
-  let content;
-  switch (currentPage.url) {
-    case "#addressGenerator":
-      content = <AddressGenerator />;
-      break;
-    case "#costCalculator":
-      content = <CostCalculator />;
-      break;
-    case "#login":
-      content = <ApplicationSmsAuth />;
-      break;
-    case "#myParcel":
-      content = checkPermission(userToken, <Tracking />);
-      break;
-    case "#myPickupQRCode":
-      content = checkPermission(userToken, <PickupQRCode />);
-      break;
-    case "#shopLandingPage":
-      content = <ShopLandingPage />;
-      break;
-    case "#shopList":
-      content = <ShopList />;
-      break;
-    case "#tutorial":
-      content = <Tutorial userToken={userToken} />;
-      break;
-    case "#userProfile":
-      content = checkPermission(userToken, <UserProfile />);
-      break;
-    default:
-      return (
-        <LandingPageContent
-          setCurrentPage={setCurrentPage}
-          userToken={userToken}
-        />
-      );
-  }
+export default function App(props) {
   return (
-    <SectionContainer
-      currentPage={currentPage}
-      onClickHeaderBackButton={() => setCurrentPage({})}
+    <div
+      style={{
+        backgroundColor: "#f3f3f3",
+        display: "flex",
+        flexDirection: "column",
+        minHeight: "100vh",
+        overflow: "auto",
+      }}
     >
-      {content}
-    </SectionContainer>
+      <Suspense fallback={<SuspenseLoading />}>
+        <Router>
+          <div>
+            <Switch>{getRoutes()}</Switch>
+          </div>
+        </Router>
+      </Suspense>
+    </div>
   );
 }
 
-function checkPermission(userToken, page) {
-  return userToken ? page : <ApplicationSmsAuth />;
-}
-
-function LandingPageContent({ setCurrentPage, userToken }) {
-  return (
-    <LandingPage>
-      <div>
-        <Menu userToken={userToken} onClickMenuItem={setCurrentPage} />
-      </div>
-      <div style={{ marginTop: 20 }}>
-        <Accouncement />
-      </div>
-    </LandingPage>
-  );
+function getRoutes() {
+  return Routes.map((item) => {
+    const { component, hideCard, label, sectionContainer, url } = item;
+    return (
+      <Route path={url}>
+        {sectionContainer ? (
+          <SectionContainer hideCard={hideCard} pageName={label}>
+            {component}
+          </SectionContainer>
+        ) : (
+          <>{component}</>
+        )}
+      </Route>
+    );
+  });
 }
 
 function SuspenseLoading() {
@@ -159,13 +61,3 @@ function SuspenseLoading() {
     </View>
   );
 }
-
-const styles = {
-  rootContainer: {
-    backgroundColor: "#f3f3f3",
-    display: "flex",
-    flexDirection: "column",
-    minHeight: "100vh",
-    overflow: "auto",
-  },
-};

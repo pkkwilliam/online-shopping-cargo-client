@@ -1,10 +1,9 @@
 import React from "react";
 import { GET_PARCELS } from "online-shopping-cargo-parent/dist/service";
-import ClientApplicationComponent from "../clientApplicationComponent";
 import ParcelDisplayUtil from "online-shopping-cargo-parent/dist/parcelDisplayUtil";
 import TrackingView from "./tracking.view";
-
-export default class Tracking extends ClientApplicationComponent {
+import UserProfileComponent from "../common/userProfileComponent";
+export default class Tracking extends UserProfileComponent {
   state = {
     ...this.state,
     parcelResponses: {
@@ -13,7 +12,7 @@ export default class Tracking extends ClientApplicationComponent {
     showDetaiDisplayId: 0,
   };
 
-  componentDidMount() {
+  initialServiceRequest() {
     this.onTrack();
   }
 

@@ -6,6 +6,7 @@ import Container from "react-bootstrap/esm/Container";
 import Row from "react-bootstrap/esm/Row";
 import Col from "react-bootstrap/esm/Col";
 import { styleSchema } from "online-shopping-cargo-parent/dist/styleSchema";
+import { Link } from "react-router-dom";
 
 const BUTTON_SIZE = 50;
 const ROW_SIZE = 4;
@@ -27,26 +28,31 @@ function MenuItems({ items, onClick }) {
       itemsRows[row] = [];
     }
     itemsRows[row].push(
-      <Col>
-        <CircularButton onClick={onClick} {...item} />
-      </Col>
+      <Link to={item.url}>
+        <Col>
+          <CircularButton onClick={onClick} {...item} />
+        </Col>
+      </Link>
     );
   });
 
   const menuItems = itemsRows.map((itemsRow) => (
-    <Row style={{ marginBottom: 8, marginTop: 8 }}>{itemsRow}</Row>
+    <Row
+      style={{ justifyContent: "space-around", marginBottom: 8, marginTop: 8 }}
+    >
+      {itemsRow}
+    </Row>
   ));
   return menuItems;
 }
 
 export function CircularButton(item) {
-  const { buttonBackgroundColor, children, disabled, label, onClick } = item;
+  const { buttonBackgroundColor, disabled, icon, label } = item;
   const { primaryGradient, primaryLight } = styleSchema.color;
   return (
     <View style={{ flexDirection: "column", alignItems: "center" }}>
       <Button
         disabled={disabled}
-        onClick={() => onClick(item)}
         style={{
           alignItems: "center",
           background: buttonBackgroundColor
@@ -62,9 +68,16 @@ export function CircularButton(item) {
           width: BUTTON_SIZE,
         }}
       >
-        {children}
+        {icon}
       </Button>
-      <P style={{ fontSize: "0.8rem" }}>{label}</P>
+      <P
+        style={{
+          color: styleSchema.color.secondaryDark,
+          fontSize: "0.8rem",
+        }}
+      >
+        {label}
+      </P>
     </View>
   );
 }

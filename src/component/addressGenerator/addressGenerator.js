@@ -39,7 +39,7 @@ function GenerateSection({ setValues, values }) {
           setValues({ ...values, show: true, showShopList: false })
         }
       >
-        生成收貨地址
+        創建收貨地址
       </SubmitButton>
       <ShopListSecrtion setValues={setValues} values={values} />
     </div>
@@ -73,6 +73,17 @@ function InputField({ values, setValues }) {
   );
 }
 
+function geneerateReadablePhoneNumber(phoneNumber) {
+  let result = "";
+  for (let index = 0; index < phoneNumber.length; index++) {
+    result += phoneNumber[index];
+    if ((index + 1) % 4 === 0) {
+      result += "_";
+    }
+  }
+  return result.substring(0, result.length - 1);
+}
+
 function GeneratedAddressTextAreaSection({ setValues, values }) {
   const { copied, phoneNumber, shopNumber } = values;
   let Content;
@@ -92,7 +103,9 @@ function GeneratedAddressTextAreaSection({ setValues, values }) {
         ref={(textarea) => (textArea = textarea)}
         rows={3}
         style={{ fontSize: 12, resize: "none" }}
-        value={`收件人: ${shopNumber}@${phoneNumber}\n手机号码: 15363530392\n珠海市香洲区吉柠路38号15号库`}
+        value={`收件人: ${shopNumber}@${geneerateReadablePhoneNumber(
+          phoneNumber
+        )}\n手机号码: 15363530392\n珠海市香洲区吉柠路38号15号库`}
       />
       {Content}
       <ApplicationTextButton

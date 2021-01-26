@@ -5,25 +5,57 @@ import EyeCatch from "../eyeCatch/eyeCatch";
 import Header from "../header/header";
 import FooterView from "../footer/footer.view";
 import { GITHUB_CONTENT_URL } from "online-shopping-cargo-parent/dist/service";
+import {
+  LOGIN,
+  MY_PARCEL,
+  PICKUP_QR_CODE,
+  USER_PROFILE,
+  TUTORIAL,
+  CALCULATOR,
+  SHOP_LIST,
+  ADDRESS_GENERATOR,
+} from "../../routes";
+import ClientApplicationComponent from "../clientApplicationComponent";
 
-export default function LandingPage(props) {
-  return (
-    <>
-      <Header>
-        <img
-          alt={"header_icon"}
-          src={`${GITHUB_CONTENT_URL}/assert/logo.png`}
-          style={{ height: 45 }}
-        />
-      </Header>
-      <EyeCatch />
-      <div style={{ padding: 10, marginBottom: 40 }}>
-        {props.children}
-        <Disclaimer />
-      </div>
-      <FooterView />
-    </>
-  );
+const MENU_ITEMS = [
+  TUTORIAL,
+  LOGIN,
+  PICKUP_QR_CODE,
+  MY_PARCEL,
+  USER_PROFILE,
+  CALCULATOR,
+  SHOP_LIST,
+  ADDRESS_GENERATOR,
+];
+
+const Accouncement = React.lazy(() => import("../announcement/announcement"));
+const Menu = React.lazy(() => import("../menu/menu"));
+
+export default class LandingPage extends ClientApplicationComponent {
+  render() {
+    return (
+      <>
+        <Header>
+          <img
+            alt={"header_icon"}
+            src={`${GITHUB_CONTENT_URL}/assert/logo.png`}
+            style={{ height: 45 }}
+          />
+        </Header>
+        <EyeCatch />
+        <div style={{ padding: 10, marginBottom: 40 }}>
+          <div>
+            <Menu menuItems={MENU_ITEMS} userToken={this.userToken} />
+          </div>
+          <div style={{ marginTop: 20 }}>
+            <Accouncement />
+          </div>
+          <Disclaimer />
+        </div>
+        <FooterView />
+      </>
+    );
+  }
 }
 
 function Disclaimer() {

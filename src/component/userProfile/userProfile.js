@@ -1,14 +1,18 @@
 import React from "react";
-import ClientApplicationComponent from "../clientApplicationComponent";
 import UserProfileView from "./userProfile.view";
 import { GET_USER_PROFILE } from "online-shopping-cargo-parent/dist/service";
+import UserProfileComponent from "../common/userProfileComponent";
 
-export default class UserProfile extends ClientApplicationComponent {
+export default class UserProfile extends UserProfileComponent {
   state = {
     userProfile: {},
   };
 
-  componentDidMount() {
+  initialServiceRequest() {
+    this.getUserProfile();
+  }
+
+  getUserProfile() {
     this.serviceExecutor.execute(GET_USER_PROFILE()).then((userProfile) =>
       this.setState({
         userProfile,

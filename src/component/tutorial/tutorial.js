@@ -2,14 +2,12 @@ import React, { useState } from "react";
 import { GITHUB_CONTENT_URL } from "online-shopping-cargo-parent/dist/service";
 import AddressGenerator from "../addressGenerator/addressGenerator";
 import BackgroundCard from "../common/backgroundCard";
-import SuceedIcon from "../common/suceedIcon";
 import ApplicationSmsAuth from "../common/applicationSmsAuth";
 
 export default function Tutorial(props) {
-  const { userToken } = props;
   return (
     <div>
-      <LoginSection userToken={userToken} />
+      <LoginSection />
       <GenerateAddressSection />
       <AddAddressToEcommerce />
       <MessageNotificationSection />
@@ -28,31 +26,18 @@ function AddAddressToEcommerce() {
 
 function GenerateAddressSection() {
   return (
-    <TutorialCard header="第二步: 生成收貨地址">
+    <TutorialCard header="第二步: 收貨地址">
       <AddressGenerator />
     </TutorialCard>
   );
 }
 
-function LoginSection({ userToken }) {
-  const [loggedIn, setLoggedIn] = useState(userToken);
-  let Content;
-  if (loggedIn) {
-    Content = <SuceedLoggedIn />;
-  } else {
-    Content = (
-      <ApplicationSmsAuth
-        onSuceed={() => {
-          setLoggedIn(true);
-        }}
-      />
-    );
-  }
-  return <TutorialCard header="第一步: 登入">{Content}</TutorialCard>;
-}
-
-function SuceedLoggedIn() {
-  return <SuceedIcon>登入成功</SuceedIcon>;
+function LoginSection() {
+  return (
+    <TutorialCard header="第一步: 登入">
+      <ApplicationSmsAuth onSuceed={() => {}} />
+    </TutorialCard>
+  );
 }
 
 function MessageNotificationSection() {

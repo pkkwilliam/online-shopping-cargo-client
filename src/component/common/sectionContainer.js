@@ -5,9 +5,10 @@ import P from "online-shopping-cargo-parent/dist/text/paragraph";
 import View from "online-shopping-cargo-parent/dist/view";
 import BackgroundCard from "./backgroundCard";
 
+const MARGIN_PADDING_SIZE = 15;
+
 export default function SectionContainer(props) {
-  const { children, currentPage, onClickHeaderBackButton } = props;
-  const { backgroundColor, hideCard, label } = currentPage;
+  const { children, hideCard, pageName } = props;
   return (
     <>
       <Header>
@@ -15,20 +16,29 @@ export default function SectionContainer(props) {
           style={{
             alignItems: "center",
             justifyContent: "center",
+            paddingBottom: 8,
+            paddingTop: 8,
           }}
         >
-          <BackIcon onClickHeaderBackButton={onClickHeaderBackButton} />
-          <P style={{ color: "white", fontSize: 18, fontWeight: "bold" }}>
-            {label}
+          <BackIcon />
+          <P
+            style={{
+              color: "white",
+              fontSize: 18,
+              fontWeight: "bold",
+              marginLeft: 5,
+            }}
+          >
+            {pageName}
           </P>
         </View>
       </Header>
       <View
         style={{
-          background: backgroundColor,
+          // background: backgroundColor,
           flex: 1,
           flexDirection: "column",
-          padding: 10,
+          padding: MARGIN_PADDING_SIZE,
           paddingTop: 50,
           width: "100%",
         }}
@@ -40,19 +50,24 @@ export default function SectionContainer(props) {
 }
 
 function ChildrenSection({ children, hideCard }) {
-  if (hideCard) {
-    return children;
-  } else {
-    return (
-      <BackgroundCard style={{ marginTop: 10 }}>{children}</BackgroundCard>
-    );
-  }
+  return (
+    <div style={{ marginTop: 3 }}>
+      {hideCard ? (
+        children
+      ) : (
+        <BackgroundCard style={{ marginTop: MARGIN_PADDING_SIZE }}>
+          {children}
+        </BackgroundCard>
+      )}
+    </div>
+  );
 }
 
-function BackIcon({ onClickHeaderBackButton }) {
+function BackIcon() {
   return (
-    <div onClick={onClickHeaderBackButton} style={{ padding: 8 }}>
-      <ChevronLeft />
-    </div>
+    <ChevronLeft
+      onClick={() => window.history.back()}
+      style={{ fontSize: 22 }}
+    />
   );
 }
