@@ -1,0 +1,12 @@
+.carousel-indicators {
+  margin-bottom: 0.2rem;
+}
+
+.carousel-indicators li {
+  background-color: orange;
+  border-bottom: none;
+  border-radius: 30px;
+  border-top: none;
+  margin-bottom: 10px;
+  width: 3px;
+}

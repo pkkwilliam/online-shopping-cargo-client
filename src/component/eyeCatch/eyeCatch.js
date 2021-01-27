@@ -3,6 +3,9 @@ import Carousel from "react-bootstrap/esm/Carousel";
 import ClientApplicationComponent from "../clientApplicationComponent";
 import { GET_GITHUB_JSON_CONTENT } from "online-shopping-cargo-parent/dist/service";
 import { TUTORIAL } from "../../routes";
+
+import "./eyeCatch.css";
+
 export default class EyeCatch extends ClientApplicationComponent {
   state = {
     ...this.state,
@@ -35,7 +38,8 @@ export default class EyeCatch extends ClientApplicationComponent {
     ));
     return (
       <Carousel
-        indicators={false}
+        indicators={true}
+        interval={3000}
         nextIcon={null}
         prevIcon={null}
         style={styles.carousel}
