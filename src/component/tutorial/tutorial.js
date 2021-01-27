@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { GITHUB_CONTENT_URL } from "online-shopping-cargo-parent/dist/service";
 import AddressGenerator from "../addressGenerator/addressGenerator";
 import BackgroundCard from "../common/backgroundCard";
