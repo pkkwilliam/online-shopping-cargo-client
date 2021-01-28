@@ -11,6 +11,9 @@ import CaretUpFill from "react-bootstrap-icons/dist/icons/caret-up-fill";
 import View from "online-shopping-cargo-parent/dist/view";
 import SuceedIcon from "../common/suceedIcon";
 
+const ALERT_PHONE_NUMBER = "手機號碼";
+const ALERT_SHOP_NUMBER = "代收店號";
+
 const INITIAL_STATE = {
   phoneNumber: "",
   shopNumber: "",
@@ -31,13 +34,16 @@ export default function AddressGenerator(props) {
 }
 
 function GenerateSection({ setValues, values }) {
+  const { phoneNumber, shopNumber } = values;
   return (
     <div style={{ marginTop: 10, width: "inherit" }}>
       <InputField setValues={setValues} values={values} />
       <SubmitButton
-        onClick={() =>
-          setValues({ ...values, show: true, showShopList: false })
-        }
+        onClick={() => {
+          if (validateFields(phoneNumber, shopNumber)) {
+            setValues({ ...values, show: true, showShopList: false });
+          }
+        }}
       >
         創建收貨地址
       </SubmitButton>
@@ -71,17 +77,6 @@ function InputField({ values, setValues }) {
       />
     </>
   );
-}
-
-function geneerateReadablePhoneNumber(phoneNumber) {
-  let result = "";
-  for (let index = 0; index < phoneNumber.length; index++) {
-    result += phoneNumber[index];
-    if ((index + 1) % 4 === 0) {
-      result += "_";
-    }
-  }
-  return result.substring(0, result.length - 1);
 }
 
 function GeneratedAddressTextAreaSection({ setValues, values }) {
@@ -143,4 +138,33 @@ function SubmitButton({ children, onClick }) {
       {children}
     </ApplicationButton>
   );
+}
+
+function geneerateReadablePhoneNumber(phoneNumber) {
+  let result = "";
+  for (let index = 0; index < phoneNumber.length; index++) {
+    result += phoneNumber[index];
+    if ((index + 1) % 4 === 0) {
+      result += "_";
+    }
+  }
+  return result.substring(0, result.length - 1);
+}
+
+function validateFields(phoneNumber, shopNumber) {
+  let validated = false;
+  let alertText = "請輸入";
+  if (!phoneNumber && !shopNumber) {
+    alertText += `${ALERT_SHOP_NUMBER}及${ALERT_PHONE_NUMBER}`;
+  } else if (!shopNumber) {
+    alertText += ALERT_SHOP_NUMBER;
+  } else if (!phoneNumber) {
+    alertText += ALERT_PHONE_NUMBER;
+  } else {
+    validated = true;
+  }
+  if (!validated) {
+    alert(alertText);
+  }
+  return validated;
 }

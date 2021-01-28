@@ -4,6 +4,7 @@ import {
   BoxSeam,
   CalculatorFill,
   Eyeglasses,
+  Gear,
   KeyFill,
   PersonFill,
   Shop,
@@ -26,6 +27,9 @@ export const LandingPage = React.lazy(() =>
 
 export const PickupQRCode = React.lazy(() =>
   import("./component/pickupQRCode/pickupQRCode")
+);
+export const SaveToDesktop = React.lazy(() =>
+  import("./component/saveToDesktop/saveToDesktop")
 );
 export const ShopList = React.lazy(() =>
   import("./component/shopList/shopList")
@@ -58,7 +62,7 @@ export const CALCULATOR = {
   icon: <CalculatorFill style={styles.icon} />,
   component: <CostCalculator />,
   disabledWhenUserTokenPresent: false,
-  label: "費用計算",
+  label: "運費計算",
   sectionContainer: true,
   url: "/costCalculator",
 };
@@ -95,6 +99,13 @@ export const PICKUP_QR_CODE = {
   sectionContainer: true,
   url: "/myPickupQRCode",
 };
+export const SAVE_TO_DESKTOP = {
+  icon: <Gear style={styles.icon} />,
+  component: <SaveToDesktop />,
+  label: "安裝Web App",
+  sectionContainer: true,
+  url: "/saveToDesktop",
+};
 export const SHOP_LIST = {
   icon: <Shop style={styles.icon} />,
   component: <ShopList />,
@@ -130,6 +141,7 @@ export default [
   USER_PROFILE,
   TUTORIAL,
   CALCULATOR,
+  SAVE_TO_DESKTOP,
   SHOP_LIST,
   ADDRESS_GENERATOR,
   LANDING_PAGE,
