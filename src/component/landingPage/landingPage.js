@@ -18,12 +18,12 @@ import {
 import ClientApplicationComponent from "../clientApplicationComponent";
 
 const MENU_ITEMS = [
-  TUTORIAL,
+  SAVE_TO_DESKTOP,
   USER_PROFILE,
   PICKUP_QR_CODE,
   MY_PARCEL,
+  TUTORIAL,
   CALCULATOR,
-  SAVE_TO_DESKTOP,
   SHOP_LIST,
   ADDRESS_GENERATOR,
 ];

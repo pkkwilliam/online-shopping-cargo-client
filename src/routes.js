@@ -100,6 +100,7 @@ export const PICKUP_QR_CODE = {
   url: "/myPickupQRCode",
 };
 export const SAVE_TO_DESKTOP = {
+  buttonBackgroundColor: "#006EE6",
   icon: <Gear style={styles.icon} />,
   component: <SaveToDesktop />,
   label: "安裝App",
@@ -116,7 +117,7 @@ export const SHOP_LIST = {
   url: "/shopList",
 };
 export const TUTORIAL = {
-  buttonBackgroundColor: "#2db85c",
+  buttonBackgroundColor: "#2DB85C",
   icon: <Eyeglasses style={styles.icon} />,
   component: <Tutorial />,
   disabledWhenUserTokenPresent: false,
