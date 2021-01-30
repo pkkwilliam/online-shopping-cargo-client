@@ -6,7 +6,6 @@ import Header from "../header/header";
 import FooterView from "../footer/footer.view";
 import { GITHUB_CONTENT_URL } from "online-shopping-cargo-parent/dist/service";
 import {
-  LOGIN,
   MY_PARCEL,
   PICKUP_QR_CODE,
   USER_PROFILE,
@@ -14,16 +13,17 @@ import {
   CALCULATOR,
   SHOP_LIST,
   ADDRESS_GENERATOR,
+  SAVE_TO_DESKTOP,
 } from "../../routes";
 import ClientApplicationComponent from "../clientApplicationComponent";
 
 const MENU_ITEMS = [
   TUTORIAL,
-  LOGIN,
+  USER_PROFILE,
   PICKUP_QR_CODE,
   MY_PARCEL,
-  USER_PROFILE,
   CALCULATOR,
+  SAVE_TO_DESKTOP,
   SHOP_LIST,
   ADDRESS_GENERATOR,
 ];

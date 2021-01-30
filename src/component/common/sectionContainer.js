@@ -1,6 +1,6 @@
 import React from "react";
 import Header from "../header/header";
-import { ChevronLeft } from "react-bootstrap-icons";
+import ChevronLeft from "react-bootstrap-icons/dist/icons/chevron-left";
 import P from "online-shopping-cargo-parent/dist/text/paragraph";
 import View from "online-shopping-cargo-parent/dist/view";
 import BackgroundCard from "./backgroundCard";
@@ -39,11 +39,12 @@ export default function SectionContainer(props) {
           flex: 1,
           flexDirection: "column",
           padding: MARGIN_PADDING_SIZE,
-          paddingTop: 50,
           width: "100%",
         }}
       >
-        <ChildrenSection hideCard={hideCard}>{children}</ChildrenSection>
+        <div style={{ paddingTop: 40 }}>
+          <ChildrenSection hideCard={hideCard}>{children}</ChildrenSection>
+        </div>
       </View>
     </>
   );

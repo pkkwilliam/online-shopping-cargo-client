@@ -16,15 +16,13 @@ export default function App(props) {
         backgroundColor: "#f3f3f3",
         display: "flex",
         flexDirection: "column",
-        minHeight: "100vh",
+        minHeight: "-webkit-fill-available",
         overflow: "auto",
       }}
     >
       <Suspense fallback={<SuspenseLoading />}>
         <Router>
-          <div>
-            <Switch>{getRoutes()}</Switch>
-          </div>
+          <Switch>{getRoutes()}</Switch>
         </Router>
       </Suspense>
     </div>
