@@ -1,85 +1,82 @@
-import React, { Component } from "react";
+import React from "react";
 import P from "online-shopping-cargo-parent/dist/text/paragraph";
-import ClientCard from "../common/clientCard";
 import Container from "react-bootstrap/esm/Container";
-import FormControl from "react-bootstrap/esm/FormControl";
 import Row from "react-bootstrap/esm/Row";
 import Col from "react-bootstrap/esm/Col";
 import View from "online-shopping-cargo-parent/dist/view";
 import LineBreak from "online-shopping-cargo-parent/dist/lineBreak";
-
-const COST_PER_UNIT = 2;
-const DIVISOR = 6000;
-const INITIAL_COST = 1;
-
-export default class CostCalculatorView extends Component {
+import ApplicationTextField from "../common/applicationTextField";
+import ClientApplicationComponent from "../clientApplicationComponent";
+import ApplicationButton from "online-shopping-cargo-parent/dist/applicationButton";
+import { GET_PARCEL_ESTIMATE_COST } from "online-shopping-cargo-parent/dist/service";
+export default class CostCalculatorView extends ClientApplicationComponent {
   state = {
+    dirty: true,
     height: 0,
     length: 0,
+    parcelResponse: undefined,
     weight: 0,
     width: 0,
-    calculatedVolumnWeight: 0,
   };
 
   render() {
-    const { calculatedVolumnWeight, weight } = this.state;
-    const highWeight =
-      weight > calculatedVolumnWeight ? weight : calculatedVolumnWeight;
     return (
-      <ClientCard header={<P>運費計算</P>}>
-        <Container>
-          <View>
-            <Container style={{ padding: 0 }}>
-              <this.DisclaimerContainer>
-                {`*空間重量 = 長 x 寛 x 高 / ${DIVISOR}`}
-              </this.DisclaimerContainer>
-              <this.DisclaimerContainer>
-                *所有包裹均享有3天免費存放
-              </this.DisclaimerContainer>
-            </Container>
-          </View>
-          <this.TextField placeholder="重量(KG)" target="weight" />
-          <LineBreak />
-          <this.TextField placeholder="長(CM)" target="length" />
-          <LineBreak />
-          <this.TextField placeholder="寬(CM)" target="width" />
-          <LineBreak />
-          <this.TextField placeholder="高(CM)" target="height" />
-          <P>{`空間重量 = ${calculatedVolumnWeight} 重量: ${weight} 費用: ${
-            INITIAL_COST + COST_PER_UNIT * highWeight
-          }`}</P>
-        </Container>
-      </ClientCard>
-    );
-  }
+      <Container>
+        <View>
+          <Container style={{ padding: 0 }}>
+            <DisclaimerContainer>
+              *所有包裹均享有72小時免費存放
+            </DisclaimerContainer>
+          </Container>
+        </View>
 
-  roundupPointFive(value) {}
-
-  onCalculateVolumnWeight(height, length, width) {
-    return Math.ceil((height * length * width) / DIVISOR);
-  }
-
-  DisclaimerContainer = ({ children }) => {
-    return (
-      <Row style={{ display: "flex", justifyContent: "flex-end" }}>
-        <P style={{ fontSize: 9, margin: 0 }}>{children}</P>
-      </Row>
-    );
-  };
-
-  TextField = ({ placeholder, target }) => {
-    return (
-      <Col style={{ paddingLeft: 2, paddingRight: 2 }}>
-        <FormControl
-          placeholder={placeholder}
-          onChange={(event) => {
-            this.onChangeValue(target, event.target.value);
-          }}
-          size="sm"
-          style={{ border: 0 }}
+        <TextField
+          onChangeValue={this.onChangeValue}
+          placeholder="重量(KG)"
+          target="weight"
         />
-      </Col>
+        <LineBreak />
+        <TextField
+          onChangeValue={this.onChangeValue}
+          placeholder="長(CM)"
+          target="length"
+        />
+        <LineBreak />
+        <TextField
+          onChangeValue={this.onChangeValue}
+          placeholder="寬(CM)"
+          target="width"
+        />
+        <LineBreak />
+        <TextField
+          onChangeValue={this.onChangeValue}
+          placeholder="高(CM)"
+          target="height"
+        />
+        <SubmitButton onClick={this.onClickEsimateParcelCost}>
+          計算
+        </SubmitButton>
+        <View style={{ justifyContent: "center", marginTop: 15 }}>
+          <EsimateCostResult parcelResponse={this.state.parcelResponse} />
+        </View>
+      </Container>
     );
+  }
+
+  onClickEsimateParcelCost = () => {
+    const { dirty, weight } = this.state;
+    if (!dirty) {
+      return;
+    }
+    if (!weight || weight === 0) {
+      alert("請輸入重量");
+    } else {
+      this.serviceExecutor
+        .execute(GET_PARCEL_ESTIMATE_COST(this.state))
+        .then((parcelResponse) =>
+          this.setState({ dirty: false, parcelResponse })
+        );
+    }
   };
 
   onChangeValue = (target, value) => {
@@ -101,15 +98,49 @@ export default class CostCalculatorView extends Component {
         break;
     }
     this.setState({
+      dirty: true,
       height,
       length,
-      weight: Math.ceil(weight),
+      weight,
       width,
-      calculatedVolumnWeight: this.onCalculateVolumnWeight(
-        height,
-        length,
-        width
-      ),
+      parcelResponse: undefined,
     });
   };
+}
+
+function DisclaimerContainer({ children }) {
+  return (
+    <Row style={{ display: "flex", justifyContent: "flex-end" }}>
+      <P style={{ fontSize: 12, margin: 0 }}>{children}</P>
+    </Row>
+  );
+}
+
+function EsimateCostResult({ parcelResponse }) {
+  if (parcelResponse) {
+    return <h6>費用: ${parcelResponse.cost}</h6>;
+  } else {
+    return null;
+  }
+}
+
+function SubmitButton({ children, onClick }) {
+  return (
+    <ApplicationButton block onClick={onClick} style={{ marginTop: 10 }}>
+      {children}
+    </ApplicationButton>
+  );
+}
+
+function TextField({ onChangeValue, placeholder, target }) {
+  return (
+    <Col style={{ paddingLeft: 2, paddingRight: 2 }}>
+      <ApplicationTextField
+        placeholder={placeholder}
+        onChange={(event) => {
+          onChangeValue(target, event.target.value);
+        }}
+      />
+    </Col>
+  );
 }

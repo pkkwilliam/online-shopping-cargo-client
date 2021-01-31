@@ -1,5 +1,5 @@
 {
-  "short_name": "PICKTB.com | 澳提",
+  "short_name": "澳提代收",
   "name": "港澳網購轉運",
   "icons": [
     {
@@ -20,6 +20,6 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "linear-gradient(90deg, rgba(252,150,3,1) 0%, rgba(252,91,1,1) 100%)",
+  "theme_color": "#FC7803",
   "background_color": "#ffffff"
 }

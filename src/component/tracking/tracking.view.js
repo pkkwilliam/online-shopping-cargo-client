@@ -48,7 +48,7 @@ export default class TrackingView extends ApplicationComponentView {
           marginBottom: 10,
         }}
       >
-        <P>{`暫時没有包裹😭 😭`}</P>
+        <P>暫時没有包裹</P>
       </View>
     );
   };

@@ -1,41 +1,49 @@
-import React, { Suspense, useState } from "react";
-import { styleSchema } from "online-shopping-cargo-parent/dist/styleSchema";
-import Header from "./component/header/header";
-import FooterView from "./component/footer/footer.view";
-import LandingPage from "./component/landingPage/landingPage";
+import React, { Suspense } from "react";
 import View from "online-shopping-cargo-parent/dist/view";
 import Spinner from "react-bootstrap/esm/Spinner";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Routes from "./routes";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
-const ShopLandingPage = React.lazy(() =>
-  import("./component/shopLandingPage/shopLandingPage")
+const SectionContainer = React.lazy(() =>
+  import("./component/common/sectionContainer")
 );
-
 export default function App(props) {
-  const [consumerLandingPage, setConsumerLandingPage] = useState(true);
-  const DisplayLandingPage = consumerLandingPage ? (
-    <LandingPage />
-  ) : (
-    <ShopLandingPage />
-  );
-
   return (
-    <div style={styles.rootContainer}>
+    <div
+      style={{
+        backgroundColor: "#f3f3f3",
+        display: "flex",
+        flexDirection: "column",
+        minHeight: "-webkit-fill-available",
+        overflow: "auto",
+      }}
+    >
       <Suspense fallback={<SuspenseLoading />}>
-        <Header
-          onClickSwitchLandingPage={() =>
-            setConsumerLandingPage(!consumerLandingPage)
-          }
-          switchLandingPageText={consumerLandingPage ? "商戶加入" : "查找包裹"}
-        />
-        <div style={styles.landingPageContentContainer}>
-          {DisplayLandingPage}
-        </div>
-        <FooterView />
+        <Router>
+          <Switch>{getRoutes()}</Switch>
+        </Router>
       </Suspense>
     </div>
   );
+}
+
+function getRoutes() {
+  return Routes.map((item) => {
+    const { component, hideCard, label, sectionContainer, url } = item;
+    return (
+      <Route path={url}>
+        {sectionContainer ? (
+          <SectionContainer hideCard={hideCard} pageName={label}>
+            {component}
+          </SectionContainer>
+        ) : (
+          <>{component}</>
+        )}
+      </Route>
+    );
+  });
 }
 
 function SuspenseLoading() {
@@ -51,19 +59,3 @@ function SuspenseLoading() {
     </View>
   );
 }
-
-const styles = {
-  rootContainer: {
-    backgroundColor: styleSchema.color.backgroundColor,
-    display: "flex",
-    flexDirection: "column",
-    minHeight: "100vh",
-    overflow: "auto",
-  },
-  landingPageContentContainer: {
-    flex: 1,
-    marginRight: 20,
-    marginLeft: 20,
-    paddingTop: 74,
-  },
-};
