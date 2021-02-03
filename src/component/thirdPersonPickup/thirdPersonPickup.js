@@ -5,9 +5,9 @@ import {
   GET_THIRD_PERSONS,
   REMOVE_THIRD_PERSON,
 } from "online-shopping-cargo-parent/dist/service";
-import ApplicationPhoneNumberTextField from "online-shopping-cargo-parent/dist/applicationPhoneNumberTextField/applicationPhoneNumberTextField";
+import UserProfileComponent from "../common/userProfileComponent";
 
-export default class ThirdPersonPickup extends ApplicationPhoneNumberTextField {
+export default class ThirdPersonPickup extends UserProfileComponent {
   state = {
     ...this.state,
     confirmModal: {
@@ -30,7 +30,6 @@ export default class ThirdPersonPickup extends ApplicationPhoneNumberTextField {
         onClickRemoveThirdPerson={this.onClickRemoveThirdPerson}
         onCloseModal={this.onCloseError}
         onCloseConfirmModal={this.onCloseConfirmModal}
-        countryCodeList={this.getCountryList()}
         onChangeCountryCode={this.onChangeCountryCode}
         onChangeSmsNumber={this.onChangeSmsNumber}
         {...this.state}

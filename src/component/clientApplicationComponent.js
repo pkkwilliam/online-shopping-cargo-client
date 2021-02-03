@@ -7,8 +7,4 @@ export default class ClientApplicationComponent extends ApplicationComponent {
   get applicationContext() {
     return this._clientApplicationContext;
   }
-
-  get userToken() {
-    return this.storage.getUserToken();
-  }
 }

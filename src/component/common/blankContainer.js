@@ -9,7 +9,7 @@ export default function BlankContainer(props) {
       style={{ alignItems: "center", flexDirection: "column", marginTop: 60 }}
     >
       <h6 style={{ marginBottom: 20 }}>{headerText}</h6>
-      <LineBreak />
+      <LineBreak dark />
       {children}
     </View>
   );

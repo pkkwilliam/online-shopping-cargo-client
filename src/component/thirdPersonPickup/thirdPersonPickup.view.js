@@ -1,11 +1,10 @@
 import React from "react";
 import ApplicationComponentView from "online-shopping-cargo-parent/dist/applicationComponent.view";
 import View from "online-shopping-cargo-parent/dist/view";
-import P from "online-shopping-cargo-parent/dist/text/paragraph";
 import X from "react-bootstrap-icons/dist/icons/x";
 import BackgroundCard from "../common/backgroundCard";
 import ApplicationButton from "online-shopping-cargo-parent/dist/applicationButton";
-import ApplicationPhoneNumberTextFieldView from "online-shopping-cargo-parent/dist/applicationPhoneNumberTextField/applicationPhoneNumberTextField.view";
+import ApplicationPhoneNumberTextField from "online-shopping-cargo-parent/dist/applicationPhoneNumberTextField";
 import ConfirmModal from "../common/confirmModal";
 import BlankContainer from "../common/blankContainer";
 import PhoneNumberDisplay from "../common/phoneNumberDisplay";
@@ -64,7 +63,7 @@ function ThirdPersonsSection({ onClickRemoveThirdPerson, thirdPersons }) {
 function AddThirdPersonSection(props) {
   return (
     <BackgroundCard style={{ marginTop: 15 }}>
-      <ApplicationPhoneNumberTextFieldView {...props} />
+      <ApplicationPhoneNumberTextField {...props} />
       <ApplicationButton
         block
         onClick={props.onClickAddThirdPerson}

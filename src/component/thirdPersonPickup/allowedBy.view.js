@@ -35,9 +35,8 @@ export default class AllowedByView extends PickupQRCodeView {
 function AllowedByNumberContainer(props) {
   return (
     <BlankContainer headerText="選擇收件人號碼">
-      <LineBreak />
       <AllowedByList {...props} />
-      <LineBreak />
+      <LineBreak dark />
     </BlankContainer>
   );
 }
