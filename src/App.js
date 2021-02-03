@@ -31,16 +31,22 @@ export default function App(props) {
 
 function getRoutes() {
   return Routes.map((item) => {
-    const { component, label, sectionContainer, url } = item;
+    const { backgroundColor, component, label, sectionContainer, url } = item;
     return (
       <Route path={url}>
-        {sectionContainer ? (
-          <SectionContainer pageName={label} {...item}>
-            {component}
-          </SectionContainer>
-        ) : (
-          <>{component}</>
-        )}
+        <div
+          style={{
+            backgroundColor: backgroundColor ? backgroundColor : "#f3f3f3",
+          }}
+        >
+          {sectionContainer ? (
+            <SectionContainer pageName={label} {...item}>
+              {component}
+            </SectionContainer>
+          ) : (
+            <>{component}</>
+          )}
+        </div>
       </Route>
     );
   });

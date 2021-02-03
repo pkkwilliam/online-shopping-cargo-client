@@ -10,7 +10,7 @@ const MARGIN_PADDING_SIZE = 15;
 export default function SectionContainer(props) {
   const { children, hideBackground, hideCard, pageName } = props;
   return (
-    <>
+    <View style={{ minHeight: "-webkit-fill-available" }}>
       <Header>
         <View
           style={{
@@ -45,7 +45,7 @@ export default function SectionContainer(props) {
           <ChildrenSection hideCard={hideCard}>{children}</ChildrenSection>
         </div>
       </View>
-    </>
+    </View>
   );
 }
 

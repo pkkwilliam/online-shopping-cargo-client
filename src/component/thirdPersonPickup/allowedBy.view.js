@@ -2,7 +2,6 @@ import React from "react";
 import View from "online-shopping-cargo-parent/dist/view";
 import LineBreak from "online-shopping-cargo-parent/dist/lineBreak";
 import P from "online-shopping-cargo-parent/dist/text/paragraph";
-import Phone from "react-bootstrap-icons/dist/icons/phone";
 import PickupQRCodeView from "../pickupQRCode/pickupQRCode.view";
 import ApplicationModal from "online-shopping-cargo-parent/dist/applicationModal";
 import BlankContainer from "../common/blankContainer";
@@ -10,26 +9,16 @@ import PhoneNumberDisplay from "../common/phoneNumberDisplay";
 
 export default class AllowedByView extends PickupQRCodeView {
   render() {
+    const { props } = this;
     return (
       <this.Wrapper>
-        <AllowedByNumberContainer {...this.props} />
-        <this.QRCodeModal />
+        <AllowedByNumberContainer {...props} />
+        <QRCodeModal {...props}>
+          <this.QRCodeSection {...props} />
+        </QRCodeModal>
       </this.Wrapper>
     );
   }
-
-  QRCodeModal = () => {
-    const { onCloseQRCodeModal, pickupCode, smsNumber } = this.props;
-    return (
-      <ApplicationModal
-        header={`${smsNumber}取件碼`}
-        onClose={onCloseQRCodeModal}
-        show={pickupCode && pickupCode !== ""}
-      >
-        <this.QRCodeSection {...this.props} />
-      </ApplicationModal>
-    );
-  };
 }
 
 function AllowedByNumberContainer(props) {
@@ -62,11 +51,23 @@ function AllowedByList({ allowedBy, onClickPhoneNumber }) {
                 onClick={() => onClickPhoneNumber(countryCode, smsNumber)}
                 smsNumber={smsNumber}
               />
-              {index < allowedBy.length - 1 ? <LineBreak /> : null}
+              {index < allowedBy.length - 1 ? <LineBreak dark /> : null}
             </View>
           );
         })}
       </View>
     );
   }
+}
+
+function QRCodeModal({ children, onCloseQRCodeModal, pickupCode, smsNumber }) {
+  return (
+    <ApplicationModal
+      header={`${smsNumber}取件碼`}
+      onClose={onCloseQRCodeModal}
+      show={pickupCode && pickupCode !== ""}
+    >
+      {children}
+    </ApplicationModal>
+  );
 }
