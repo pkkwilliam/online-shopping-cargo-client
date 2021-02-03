@@ -8,7 +8,7 @@ import BackgroundCard from "./backgroundCard";
 const MARGIN_PADDING_SIZE = 15;
 
 export default function SectionContainer(props) {
-  const { children, hideCard, pageName } = props;
+  const { children, hideBackground, hideCard, pageName } = props;
   return (
     <>
       <Header>
@@ -35,10 +35,9 @@ export default function SectionContainer(props) {
       </Header>
       <View
         style={{
-          // background: backgroundColor,
           flex: 1,
           flexDirection: "column",
-          padding: MARGIN_PADDING_SIZE,
+          padding: hideBackground ? 0 : MARGIN_PADDING_SIZE,
           width: "100%",
         }}
       >

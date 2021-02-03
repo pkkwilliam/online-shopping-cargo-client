@@ -1,22 +1,25 @@
 import React from "react";
-import Container from "react-bootstrap/esm/Container";
 import Row from "react-bootstrap/esm/Row";
 import Col from "react-bootstrap/esm/Col";
 import P from "online-shopping-cargo-parent/dist/text/paragraph";
+import ListMenu from "../common/listMenu";
+import BackgroundCard from "../common/backgroundCard";
+import { THIRD_PERSON } from "../../routes";
 
 export default function UserProfileView(props) {
   const { userProfile } = props;
   const { balance } = userProfile;
   return (
-    <Container>
+    <>
       <CashPointSection balance={balance ?? 0} />
-    </Container>
+      <ListMenuSection />
+    </>
   );
 }
 
 function CashPointSection({ balance }) {
   return (
-    <>
+    <BackgroundCard style={{ marginTop: 15 }}>
       <Row>
         <Col>
           <P>賬戶餘額</P>
@@ -27,8 +30,12 @@ function CashPointSection({ balance }) {
           <P style={styles.cashPoint}>{`$${balance.toFixed(2)}`}</P>
         </Col>
       </Row>
-    </>
+    </BackgroundCard>
   );
+}
+
+function ListMenuSection() {
+  return <ListMenu items={[THIRD_PERSON]} style={{ marginTop: 15 }} />;
 }
 
 const styles = {
