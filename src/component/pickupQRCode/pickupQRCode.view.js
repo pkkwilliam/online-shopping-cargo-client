@@ -33,7 +33,11 @@ export default class PickupQRCodeView extends ApplicationComponentView {
     const { refreshButton, qrCodeContainer } = styles;
     return (
       <BackgroundCard>
-        <p>{`自動刷新(${qrCodeExpireCountDown})`}</p>
+        {qrCodeExpireCountDown <= 0 ? (
+          <ExpiredText />
+        ) : (
+          <CountDown qrCodeExpireCountDown={qrCodeExpireCountDown} />
+        )}
         <View style={qrCodeContainer}>
           <QRCode value={pickupCode ?? 0} />
           <P onClick={onGetPickupQrCode} style={refreshButton}>
@@ -43,6 +47,14 @@ export default class PickupQRCodeView extends ApplicationComponentView {
       </BackgroundCard>
     );
   };
+}
+
+function CountDown({ qrCodeExpireCountDown }) {
+  return <p>{`有效時間(${qrCodeExpireCountDown})`}</p>;
+}
+
+function ExpiredText() {
+  return <p style={{ color: "red" }}>已失效</p>;
 }
 
 function OptionsSection() {

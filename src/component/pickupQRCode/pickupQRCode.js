@@ -43,7 +43,7 @@ export default class PickupQRCode extends UserProfileComponent {
       .then((pickupQrCodeResponse) => {
         this.setState({
           pickupCode: pickupQrCodeResponse.pickupCode,
-          qrCodeExpireCountDown: pickupQrCodeResponse.expire / 5,
+          qrCodeExpireCountDown: pickupQrCodeResponse.expire / 50,
         });
         this.startCountDown();
       })
@@ -59,12 +59,13 @@ export default class PickupQRCode extends UserProfileComponent {
     clearInterval(this.qrCodeExpireCountDownInterval);
     this.qrCodeExpireCountDownInterval = setInterval(() => {
       const { qrCodeExpireCountDown } = this.state;
-      if (qrCodeExpireCountDown === 0) {
-        this.onGetPickupQrCode();
-      }
       this.setState({
         qrCodeExpireCountDown: qrCodeExpireCountDown - 1,
       });
+      // set this instead of 0 because setState might take a second to update
+      if (qrCodeExpireCountDown <= 1) {
+        clearInterval(this.qrCodeExpireCountDownInterval);
+      }
     }, 1000);
   }
 }
