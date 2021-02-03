@@ -45,25 +45,6 @@ export default class PickupQRCodeView extends ApplicationComponentView {
   };
 }
 
-// function QRCodeSection({
-//   onGetPickupQrCode,
-//   pickupCode,
-//   qrCodeExpireCountDown,
-// }) {
-//   const { refreshButton, qrCodeContainer } = styles;
-//   return (
-//     <BackgroundCard>
-//       <p>{`自動刷新(${qrCodeExpireCountDown})`}</p>
-//       <View style={qrCodeContainer}>
-//         <QRCode value={pickupCode ?? 0} />
-//         <P onClick={onGetPickupQrCode} style={refreshButton}>
-//           刷新
-//         </P>
-//       </View>
-//     </BackgroundCard>
-//   );
-// }
-
 function OptionsSection() {
   return (
     <ListMenu
