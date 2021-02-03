@@ -39,7 +39,7 @@ export default class PickupQRCode extends UserProfileComponent {
 
   onGetPickupQrCode = () => {
     this.serviceExecutor
-      .execute(GET_PICKUP_QR_CODE())
+      .execute(this.getQrCodeRequest())
       .then((pickupQrCodeResponse) => {
         this.setState({
           pickupCode: pickupQrCodeResponse.pickupCode,
@@ -49,6 +49,11 @@ export default class PickupQRCode extends UserProfileComponent {
       })
       .catch((ex) => {});
   };
+
+  // for classes that need to override this method
+  getQrCodeRequest() {
+    return GET_PICKUP_QR_CODE();
+  }
 
   startCountDown() {
     clearInterval(this.qrCodeExpireCountDownInterval);

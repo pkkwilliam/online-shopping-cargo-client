@@ -31,11 +31,11 @@ export default function App(props) {
 
 function getRoutes() {
   return Routes.map((item) => {
-    const { component, hideCard, label, sectionContainer, url } = item;
+    const { component, label, sectionContainer, url } = item;
     return (
       <Route path={url}>
         {sectionContainer ? (
-          <SectionContainer hideCard={hideCard} pageName={label}>
+          <SectionContainer pageName={label} {...item}>
             {component}
           </SectionContainer>
         ) : (

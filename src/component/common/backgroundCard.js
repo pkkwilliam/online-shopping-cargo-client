@@ -8,6 +8,7 @@ export default function BackgroundCard(props) {
         backgroundColor: "white",
         borderRadius: 15,
         padding: 20,
+        width: "100%",
         ...style,
       }}
     >
