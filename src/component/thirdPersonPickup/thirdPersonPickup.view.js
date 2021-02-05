@@ -5,25 +5,21 @@ import X from "react-bootstrap-icons/dist/icons/x";
 import BackgroundCard from "../common/backgroundCard";
 import ApplicationButton from "online-shopping-cargo-parent/dist/applicationButton";
 import ApplicationPhoneNumberTextField from "online-shopping-cargo-parent/dist/applicationPhoneNumberTextField";
-import ConfirmModal from "../common/confirmModal";
 import BlankContainer from "../common/blankContainer";
-import PhoneNumberDisplay from "../common/phoneNumberDisplay";
+
+const ApplicationConfirmModal = React.lazy(() =>
+  import("online-shopping-cargo-parent/dist/applicationConfirmModal")
+);
+const PhoneNumberDisplay = React.lazy(() =>
+  import("../common/phoneNumberDisplay")
+);
 
 export default class ThirdPersonPickupView extends ApplicationComponentView {
   render() {
-    const {
-      confirmModal,
-      onClickRemoveThirdPerson,
-      onCloseConfirmModal,
-      thirdPersons,
-    } = this.props;
+    const { onClickRemoveThirdPerson, thirdPersons } = this.props;
     return (
       <this.Wrapper>
-        <ConfirmModal
-          onClickConfirm={confirmModal.onClickConfirm}
-          onClose={onCloseConfirmModal}
-          {...confirmModal}
-        />
+        <ConfirmModalSection {...this.props} />
         <BlankContainer headerText="已允許的代收件人">
           <ThirdPersonsSection
             onClickRemoveThirdPerson={onClickRemoveThirdPerson}
@@ -33,6 +29,21 @@ export default class ThirdPersonPickupView extends ApplicationComponentView {
         </BlankContainer>
       </this.Wrapper>
     );
+  }
+}
+
+function ConfirmModalSection(props) {
+  const { confirmModal, onClickConfirm, onCloseConfirmModal } = props;
+  if (confirmModal.show) {
+    return (
+      <ApplicationConfirmModal
+        onClickConfirm={onClickConfirm}
+        onClose={onCloseConfirmModal}
+        {...confirmModal}
+      />
+    );
+  } else {
+    return null;
   }
 }
 
