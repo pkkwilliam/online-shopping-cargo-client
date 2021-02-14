@@ -75,7 +75,13 @@ function ExpandItem({ parcel, showDetaiDisplayId }) {
   );
 }
 
-function ParcelDetailSection({ originalTrackingNumber, weight, volumeWeight }) {
+function ParcelDetailSection({
+  height,
+  length,
+  originalTrackingNumber,
+  weight,
+  width,
+}) {
   return (
     <SectionContainer header="包裹詳細">
       <Row>
@@ -88,7 +94,7 @@ function ParcelDetailSection({ originalTrackingNumber, weight, volumeWeight }) {
           <P>{`重量: ${weight} KG`}</P>
         </Col>
         <Col>
-          <P>{`空間重量: ${volumeWeight} KG`}</P>
+          <P>{`3邊總和: ${length + width + height}cm`}</P>
         </Col>
       </Row>
     </SectionContainer>
@@ -152,11 +158,6 @@ function TimeSection({ createTime, readyToPickupDate, updateTime }) {
       <Row>
         <Col>
           <P>{`入庫時間: ${createTime}`}</P>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <P>{`更新時間: ${updateTime !== null ? updateTime : createTime}`}</P>
         </Col>
       </Row>
       {ReadyToPickUp}

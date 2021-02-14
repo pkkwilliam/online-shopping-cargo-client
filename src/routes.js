@@ -79,6 +79,7 @@ export const CALCULATOR = {
   icon: <CalculatorFill style={styles.icon} />,
   component: <CostCalculator />,
   disabledWhenUserTokenPresent: false,
+  hideCard: true,
   label: "運費計算",
   sectionContainer: true,
   url: "/costCalculator",
