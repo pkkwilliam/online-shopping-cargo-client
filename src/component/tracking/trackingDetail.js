@@ -5,6 +5,9 @@ import Container from "react-bootstrap/esm/Container";
 import Row from "react-bootstrap/esm/Row";
 import Badge from "react-bootstrap/esm/Badge";
 import ParcelDisplayUtil from "online-shopping-cargo-parent/dist/parcelDisplayUtil";
+import CaretDownFill from "react-bootstrap-icons/dist/icons/caret-down-fill";
+import CaretUpFill from "react-bootstrap-icons/dist/icons/caret-up-fill";
+import { styleSchema } from "online-shopping-cargo-parent/dist/styleSchema";
 
 const Collapse = React.lazy(() => import("react-bootstrap/Collapse"));
 const LineBreak = React.lazy(() =>
@@ -15,10 +18,11 @@ export default class TrackingDetail extends Component {
     const { onClickShowDetail, showDetaiDisplayId, parcel } = this.props;
     const { displayId, parcelLocation, parcelStatus } = parcel;
     const parcelDisplayUtil = new ParcelDisplayUtil();
-    const location = parcelDisplayUtil.getParcelLocation(parcelLocation);
+    // const location = parcelDisplayUtil.getParcelLocation(parcelLocation);
     const parcelStatusBageAndLabel = parcelDisplayUtil.getParcelStatusBageAndLabel(
       parcelStatus
     );
+    const arrowColor = styleSchema.color.primaryMedium;
     return (
       <>
         <tr
@@ -31,7 +35,13 @@ export default class TrackingDetail extends Component {
             </Badge>
           </td>
           <td style={styles.defaultText}>{displayId}</td>
-          <td style={styles.defaultText}>{location}</td>
+          <td>
+            {showDetaiDisplayId === displayId ? (
+              <CaretUpFill style={{ color: arrowColor }} />
+            ) : (
+              <CaretDownFill style={{ color: arrowColor }} />
+            )}
+          </td>
         </tr>
         <ExpandItem parcel={parcel} showDetaiDisplayId={showDetaiDisplayId} />
       </>

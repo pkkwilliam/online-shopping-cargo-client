@@ -28,7 +28,7 @@ export default class TrackingView extends ApplicationComponentView {
             <tr className="text-center">
               <th>狀態</th>
               <th>單號</th>
-              <th>地點</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>{parcelRows}</tbody>
