@@ -219,7 +219,7 @@ function generateSizeSumFee(numberOfRow) {
   const costBase = 2;
   const initialRow = (
     <tr>
-      <TableItem>0 ~ 45</TableItem>
+      <TableItem>0~45</TableItem>
       <TableItem>$1</TableItem>
     </tr>
   );

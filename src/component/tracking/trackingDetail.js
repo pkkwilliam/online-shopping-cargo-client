@@ -91,10 +91,10 @@ function ParcelDetailSection({
       </Row>
       <Row>
         <Col>
-          <P>{`重量: ${weight} KG`}</P>
+          <P>{`長寛高總和: ${length + width + height}cm`}</P>
         </Col>
         <Col>
-          <P>{`3邊總和: ${length + width + height}cm`}</P>
+          <P>{`重量: ${weight}kg`}</P>
         </Col>
       </Row>
     </SectionContainer>
