@@ -156,27 +156,36 @@ function CostTable() {
   return (
     <div style={{ marginTop: 15 }}>
       <h6>代收費用</h6>
+      <p style={{ fontSize: 11 }}>代收費用 = 長寛高尺吋費用 + 重量費用</p>
       <View
         style={{
           alignItems: "center",
           justifyContent: "space-between",
         }}
       >
-        <Table striped bordered hover size="sm">
+        <CostCalculatorTable>
           <tr>
             <TableHeaderItem>長+寛+高(cm)</TableHeaderItem>
           </tr>
           <tbody>{SizeSumFeeRows}</tbody>
-        </Table>
-        <Plus style={{ fontSize: "6rem", fontWeight: "bold" }} />
-        <Table striped bordered hover size="sm">
+        </CostCalculatorTable>
+        <Plus style={{ fontSize: "3rem", fontWeight: "bold" }} />
+        <CostCalculatorTable>
           <tr>
             <TableHeaderItem>重量(kg)</TableHeaderItem>
           </tr>
           <tbody>{WeightFeeRows}</tbody>
-        </Table>
+        </CostCalculatorTable>
       </View>
     </div>
+  );
+}
+
+function CostCalculatorTable({ children }) {
+  return (
+    <Table striped bordered hover size="sm" style={{ width: "revert" }}>
+      {children}
+    </Table>
   );
 }
 
@@ -187,7 +196,7 @@ function TableHeaderItem({ children }) {
 function TableItem({ children }) {
   return (
     <td>
-      <P>{children}</P>
+      <P style={{ marginRight: 15 }}>{children}</P>
     </td>
   );
 }
