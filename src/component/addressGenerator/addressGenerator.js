@@ -11,7 +11,7 @@ import CaretUpFill from "react-bootstrap-icons/dist/icons/caret-up-fill";
 import View from "online-shopping-cargo-parent/dist/view";
 import SuceedIcon from "../common/suceedIcon";
 
-const ALERT_PHONE_NUMBER = "手機號碼";
+const ALERT_PHONE_NUMBER = "香港或澳門的手機號碼";
 const ALERT_SHOP_NUMBER = "代收店號";
 
 const INITIAL_STATE = {
@@ -98,7 +98,7 @@ function GeneratedAddressTextAreaSection({ setValues, values }) {
         ref={(textarea) => (textArea = textarea)}
         rows={3}
         style={{ fontSize: 12, resize: "none" }}
-        value={`收件人: ${shopNumber}@${geneerateReadablePhoneNumber(
+        value={`收件人: ${shopNumber}@${generateReadablePhoneNumber(
           phoneNumber
         )}\n手机号码: 15363530392\n珠海市香洲区吉柠路38号15号库`}
       />
@@ -140,7 +140,7 @@ function SubmitButton({ children, onClick }) {
   );
 }
 
-function geneerateReadablePhoneNumber(phoneNumber) {
+function generateReadablePhoneNumber(phoneNumber) {
   let result = "";
   for (let index = 0; index < phoneNumber.length; index++) {
     result += phoneNumber[index];
@@ -155,10 +155,10 @@ function validateFields(phoneNumber, shopNumber) {
   let validated = false;
   let alertText = "請輸入";
   if (!phoneNumber && !shopNumber) {
-    alertText += `${ALERT_SHOP_NUMBER}及${ALERT_PHONE_NUMBER}`;
+    alertText += ` ${ALERT_SHOP_NUMBER} 及 ${ALERT_PHONE_NUMBER} `;
   } else if (!shopNumber) {
     alertText += ALERT_SHOP_NUMBER;
-  } else if (!phoneNumber) {
+  } else if (!phoneNumber || phoneNumber.length !== 8) {
     alertText += ALERT_PHONE_NUMBER;
   } else {
     validated = true;

@@ -131,7 +131,7 @@ function EsimateCostResult({ parcelResponse }) {
           marginTop: 15,
         }}
       >
-        <P>3邊總和: {length + width + height}cm</P>
+        <P>長寬高總和: {length + width + height}cm</P>
         <P>重量: {weight}kg</P>
         <P style={{ fontWeight: "bold" }}>費用: ${cost}</P>
       </View>
