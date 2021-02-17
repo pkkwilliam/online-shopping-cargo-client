@@ -17,6 +17,8 @@ import detectBrowser, {
 
 const APPLE_BLUE = "#006EE6";
 
+const InstallApp = React.lazy(() => import("../installApp/installApp"));
+
 export default class SaveToDesktop extends ClientApplicationComponent {
   state = {
     ...this.state,
@@ -65,9 +67,10 @@ function getDisplayContent(browserName, saveToDesktopImageJsonContent) {
   switch (browserName) {
     case BROWSER_CHROME:
       return (
-        <ChromeInstruction
-          saveToDesktopImageJsonContent={saveToDesktopImageJsonContent}
-        />
+        <InstallApp />
+        // <ChromeInstruction
+        //   saveToDesktopImageJsonContent={saveToDesktopImageJsonContent}
+        // />
       );
     case BROWSER_SAFARI:
       return (
@@ -82,7 +85,7 @@ function getDisplayContent(browserName, saveToDesktopImageJsonContent) {
         />
       );
     default:
-      return <p>暫時未有止瀏覽器教程，請瀏覽器PickTB店面客服。</p>;
+      return <InstallApp />;
   }
 }
 

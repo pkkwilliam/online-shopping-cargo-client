@@ -156,7 +156,10 @@ function CostTable() {
   return (
     <div style={{ marginTop: 15 }}>
       <h6>代收費用</h6>
-      <p style={{ fontSize: 11 }}>代收費用 = 長寛高尺吋費用 + 重量費用</p>
+      <P style={{ fontSize: 11 }}>代收費用 = 長寛高尺吋費用 + 重量費用</P>
+      <P style={{ fontSize: 11 }}>
+        {"*不增反減: 當長寛高尺吋 >= 120cm, 即減$1"}
+      </P>
       <View
         style={{
           alignItems: "center",
@@ -215,11 +218,11 @@ function TextField({ onChangeValue, placeholder, target }) {
 }
 
 function generateSizeSumFee(numberOfRow) {
-  const base = 45;
+  const base = 60;
   const costBase = 2;
   const initialRow = (
     <tr>
-      <TableItem>0~45</TableItem>
+      <TableItem>0~60</TableItem>
       <TableItem>$1</TableItem>
     </tr>
   );
