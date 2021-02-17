@@ -50,25 +50,11 @@ export default class LandingPage extends ClientApplicationComponent {
           <div style={{ marginTop: 20 }}>
             <Accouncement />
           </div>
-          <Disclaimer />
         </div>
         <FooterView />
       </>
     );
   }
-}
-
-function Disclaimer() {
-  return (
-    <>
-      <P style={styles.disclaimerText}>
-        * 1135代收點因租金成本過高, 無法提供免費試用.
-      </P>
-      <P style={styles.disclaimerText}>
-        * 新用戶免費限重量或體積重量不大於2公斤的包裹
-      </P>
-    </>
-  );
 }
 
 const styles = {
