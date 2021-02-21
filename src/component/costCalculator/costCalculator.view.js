@@ -5,7 +5,7 @@ import Row from "react-bootstrap/esm/Row";
 import Col from "react-bootstrap/esm/Col";
 import View from "online-shopping-cargo-parent/dist/view";
 import LineBreak from "online-shopping-cargo-parent/dist/lineBreak";
-import ApplicationTextField from "../common/applicationTextField";
+import ApplicationTextField from "online-shopping-cargo-parent/dist/applicationTextField";
 import ClientApplicationComponent from "../clientApplicationComponent";
 import ApplicationButton from "online-shopping-cargo-parent/dist/applicationButton";
 import { GET_PARCEL_ESTIMATE_COST } from "online-shopping-cargo-parent/dist/service";
@@ -27,35 +27,32 @@ export default class CostCalculatorView extends ClientApplicationComponent {
     return (
       <Container>
         <BackgroundCard style={{ marginTop: 20 }}>
-          <View>
-            <Container style={{ padding: 0 }}>
-              <DisclaimerContainer>
-                *所有包裹均享有72小時免費存放
-              </DisclaimerContainer>
-            </Container>
-          </View>
           <TextField
+            label="長(cm)"
             onChangeValue={this.onChangeValue}
-            placeholder="重量(kg)"
-            target="weight"
-          />
-          <LineBreak />
-          <TextField
-            onChangeValue={this.onChangeValue}
-            placeholder="長(cm)"
+            placeholder="0"
             target="length"
           />
           <LineBreak />
           <TextField
+            label="寬(cm)"
             onChangeValue={this.onChangeValue}
-            placeholder="寬(cm)"
+            placeholder="0"
             target="width"
           />
           <LineBreak />
           <TextField
+            label="高(cm)"
             onChangeValue={this.onChangeValue}
-            placeholder="高(cm)"
+            placeholder="0"
             target="height"
+          />
+          <LineBreak />
+          <TextField
+            label={"重量(kg)"}
+            onChangeValue={this.onChangeValue}
+            placeholder="0"
+            target="weight"
           />
           <SubmitButton onClick={this.onClickEsimateParcelCost}>
             計算
@@ -112,14 +109,6 @@ export default class CostCalculatorView extends ClientApplicationComponent {
   };
 }
 
-function DisclaimerContainer({ children }) {
-  return (
-    <Row style={{ display: "flex", justifyContent: "flex-end" }}>
-      <P style={{ fontSize: 12, margin: 0 }}>{children}</P>
-    </Row>
-  );
-}
-
 function EsimateCostResult({ parcelResponse }) {
   if (parcelResponse) {
     const { cost, height, length, weight, width } = parcelResponse;
@@ -153,13 +142,13 @@ function CostTable() {
   const numberOfRow = 9;
   const SizeSumFeeRows = generateSizeSumFee(numberOfRow);
   const WeightFeeRows = generateWeightFee(numberOfRow);
+  const { disclaimerText } = styles;
   return (
     <div style={{ marginTop: 15 }}>
       <h6>代收費用</h6>
-      <P style={{ fontSize: 11 }}>代收費用 = 長寛高尺吋費用 + 重量費用</P>
-      <P style={{ fontSize: 11 }}>
-        {"*不增反減: 當長寛高尺吋 >= 120cm, 即減$1"}
-      </P>
+      <P style={disclaimerText}>代收費用 = 長寛高尺吋費用 + 重量費用</P>
+      <P style={disclaimerText}>{"不增反減: 當長寛高尺吋 >= 120cm, 即減$1"}</P>
+      <P style={disclaimerText}>所有包裹均享有72小時免費存放</P>
       <View
         style={{
           alignItems: "center",
@@ -204,10 +193,11 @@ function TableItem({ children }) {
   );
 }
 
-function TextField({ onChangeValue, placeholder, target }) {
+function TextField({ label, onChangeValue, placeholder, target }) {
   return (
     <Col style={{ paddingLeft: 2, paddingRight: 2 }}>
       <ApplicationTextField
+        label={label}
         placeholder={placeholder}
         onChange={(event) => {
           onChangeValue(target, event.target.value);
@@ -269,3 +259,7 @@ function generateWeightFee(numberOfRow) {
   }
   return [rows, lastRow];
 }
+
+const styles = {
+  disclaimerText: { fontSize: 11 },
+};

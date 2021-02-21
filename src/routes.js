@@ -29,7 +29,9 @@ export const CostCalculator = React.lazy(() =>
 export const LandingPage = React.lazy(() =>
   import("./component/landingPage/landingPage")
 );
-
+export const MatchBadParcel = React.lazy(() =>
+  import("./component/matchBadParcel/matchBadParcel")
+);
 export const PickupQRCode = React.lazy(() =>
   import("./component/pickupQRCode/pickupQRCode")
 );
@@ -55,6 +57,10 @@ export const UserProfile = React.lazy(() =>
 export const styles = {
   icon: {
     fontSize: 26,
+  },
+  labelIcon: {
+    fontWeight: 600,
+    margin: 0,
   },
 };
 
@@ -99,6 +105,14 @@ export const LOGIN = {
   label: "登入",
   sectionContainer: true,
   url: "/login",
+};
+export const MATCH_BAD_PARCEL = {
+  icon: <p style={{ ...styles.icon, ...styles.labelIcon }}>領</p>,
+  component: <MatchBadParcel />,
+  disabledWhenUserTokenPresent: true,
+  label: "包裹認領",
+  sectionContainer: true,
+  url: "/matchBadParcel",
 };
 export const MY_PARCEL = {
   icon: <BoxSeam style={styles.icon} />,
@@ -174,6 +188,7 @@ export default [
   USER_PROFILE,
   TUTORIAL,
   CALCULATOR,
+  MATCH_BAD_PARCEL,
   SAVE_TO_DESKTOP,
   SHOP_LIST,
   ADDRESS_GENERATOR,

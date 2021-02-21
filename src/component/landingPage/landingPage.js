@@ -10,8 +10,8 @@ import {
   PICKUP_QR_CODE,
   USER_PROFILE,
   TUTORIAL,
+  MATCH_BAD_PARCEL,
   CALCULATOR,
-  SHOP_LIST,
   ADDRESS_GENERATOR,
   SAVE_TO_DESKTOP,
 } from "../../routes";
@@ -24,7 +24,7 @@ const MENU_ITEMS = [
   MY_PARCEL,
   TUTORIAL,
   CALCULATOR,
-  SHOP_LIST,
+  MATCH_BAD_PARCEL,
   ADDRESS_GENERATOR,
 ];
 
@@ -56,10 +56,3 @@ export default class LandingPage extends ClientApplicationComponent {
     );
   }
 }
-
-const styles = {
-  disclaimerText: {
-    color: styleSchema.color.secondaryDark,
-    fontSize: 8,
-  },
-};

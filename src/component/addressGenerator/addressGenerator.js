@@ -4,7 +4,7 @@ import LineBreak from "online-shopping-cargo-parent/dist/lineBreak";
 import Form from "react-bootstrap/esm/Form";
 import ApplicationButton from "online-shopping-cargo-parent/dist/applicationButton";
 import ApplicationTextButton from "online-shopping-cargo-parent/dist/applicationTextButton";
-import ApplicationTextField from "../common/applicationTextField";
+import ApplicationTextField from "online-shopping-cargo-parent/dist/applicationTextField";
 import ShopList from "../shopList/shopList";
 import CaretDownFill from "react-bootstrap-icons/dist/icons/caret-down-fill";
 import CaretUpFill from "react-bootstrap-icons/dist/icons/caret-up-fill";
@@ -63,14 +63,16 @@ function InputField({ values, setValues }) {
   return (
     <>
       <ApplicationTextField
-        placeholder={"代收店號"}
+        label={"代收店號"}
+        placeholder={"1130"}
         onChange={(event) =>
           setValues({ ...values, shopNumber: event.target.value })
         }
       />
       <LineBreak />
       <ApplicationTextField
-        placeholder={"你的手機號"}
+        label={"手機號碼"}
+        placeholder={"6xxxxxxx"}
         onChange={(event) =>
           setValues({ ...values, phoneNumber: event.target.value })
         }

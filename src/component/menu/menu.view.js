@@ -65,6 +65,7 @@ export function CircularButton(item) {
           boxShadow: "none",
           display: "flex",
           height: BUTTON_SIZE,
+          justifyContent: "center",
           width: BUTTON_SIZE,
         }}
       >
