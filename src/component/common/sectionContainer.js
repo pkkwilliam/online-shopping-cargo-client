@@ -13,6 +13,7 @@ export default function SectionContainer(props) {
     <View style={{ minHeight: "-webkit-fill-available" }}>
       <Header>
         <View
+          onClick={() => window.history.back()}
           style={{
             alignItems: "center",
             justifyContent: "center",
@@ -64,10 +65,5 @@ function ChildrenSection({ children, hideCard }) {
 }
 
 function BackIcon() {
-  return (
-    <ChevronLeft
-      onClick={() => window.history.back()}
-      style={{ fontSize: 22 }}
-    />
-  );
+  return <ChevronLeft style={{ fontSize: 22 }} />;
 }
