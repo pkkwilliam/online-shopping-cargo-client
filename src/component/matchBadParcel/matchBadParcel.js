@@ -26,12 +26,22 @@ export default class MatchBadParcel extends ClientApplicationComponent {
       .execute(MATCH_BAD_PARCEL(this.state.originalTrackingNumber))
       .then((parcelResponse) => {
         this.onSucess(parcelResponse);
-      });
+      })
+      .catch((exception) => this.setModal(exception));
   }
 
   onClickSubmit = () => {
     this.matchBadParcelServiceRequest();
   };
+
+  setModal(exception) {
+    const { originalTrackingNumber } = this.state;
+    super.setModal({
+      body: `未能找到原號為${originalTrackingNumber}的包裹\n\n如遇困難，請與客服聯繫\n電話: 63530392\n微信:PickTB`,
+      header: "没有包裹🤕🤕",
+      show: true,
+    });
+  }
 
   onSucess(parcelResponse) {
     const { originalTrackingNumber } = this.state;
