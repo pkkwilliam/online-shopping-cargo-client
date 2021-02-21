@@ -109,7 +109,7 @@ export const LOGIN = {
 export const MATCH_BAD_PARCEL = {
   icon: <p style={{ ...styles.icon, ...styles.labelIcon }}>領</p>,
   component: <MatchBadParcel />,
-  disabledWhenUserTokenPresent: true,
+  disabledWhenUserTokenPresent: false,
   label: "包裹認領",
   sectionContainer: true,
   url: "/matchBadParcel",

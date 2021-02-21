@@ -1,9 +1,9 @@
 import React from "react";
-import ClientApplicationComponent from "../clientApplicationComponent";
 import MatchBadParcelViev from "./matchBadParcel.view";
 import { MATCH_BAD_PARCEL } from "online-shopping-cargo-parent/dist/service";
+import UserProfileComponent from "../common/userProfileComponent";
 
-export default class MatchBadParcel extends ClientApplicationComponent {
+export default class MatchBadParcel extends UserProfileComponent {
   state = { ...this.state, originalTrackingNumber: "" };
 
   render() {
