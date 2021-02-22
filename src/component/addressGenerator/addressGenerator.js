@@ -64,7 +64,7 @@ function InputField({ values, setValues }) {
     <>
       <ApplicationTextField
         label={"代收店號"}
-        placeholder={"1130"}
+        placeholder={`11xx`}
         onChange={(event) =>
           setValues({ ...values, shopNumber: event.target.value })
         }
