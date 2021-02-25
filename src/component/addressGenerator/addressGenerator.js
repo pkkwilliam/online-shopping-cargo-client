@@ -100,7 +100,7 @@ function GeneratedAddressTextAreaSection({ setValues, values }) {
         ref={(textarea) => (textArea = textarea)}
         rows={3}
         style={{ fontSize: 12, resize: "none" }}
-        value={`收件人: ${shopNumber}@${generateReadablePhoneNumber(
+        value={`收件人: ${shopNumber}_${generateReadablePhoneNumber(
           phoneNumber
         )}\n手机号码: 15363530392\n珠海市香洲区吉柠路38号15号库`}
       />
