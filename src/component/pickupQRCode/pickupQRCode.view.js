@@ -50,7 +50,8 @@ export default class PickupQRCodeView extends ApplicationComponentView {
 }
 
 function CountDown({ qrCodeExpireCountDown }) {
-  return <p>{`有效時間(${qrCodeExpireCountDown})`}</p>;
+  // return <p>{`有效時間(${qrCodeExpireCountDown})`}</p>;
+  return <p>有效時間:12小時</p>;
 }
 
 function ExpiredText() {
