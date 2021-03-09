@@ -1,4 +1,5 @@
 export const ANDROID = "Android";
+export const IPAD = "iPad";
 export const IPHONE = "iPhone";
 
 export default function determinePlatform() {

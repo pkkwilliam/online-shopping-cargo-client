@@ -2,7 +2,7 @@ import React from "react";
 import View from "online-shopping-cargo-parent/dist/view";
 import ClientApplicationComponent from "../clientApplicationComponent";
 import { GET_GITHUB_JSON_CONTENT } from "online-shopping-cargo-parent/dist/service";
-import determinePlatform, { IPHONE } from "../common/determinePlatform";
+import determinePlatform, { IPAD, IPHONE } from "../common/determinePlatform";
 
 export default class InstallApp extends ClientApplicationComponent {
   state = {
@@ -37,7 +37,7 @@ export default class InstallApp extends ClientApplicationComponent {
 function PlatformSelection({ androidAPK, baseUrl, ios }) {
   const platform = determinePlatform();
   const downloadableButtons = [<DownloadButton baseUrl={baseUrl} {...ios} />];
-  if (platform !== IPHONE) {
+  if (platform !== IPHONE && platform !== IPAD) {
     downloadableButtons.push(
       <DownloadButton baseUrl={baseUrl} {...androidAPK} />
     );
@@ -50,7 +50,7 @@ function DownloadButton({ baseUrl, contentUrl, description, imageUrl, type }) {
     <View
       style={{ alignItems: "center", flexDirection: "column", padding: 10 }}
     >
-      <a href={type === "ANDROID_APK" ? contentUrl : ""}>
+      <a href={contentUrl}>
         <img src={baseUrl + imageUrl} style={{ width: "11rem" }} />
       </a>
       <p>{description}</p>

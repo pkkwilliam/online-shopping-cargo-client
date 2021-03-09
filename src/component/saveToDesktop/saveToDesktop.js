@@ -64,29 +64,17 @@ export default class SaveToDesktop extends ClientApplicationComponent {
 }
 
 function getDisplayContent(browserName, saveToDesktopImageJsonContent) {
-  switch (browserName) {
-    case BROWSER_CHROME:
-      return (
-        <InstallApp />
-        // <ChromeInstruction
-        //   saveToDesktopImageJsonContent={saveToDesktopImageJsonContent}
-        // />
-      );
-    case BROWSER_SAFARI:
-      return (
-        <SafariInstruction
-          saveToDesktopImageJsonContent={saveToDesktopImageJsonContent}
-        />
-      );
-    case BROWSER_WECHAT:
-      return (
-        <WeChatInstruction
-          saveToDesktopImageJsonContent={saveToDesktopImageJsonContent}
-        />
-      );
-    default:
-      return <InstallApp />;
-  }
+  // switch (browserName) {
+  //   case BROWSER_WECHAT:
+  //     return (
+  //       <WeChatInstruction
+  //         saveToDesktopImageJsonContent={saveToDesktopImageJsonContent}
+  //       />
+  //     );
+  //   default:
+  //     return <InstallApp />;
+  // }
+  return <InstallApp />;
 }
 
 function Arrow({ style }) {
