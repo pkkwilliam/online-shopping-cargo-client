@@ -102,7 +102,7 @@ function GeneratedAddressTextAreaSection({ setValues, values }) {
         style={{ fontSize: 12, resize: "none" }}
         value={`收件人: ${shopNumber}_${generateReadablePhoneNumber(
           phoneNumber
-        )}\n手机号码: 15363530392\n珠海市香洲区吉柠路38号15号库`}
+        )}\n手机号码: 15363530392\n珠海市香洲区吉柠路38号15号库_${phoneNumber}_${shopNumber}`}
       />
       {Content}
       <ApplicationTextButton
