@@ -1,6 +1,4 @@
 import React from "react";
-import P from "online-shopping-cargo-parent/dist/text/paragraph";
-import { styleSchema } from "online-shopping-cargo-parent/dist/styleSchema";
 import EyeCatch from "../eyeCatch/eyeCatch";
 import Header from "../header/header";
 import FooterView from "../footer/footer.view";
@@ -16,6 +14,7 @@ import {
   SAVE_TO_DESKTOP,
 } from "../../routes";
 import ClientApplicationComponent from "../clientApplicationComponent";
+import { LINK_PUSH_NOTIFICATION_TOKEN } from "online-shopping-cargo-parent/dist/service";
 
 const MENU_ITEMS = [
   SAVE_TO_DESKTOP,
@@ -32,7 +31,10 @@ const Accouncement = React.lazy(() => import("../announcement/announcement"));
 const Menu = React.lazy(() => import("../menu/menu"));
 
 export default class LandingPage extends ClientApplicationComponent {
+  static linkedNotificationTokenServiceRequested = false;
+
   render() {
+    this.linkedNotificationTokenService();
     return (
       <>
         <Header>
@@ -54,5 +56,22 @@ export default class LandingPage extends ClientApplicationComponent {
         <FooterView />
       </>
     );
+  }
+
+  linkedNotificationTokenService() {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    this.notificationToken = urlParams.get("notificationToken");
+    if (
+      !LandingPage.linkedNotificationTokenServiceRequested &&
+      this.userToken &&
+      this.notificationToken
+    ) {
+      this.serviceExecutor
+        .execute(LINK_PUSH_NOTIFICATION_TOKEN(this.notificationToken))
+        .then(
+          () => (LandingPage.linkedNotificationTokenServiceRequested = true)
+        );
+    }
   }
 }
