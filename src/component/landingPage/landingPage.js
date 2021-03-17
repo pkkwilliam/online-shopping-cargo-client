@@ -31,10 +31,11 @@ const Accouncement = React.lazy(() => import("../announcement/announcement"));
 const Menu = React.lazy(() => import("../menu/menu"));
 
 export default class LandingPage extends ClientApplicationComponent {
-  static linkedNotificationTokenServiceRequested = false;
+  componentDidMount() {
+    this.linkedNotificationTokenService();
+  }
 
   render() {
-    this.linkedNotificationTokenService();
     return (
       <>
         <Header>
@@ -62,11 +63,7 @@ export default class LandingPage extends ClientApplicationComponent {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     this.notificationToken = urlParams.get("notificationToken");
-    if (
-      !LandingPage.linkedNotificationTokenServiceRequested &&
-      this.userToken &&
-      this.notificationToken
-    ) {
+    if (this.userToken && this.notificationToken) {
       this.serviceExecutor
         .execute(LINK_PUSH_NOTIFICATION_TOKEN(this.notificationToken))
         .then(
