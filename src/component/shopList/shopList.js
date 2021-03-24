@@ -8,6 +8,7 @@ import LineBreak from "online-shopping-cargo-parent/dist/lineBreak";
 import P from "online-shopping-cargo-parent/dist/text/paragraph";
 import ShadowCard from "../common/shadowCard";
 import Accordion from "react-bootstrap/esm/Accordion";
+import Spinner from "react-bootstrap/esm/Spinner";
 
 export default class ShopList extends ClientApplicationComponent {
   state = {
@@ -28,7 +29,13 @@ export default class ShopList extends ClientApplicationComponent {
   render() {
     return (
       <Accordion>
-        <ShopsDisplay shops={this.state.shops} />
+        {/* <ShopsDisplay shops={this.state.shops} /> */}
+        <Spinner
+          animation="border"
+          size="sm"
+          style={{ margin: 20 }}
+          variant="warning"
+        />
       </Accordion>
     );
   }
