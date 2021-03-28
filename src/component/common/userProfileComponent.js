@@ -2,6 +2,7 @@ import ClientApplicationComponent from "../clientApplicationComponent";
 
 export default class UserProfileComponent extends ClientApplicationComponent {
   componentDidMount() {
+    super.componentDidMount();
     this.checkUserToken();
   }
 

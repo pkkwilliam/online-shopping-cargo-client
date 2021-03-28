@@ -32,6 +32,7 @@ const Menu = React.lazy(() => import("../menu/menu"));
 
 export default class LandingPage extends ClientApplicationComponent {
   componentDidMount() {
+    super.componentDidMount();
     this.linkedNotificationTokenService();
   }
 

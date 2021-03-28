@@ -2,6 +2,7 @@ import React from "react";
 import ApplicationTextField from "online-shopping-cargo-parent/dist/applicationTextField";
 import ApplicationComponentView from "online-shopping-cargo-parent/dist/applicationComponent.view";
 import ApplicationButton from "online-shopping-cargo-parent/dist/applicationButton";
+import InstructionText from "../common/instructionText";
 
 export default class MatchBadParcelView extends ApplicationComponentView {
   render() {
@@ -12,6 +13,7 @@ export default class MatchBadParcelView extends ApplicationComponentView {
     } = this.props;
     return (
       <this.Wrapper>
+        <InstructionText>請輸入包裹的原單號以進行認領</InstructionText>
         <OriginalTrackingNumberTextField
           onChangeOriginalTrackingNumber={onChangeOriginalTrackingNumber}
           originalTrackingNumber={originalTrackingNumber}

@@ -4,7 +4,7 @@ import Col from "react-bootstrap/esm/Col";
 import P from "online-shopping-cargo-parent/dist/text/paragraph";
 import ListMenu from "../common/listMenu";
 import BackgroundCard from "../common/backgroundCard";
-import { THIRD_PERSON } from "../../routes";
+import { CHANGE_PASSWORD, THIRD_PERSON } from "../../routes";
 
 export default function UserProfileView(props) {
   const { userProfile } = props;
@@ -12,6 +12,7 @@ export default function UserProfileView(props) {
   return (
     <>
       <CashPointSection balance={balance ?? 0} />
+      <UsernameSection {...userProfile} />
       <ListMenuSection />
     </>
   );
@@ -35,7 +36,31 @@ function CashPointSection({ balance }) {
 }
 
 function ListMenuSection() {
-  return <ListMenu items={[THIRD_PERSON]} style={{ marginTop: 15 }} />;
+  return (
+    <ListMenu
+      items={[THIRD_PERSON, CHANGE_PASSWORD]}
+      style={{ marginTop: 15 }}
+    />
+  );
+}
+
+export function UsernameSection({ countryCode, smsNumber, zyId }) {
+  return (
+    <BackgroundCard style={{ marginTop: 15 }}>
+      <Row>
+        <Col>
+          <P>
+            手機號: {countryCode} {smsNumber}
+          </P>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <P>用戶名: {zyId}</P>
+        </Col>
+      </Row>
+    </BackgroundCard>
+  );
 }
 
 const styles = {

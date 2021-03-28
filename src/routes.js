@@ -6,6 +6,7 @@ import {
   CalculatorFill,
   Check2Circle,
   Eyeglasses,
+  Key,
   KeyFill,
   PersonCheck,
   PersonFill,
@@ -22,6 +23,9 @@ export const AddressGenerator = React.lazy(() =>
 );
 export const ApplicationSmsAuth = React.lazy(() =>
   import("./component/common/applicationSmsAuth")
+);
+export const ChangePassword = React.lazy(() =>
+  import("./component/changePassword/changePassword")
 );
 export const CostCalculator = React.lazy(() =>
   import("./component/costCalculator/costCalculator.view")
@@ -68,6 +72,7 @@ export const ADDRESS_GENERATOR = {
   icon: <TextareaT style={styles.icon} />,
   component: <AddressGenerator />,
   disabledWhenUserTokenPresent: false,
+  hideBackground: true,
   label: "收貨地址",
   sectionContainer: true,
   url: "/addressGenerator",
@@ -90,6 +95,16 @@ export const CALCULATOR = {
   sectionContainer: true,
   url: "/costCalculator",
 };
+export const CHANGE_PASSWORD = {
+  icon: <Key style={styles.icon} />,
+  component: <ChangePassword />,
+  disabledWhenUserTokenPresent: false,
+  hideCard: true,
+  label: "更改密碼",
+  sectionContainer: true,
+  url: "/changePassword",
+};
+
 export const LANDING_PAGE = {
   icon: <KeyFill style={styles.icon} />,
   component: <LandingPage />,
@@ -192,5 +207,6 @@ export default [
   SAVE_TO_DESKTOP,
   SHOP_LIST,
   ADDRESS_GENERATOR,
+  CHANGE_PASSWORD,
   LANDING_PAGE,
 ];

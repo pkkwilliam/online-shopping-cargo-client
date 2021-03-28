@@ -12,6 +12,7 @@ import { GET_PARCEL_ESTIMATE_COST } from "online-shopping-cargo-parent/dist/serv
 import Table from "react-bootstrap/esm/Table";
 import Plus from "react-bootstrap-icons/dist/icons/plus";
 import BackgroundCard from "../common/backgroundCard";
+import InstructionText from "../common/instructionText";
 
 export default class CostCalculatorView extends ClientApplicationComponent {
   state = {
@@ -26,7 +27,8 @@ export default class CostCalculatorView extends ClientApplicationComponent {
   render() {
     return (
       <Container>
-        <BackgroundCard style={{ marginTop: 20 }}>
+        <InstructionText>請輸入包裹資料</InstructionText>
+        <BackgroundCard style={{ marginTop: 10 }}>
           <TextField
             label="長(cm)"
             onChangeValue={this.onChangeValue}

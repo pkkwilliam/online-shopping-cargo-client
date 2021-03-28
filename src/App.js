@@ -3,7 +3,7 @@ import View from "online-shopping-cargo-parent/dist/view";
 import Spinner from "react-bootstrap/esm/Spinner";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Routes from "./routes";
-
+import { Provider } from "./context/provider";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const SectionContainer = React.lazy(() =>
@@ -20,11 +20,13 @@ export default function App(props) {
         overflow: "auto",
       }}
     >
-      <Suspense fallback={<SuspenseLoading />}>
-        <Router>
-          <Switch>{getRoutes()}</Switch>
-        </Router>
-      </Suspense>
+      <Provider>
+        <Suspense fallback={<SuspenseLoading />}>
+          <Router>
+            <Switch>{getRoutes()}</Switch>
+          </Router>
+        </Suspense>
+      </Provider>
     </div>
   );
 }
