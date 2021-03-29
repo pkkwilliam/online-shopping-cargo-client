@@ -1,7 +1,10 @@
 import ApplicationComponent from "online-shopping-cargo-parent/dist/applicationComponent";
 import ClientApplicationContext from "./clientApplicationContext";
 import { CargoManagementContext } from "../context/provider";
-import { GET_USER_PROFILE } from "online-shopping-cargo-parent/dist/service";
+import {
+  GET_USER_PROFILE,
+  LINK_PUSH_NOTIFICATION_TOKEN,
+} from "online-shopping-cargo-parent/dist/service";
 export default class ClientApplicationComponent extends ApplicationComponent {
   static contextType = CargoManagementContext;
 
@@ -10,15 +13,25 @@ export default class ClientApplicationComponent extends ApplicationComponent {
   _clientApplicationContext = new ClientApplicationContext();
 
   componentDidMount() {
-    if (this.appState.user.dirty && this.userToken) {
+    if (this.userToken) {
       this.getUserProfile();
+      this.linkNotificationToken();
     }
   }
 
-  getUserProfile() {
-    this.serviceExecutor
-      .execute(GET_USER_PROFILE())
-      .then((userProfile) => this.appState.user.setUserProfile(userProfile));
+  async getUserProfile() {
+    if (this.appState.user.dirty) {
+      this.serviceExecutor.execute(GET_USER_PROFILE()).then((userProfile) => {
+        this.appState.user.setUserProfile(userProfile);
+      });
+    }
+  }
+
+  async linkNotificationToken() {
+    const { dirty, token } = this.appState.notificationToken;
+    if (dirty && token) {
+      this.serviceExecutor.execute(LINK_PUSH_NOTIFICATION_TOKEN(token));
+    }
   }
 
   get applicationContext() {

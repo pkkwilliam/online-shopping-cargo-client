@@ -4,6 +4,7 @@ import {
   BoxArrowInDown,
   BoxSeam,
   CalculatorFill,
+  ClipboardCheck,
   Check2Circle,
   Eyeglasses,
   Key,
@@ -38,6 +39,9 @@ export const MatchBadParcel = React.lazy(() =>
 );
 export const PickupQRCode = React.lazy(() =>
   import("./component/pickupQRCode/pickupQRCode")
+);
+export const Register = React.lazy(() =>
+  import("./component/register/register")
 );
 export const SaveToDesktop = React.lazy(() =>
   import("./component/saveToDesktop/saveToDesktop")
@@ -148,6 +152,15 @@ export const PICKUP_QR_CODE = {
   sectionContainer: true,
   url: "/myPickupQRCode",
 };
+export const REGISTER = {
+  icon: <ClipboardCheck style={styles.icon} />,
+  component: <Register />,
+  disabledWhenUserTokenPresent: false,
+  hideCard: true,
+  label: "注冊",
+  sectionContainer: true,
+  url: "/register",
+};
 export const SAVE_TO_DESKTOP = {
   buttonBackgroundColor: "#006EE6",
   icon: <BoxArrowInDown style={{ ...styles.icon, marginBottom: 2 }} />,
@@ -208,5 +221,6 @@ export default [
   SHOP_LIST,
   ADDRESS_GENERATOR,
   CHANGE_PASSWORD,
+  REGISTER,
   LANDING_PAGE,
 ];

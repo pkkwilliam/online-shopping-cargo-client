@@ -7,6 +7,7 @@ import BackgroundCard from "../common/backgroundCard";
 import { styleSchema } from "online-shopping-cargo-parent/dist/styleSchema";
 import ListMenu from "../common/listMenu";
 import { ALLOWED_BY, MY_PARCEL } from "../../routes";
+import { UsernameSection } from "../userProfile/userProfile.view";
 export default class PickupQRCodeView extends ApplicationComponentView {
   render() {
     return (
@@ -19,6 +20,7 @@ export default class PickupQRCodeView extends ApplicationComponentView {
           }}
         >
           <this.QRCodeSection {...this.props} />
+          <UsernameSection {...this.props.userProfile} />
           <OptionsSection />
         </div>
       </this.Wrapper>

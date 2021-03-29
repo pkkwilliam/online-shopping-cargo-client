@@ -5,7 +5,10 @@ import ChangePasswordView, {
   NEW_PASSWORD_FIELD,
   NEW_PASSWORD_FIELD_2,
 } from "./changePassword.view";
-import { CHANGE_PASSWORD } from "online-shopping-cargo-parent/dist/service";
+import {
+  CHANGE_PASSWORD,
+  SETUP_PASSWORD,
+} from "online-shopping-cargo-parent/dist/service";
 
 export default class ChangePassword extends UserProfileComponent {
   state = {
@@ -18,7 +21,7 @@ export default class ChangePassword extends UserProfileComponent {
     return (
       <ChangePasswordView
         onChangeTextField={this.onChangeTextField}
-        onClickChangePassword={this.onClickChangePassword}
+        onClickSetPassword={this.onClickSetPassword}
         onCloseModal={this.onCloseError}
         userProfile={this.appState.user.userProfile}
         {...this.state}
@@ -46,13 +49,37 @@ export default class ChangePassword extends UserProfileComponent {
     });
   };
 
-  onClickChangePassword = () => {
+  onClickSetPassword = () => {
     const { newPassword, newPassword2, oldPassword } = this.state;
     this.validateRequest(newPassword, newPassword2, oldPassword);
-    this.serviceExecutor
-      .execute(CHANGE_PASSWORD({ newPassword, password: oldPassword }))
-      .then(() => this.showModal("新密碼更改成功", "更改成功"));
+    if (this.appState.user.userProfile.register) {
+      this.changePassword(newPassword, oldPassword);
+    } else {
+      this.setupPassword(newPassword);
+    }
   };
+
+  changePassword(newPassword, password) {
+    this.serviceExecutor
+      .execute(CHANGE_PASSWORD({ newPassword, password }))
+      .then(() => this.onSuccess());
+  }
+
+  setupPassword(newPassword) {
+    this.serviceExecutor
+      .execute(SETUP_PASSWORD({ newPassword }))
+      .then(() => this.onSuccess());
+  }
+
+  onSuccess() {
+    this.showModal("密碼設置成功", "設置成功");
+    this.setState({
+      oldPassword: "",
+      newPassword: "",
+      newPassword2: "",
+    });
+    window.location.replace("/");
+  }
 
   showModal(body, header) {
     this.setState({

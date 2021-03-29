@@ -15,22 +15,20 @@ export default class ChangePasswordView extends ApplicationComponentView {
       newPassword,
       newPassword2,
       onChangeTextField,
-      onClickChangePassword,
+      onClickSetPassword,
       oldPassword,
       userProfile,
     } = this.props;
-    const { changePasswordComponent, textField } = styles;
+    const { changePasswordComponent, reigster, textField } = styles;
     return (
       <this.Wrapper>
         <UsernameSection {...userProfile} />
-        <ApplicationTextField
-          onChange={(event) =>
+        <OldPasswordTextField
+          register={reigster}
+          onChangeTextField={(event) =>
             onChangeTextField(ORIGINAL_PASSWORD_FIELD, event.target.value)
           }
-          placeHolder="舊密碼"
-          type="password"
           value={oldPassword}
-          style={{ ...changePasswordComponent, ...textField }}
         />
         <ApplicationTextField
           onChange={(event) =>
@@ -52,14 +50,28 @@ export default class ChangePasswordView extends ApplicationComponentView {
         />
         <ApplicationButton
           block
-          onClick={onClickChangePassword}
+          onClick={onClickSetPassword}
           style={changePasswordComponent}
         >
-          更改密碼
+          設置密碼
         </ApplicationButton>
       </this.Wrapper>
     );
   }
+}
+
+function OldPasswordTextField({ onChangeTextField, register, value }) {
+  return register ? (
+    <ApplicationTextField
+      onChange={(event) =>
+        onChangeTextField(ORIGINAL_PASSWORD_FIELD, event.target.value)
+      }
+      placeHolder="舊密碼"
+      type="password"
+      value={value}
+      style={{ ...styles.changePasswordComponent, ...styles.textField }}
+    />
+  ) : null;
 }
 
 const styles = {

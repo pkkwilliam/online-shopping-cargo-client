@@ -5,16 +5,23 @@ import P from "online-shopping-cargo-parent/dist/text/paragraph";
 import ListMenu from "../common/listMenu";
 import BackgroundCard from "../common/backgroundCard";
 import { CHANGE_PASSWORD, THIRD_PERSON } from "../../routes";
+import ApplicationTextButton from "online-shopping-cargo-parent/dist/applicationTextButton";
+import View from "online-shopping-cargo-parent/dist/view";
 
 export default function UserProfileView(props) {
   const { userProfile } = props;
   const { balance } = userProfile;
   return (
-    <>
-      <CashPointSection balance={balance ?? 0} />
-      <UsernameSection {...userProfile} />
-      <ListMenuSection />
-    </>
+    <View style={{ flexDirection: "column", justifyContent: "space-between" }}>
+      <View style={{ flexDirection: "column" }}>
+        <CashPointSection balance={balance ?? 0} />
+        <UsernameSection {...userProfile} />
+        <ListMenuSection />
+      </View>
+      <View>
+        <LogoutSection {...props} />
+      </View>
+    </View>
   );
 }
 
@@ -44,19 +51,27 @@ function ListMenuSection() {
   );
 }
 
-export function UsernameSection({ countryCode, smsNumber, zyId }) {
+function LogoutSection({ onClickLogout }) {
+  return (
+    <ApplicationTextButton block onClick={onClickLogout} style={{ margin: 50 }}>
+      登出
+    </ApplicationTextButton>
+  );
+}
+
+export function UsernameSection({ countryCode, smsNumber, username, zyId }) {
   return (
     <BackgroundCard style={{ marginTop: 15 }}>
       <Row>
         <Col>
-          <P>
-            手機號: {countryCode} {smsNumber}
-          </P>
+          <P>會員號: {zyId}</P>
         </Col>
       </Row>
       <Row>
         <Col>
-          <P>用戶名: {zyId}</P>
+          <P>
+            用戶名: {username && username.length < 20 ? username : smsNumber}
+          </P>
         </Col>
       </Row>
     </BackgroundCard>

@@ -4,6 +4,10 @@ export const CargoManagementContext = React.createContext();
 
 export class Provider extends Component {
   state = {
+    notificationToken: {
+      dirty: true,
+      token: undefined,
+    },
     user: {
       dirty: true,
       userProfile: {},
@@ -11,13 +15,18 @@ export class Provider extends Component {
   };
 
   render() {
-    const { user } = this.state;
+    const { notificationToken, user } = this.state;
     return (
       <CargoManagementContext.Provider
         value={{
+          notificationToken: {
+            ...notificationToken,
+            setNotificationToken: this.setNotificationToken,
+            setNotificationTokenDirty: this.setNotificationTokenDirty,
+          },
           user: {
             ...user,
-            setUserDirty: this.setUserDitry,
+            setUserDirty: this.setUserDirty,
             setUserProfile: this.setUserProfile,
           },
         }}
@@ -27,7 +36,26 @@ export class Provider extends Component {
     );
   }
 
-  setUserDitry = (dirty) => {
+  setNotificationToken = (token) => {
+    console.log("set notification token:", token);
+    this.setState({
+      notificationToken: {
+        dirty: true,
+        token,
+      },
+    });
+  };
+
+  setNotificationTokenDirty = (dirty) => {
+    this.setState((state) => ({
+      notificationToken: {
+        ...state.notificationToken,
+        dirty,
+      },
+    }));
+  };
+
+  setUserDirty = (dirty) => {
     this.setState((state) => ({
       user: {
         ...state.user,

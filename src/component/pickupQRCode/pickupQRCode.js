@@ -24,6 +24,7 @@ export default class PickupQRCode extends UserProfileComponent {
         onGetPickupQrCode={this.onGetPickupQrCode}
         pickupCode={pickupCode}
         qrCodeExpireCountDown={qrCodeExpireCountDown}
+        userProfile={this.appState.user.userProfile}
         {...this.state}
       />
     );
