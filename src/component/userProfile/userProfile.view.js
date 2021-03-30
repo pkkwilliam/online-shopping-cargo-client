@@ -64,14 +64,14 @@ export function UsernameSection({ countryCode, smsNumber, username, zyId }) {
     <BackgroundCard style={{ marginTop: 15 }}>
       <Row>
         <Col>
-          <P>會員號: {zyId}</P>
+          <P>
+            用戶名: {username && username.length < 20 ? username : smsNumber}
+          </P>
         </Col>
       </Row>
       <Row>
         <Col>
-          <P>
-            用戶名: {username && username.length < 20 ? username : smsNumber}
-          </P>
+          <P>會員號: {zyId}</P>
         </Col>
       </Row>
     </BackgroundCard>

@@ -19,15 +19,13 @@ export default class ChangePasswordView extends ApplicationComponentView {
       oldPassword,
       userProfile,
     } = this.props;
-    const { changePasswordComponent, reigster, textField } = styles;
+    const { changePasswordComponent, textField } = styles;
     return (
       <this.Wrapper>
         <UsernameSection {...userProfile} />
         <OldPasswordTextField
-          register={reigster}
-          onChangeTextField={(event) =>
-            onChangeTextField(ORIGINAL_PASSWORD_FIELD, event.target.value)
-          }
+          register={userProfile.register}
+          onChangeTextField={onChangeTextField}
           value={oldPassword}
         />
         <ApplicationTextField

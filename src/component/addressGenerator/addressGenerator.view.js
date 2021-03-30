@@ -61,7 +61,7 @@ function AddressCopyBoard({
         <CopyableTextField
           label={"收件人"}
           onClickCopyableTextField={onClickCopyableTextField}
-          value={`${name}-${smsNumber}_${zyId ?? ""}`}
+          value={`${name ? name : ""}-${smsNumber}-${zyId ?? ""}`}
         />
         <CopyableTextField
           label={"聯繫電話"}
@@ -77,7 +77,7 @@ function AddressCopyBoard({
           label={"收貨地址"}
           onClickCopyableTextField={onClickCopyableTextField}
           textarea
-          value={`珠海市夏湾港昌路入中源倉澳提代收${shopNumber}-${areaShopName}(${smsNumber}_${zyId})`}
+          value={`珠海市夏湾港昌路入中源倉澳提代收${shopNumber}-${areaShopName}(${smsNumber}-${zyId})`}
         />
       </Form>
 

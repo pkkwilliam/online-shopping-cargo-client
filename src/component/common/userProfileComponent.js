@@ -10,7 +10,7 @@ export default class UserProfileComponent extends ClientApplicationComponent {
     if (this.userToken) {
       this.initialServiceRequest();
     } else {
-      window.location.href = "/login";
+      window.location.replace("/login");
     }
   }
 

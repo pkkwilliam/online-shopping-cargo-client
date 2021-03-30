@@ -4,6 +4,7 @@ import EyeCatch from "../eyeCatch/eyeCatch";
 import Header from "../header/header";
 import FooterView from "../footer/footer.view";
 import { GITHUB_CONTENT_URL } from "online-shopping-cargo-parent/dist/service";
+import View from "online-shopping-cargo-parent/dist/view";
 import {
   MY_PARCEL,
   PICKUP_QR_CODE,
@@ -14,6 +15,7 @@ import {
   ADDRESS_GENERATOR,
   SAVE_TO_DESKTOP,
 } from "../../routes";
+import { styleSchema } from "online-shopping-cargo-parent/dist/styleSchema";
 
 const MENU_ITEMS = [
   SAVE_TO_DESKTOP,
@@ -36,7 +38,7 @@ export default class LandingPageView extends ApplicationComponentView {
   render() {
     return (
       <this.Wrapper>
-        <RegisterPromp />
+        {/* <RegisterPromp /> */}
         <Header>
           <img
             alt={"header_icon"}
@@ -47,6 +49,7 @@ export default class LandingPageView extends ApplicationComponentView {
         <EyeCatch />
         <div style={{ padding: 10, marginBottom: 40 }}>
           <div>
+            <ImportantNotice {...this.props} />
             <Menu menuItems={MENU_ITEMS} userToken={this.userToken} />
           </div>
           <div style={{ marginTop: 20 }}>
@@ -57,4 +60,27 @@ export default class LandingPageView extends ApplicationComponentView {
       </this.Wrapper>
     );
   }
+}
+
+function ImportantNotice({ importantNotices }) {
+  return importantNotices.map((importantNotice) => {
+    const { detail } = importantNotice;
+    return (
+      <View
+        style={{
+          border: styleSchema.color.primaryDark,
+          borderStyle: "solid",
+          padding: 15,
+          borderRadius: 5,
+          borderWidth: 3,
+        }}
+      >
+        <div
+          dangerouslySetInnerHTML={{
+            __html: detail,
+          }}
+        />
+      </View>
+    );
+  });
 }

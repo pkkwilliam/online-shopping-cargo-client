@@ -7,7 +7,7 @@ import ChangePasswordView, {
 } from "./changePassword.view";
 import {
   CHANGE_PASSWORD,
-  SETUP_PASSWORD,
+  REGISTER_USER_FOR_MISSING_PASSWORD,
 } from "online-shopping-cargo-parent/dist/service";
 
 export default class ChangePassword extends UserProfileComponent {
@@ -67,7 +67,7 @@ export default class ChangePassword extends UserProfileComponent {
 
   setupPassword(newPassword) {
     this.serviceExecutor
-      .execute(SETUP_PASSWORD({ newPassword }))
+      .execute(REGISTER_USER_FOR_MISSING_PASSWORD({ newPassword }))
       .then(() => this.onSuccess());
   }
 
@@ -78,7 +78,7 @@ export default class ChangePassword extends UserProfileComponent {
       newPassword: "",
       newPassword2: "",
     });
-    window.location.replace("/");
+    this.appState.user.setUserDirty(true);
   }
 
   showModal(body, header) {
