@@ -30,7 +30,7 @@ export default class ShopList extends ClientApplicationComponent {
   render() {
     return (
       <Accordion>
-        <InstructionText>選擇門店點擊詳細並生成收貨地址</InstructionText>
+        <InstructionText>點擊門店詳情生成收貨地址</InstructionText>
         <ShopsDisplay
           shops={this.state.shops}
           onSelectShop={this.props.onSelectShop}
@@ -41,6 +41,7 @@ export default class ShopList extends ClientApplicationComponent {
 }
 
 function ShopsDisplay({ shops, onSelectShop }) {
+  shops.sort((shop1, shop2) => shop1.shopNumber - shop2.shopNumber);
   return shops.map((shop, index) => (
     <ShopCard index={index + 1} shop={shop} onSelectShop={onSelectShop} />
   ));
