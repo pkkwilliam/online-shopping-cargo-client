@@ -65,13 +65,18 @@ export function UsernameSection({ countryCode, smsNumber, username, zyId }) {
       <Row>
         <Col>
           <P>
-            用戶名: {username && username.length < 20 ? username : smsNumber}
+            登入用戶: {username && username.length < 20 ? username : smsNumber}
           </P>
         </Col>
       </Row>
       <Row>
         <Col>
-          <P>會員號: {zyId}</P>
+          <P>使用區域: {countryCode === "853" ? "澳門" : "中國"}</P>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <P>會員號碼: {zyId}</P>
         </Col>
       </Row>
     </BackgroundCard>
