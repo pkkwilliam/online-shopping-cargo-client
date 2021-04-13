@@ -49,7 +49,7 @@ export default class LandingPageView extends ApplicationComponentView {
         <EyeCatch />
         <div style={{ padding: 10, marginBottom: 40 }}>
           <div>
-            <ImportantNotice {...this.props} />
+            {/* <ImportantNotice {...this.props} /> */}
             <Menu menuItems={MENU_ITEMS} userToken={this.userToken} />
           </div>
           <div style={{ marginTop: 20 }}>

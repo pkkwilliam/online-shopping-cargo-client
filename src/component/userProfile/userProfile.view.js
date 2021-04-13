@@ -59,7 +59,13 @@ function LogoutSection({ onClickLogout }) {
   );
 }
 
-export function UsernameSection({ countryCode, smsNumber, username, zyId }) {
+export function UsernameSection({
+  countryCode,
+  smsNumber,
+  username,
+  zyId,
+  preferredShop,
+}) {
   return (
     <BackgroundCard style={{ marginTop: 15 }}>
       <Row>
@@ -79,6 +85,13 @@ export function UsernameSection({ countryCode, smsNumber, username, zyId }) {
           <P>會員號碼: {zyId}</P>
         </Col>
       </Row>
+      {preferredShop ? (
+        <Row>
+          <Col>
+            <P>常用站點: {preferredShop.areaShopName}</P>
+          </Col>
+        </Row>
+      ) : null}
     </BackgroundCard>
   );
 }

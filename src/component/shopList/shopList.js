@@ -12,6 +12,7 @@ import ApplicationButton from "online-shopping-cargo-parent/dist/applicationButt
 import ApplicationTextButton from "online-shopping-cargo-parent/dist/applicationTextButton";
 import View from "online-shopping-cargo-parent/dist/view";
 import InstructionText from "../common/instructionText";
+import Spinner from "react-bootstrap/esm/Spinner";
 
 export default class ShopList extends ClientApplicationComponent {
   state = {
@@ -29,13 +30,32 @@ export default class ShopList extends ClientApplicationComponent {
 
   render() {
     return (
-      <Accordion>
+      <View
+        style={{
+          flexDirection: "column",
+        }}
+      >
         <InstructionText>點擊門店詳情生成收貨地址</InstructionText>
-        <ShopsDisplay
-          shops={this.state.shops}
-          onSelectShop={this.props.onSelectShop}
-        />
-      </Accordion>
+        <View
+          style={{
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <P>門店例表更新中，請稍後再試</P>
+          <Spinner
+            animation="grow"
+            style={{ marginLeft: 10 }}
+            variant="warning"
+          />
+        </View>
+        <Accordion>
+          {/* <ShopsDisplay
+            shops={this.state.shops}
+            onSelectShop={this.props.onSelectShop}
+          /> */}
+        </Accordion>
+      </View>
     );
   }
 }
