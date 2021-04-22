@@ -18,8 +18,7 @@ export default function Tutorial(props) {
 function AddAddressToEcommerce() {
   return (
     <TutorialCard header="第三步: 添加地址到淘寶">
-      <TutorialImage src="/assert/add_address_1.png" />
-      <TutorialImage src="/assert/add_address_2.png" />
+      <TutorialImage src="/assert/add_address_sw_1.png" />
     </TutorialCard>
   );
 }
@@ -42,8 +41,8 @@ function LoginSection() {
 
 function MessageNotificationSection() {
   return (
-    <TutorialCard header="第四步: 短信通知提取包裹">
-      <TutorialImage src="/assert/message_notification_1.png" />
+    <TutorialCard header="第四步: App推送通知提取包裹">
+      <TutorialImage src="/assert/push_notification_1.png" />
     </TutorialCard>
   );
 }

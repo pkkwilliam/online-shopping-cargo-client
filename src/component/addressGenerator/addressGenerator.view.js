@@ -72,7 +72,7 @@ function AddressCopyBoard({
           label={"收貨地址"}
           onClickCopyableTextField={onClickCopyableTextField}
           textarea
-          value={`广东省珠海香洲区南屏科技园三精实业想送澳提仓 ${shopNumber} ${smsNumber}`}
+          value={`广东省珠海香洲区南屏科技园三精实业 想送澳提仓 ${shopNumber} ${smsNumber}`}
         />
       </Form>
 
@@ -91,7 +91,7 @@ function CopyableTextField({
     <ClientApplicationFormField
       as={textarea ? "textarea" : "input"}
       label={label}
-      onClick={() => onClickCopyableTextField(label, value)}
+      // onClick={() => onClickCopyableTextField(label, value)}
       readOnly
       value={value}
     />
