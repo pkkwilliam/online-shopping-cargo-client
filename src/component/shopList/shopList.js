@@ -36,24 +36,12 @@ export default class ShopList extends ClientApplicationComponent {
         }}
       >
         <InstructionText>點擊門店詳情生成收貨地址</InstructionText>
-        <View
-          style={{
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <P>門店例表更新中，請稍後再試</P>
-          <Spinner
-            animation="grow"
-            style={{ marginLeft: 10 }}
-            variant="warning"
-          />
-        </View>
+
         <Accordion>
-          {/* <ShopsDisplay
+          <ShopsDisplay
             shops={this.state.shops}
             onSelectShop={this.props.onSelectShop}
-          /> */}
+          />
         </Accordion>
       </View>
     );

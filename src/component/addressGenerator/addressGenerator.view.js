@@ -50,8 +50,8 @@ function AddressCopyBoard({
   onClickCopyableTextField,
   onClickRestart,
 }) {
-  const { name, smsNumber, zyId } = userProfile;
-  const { areaShopName, shopNumber } = shopSelected;
+  const smsNumber = generateReadablePhoneNumber(userProfile.smsNumber);
+  const { shopNumber } = shopSelected;
   return (
     <>
       <InstructionText>
@@ -61,23 +61,18 @@ function AddressCopyBoard({
         <CopyableTextField
           label={"收件人"}
           onClickCopyableTextField={onClickCopyableTextField}
-          value={`${name ? name : ""}-${smsNumber}-${zyId ?? ""}`}
+          value={`OT-${shopNumber} ${smsNumber}`}
         />
         <CopyableTextField
-          label={"聯繫電話"}
+          label={"收貨人電話"}
           onClickCopyableTextField={onClickCopyableTextField}
-          value={"18928042433"}
-        />
-        <CopyableTextField
-          label={"地區"}
-          onClickCopyableTextField={onClickCopyableTextField}
-          value={"廣東省-珠海市-香洲區-拱北街道"}
+          value={"13392543914"}
         />
         <CopyableTextField
           label={"收貨地址"}
           onClickCopyableTextField={onClickCopyableTextField}
           textarea
-          value={`珠海市夏湾港昌路入中源倉澳提代收${shopNumber}-${areaShopName}(${smsNumber}-${zyId})`}
+          value={`广东省珠海香洲区南屏科技园三精实业想送澳提仓 ${shopNumber} ${smsNumber}`}
         />
       </Form>
 
@@ -101,4 +96,8 @@ function CopyableTextField({
       value={value}
     />
   );
+}
+
+function generateReadablePhoneNumber(phoneNumber) {
+  return `${phoneNumber.slice(0, 4)}-${phoneNumber.slice(4)}`;
 }
