@@ -148,9 +148,6 @@ function CostTable() {
   return (
     <div style={{ marginTop: 15 }}>
       <h6>代收費用</h6>
-      <P style={disclaimerText}>代收費用 = 長寛高尺吋費用 + 重量費用</P>
-      <P style={disclaimerText}>{"不增反減: 當長寛高尺吋 >= 120cm, 即減$1"}</P>
-      <P style={disclaimerText}>所有包裹均享有72小時免費存放</P>
       <View
         style={{
           alignItems: "center",
@@ -171,6 +168,12 @@ function CostTable() {
           <tbody>{WeightFeeRows}</tbody>
         </CostCalculatorTable>
       </View>
+      <P style={disclaimerText}>*代收費用 = 長寛高尺吋費用 + 重量費用</P>
+      {/* <P style={disclaimerText}>{"不增反減: 當長寛高尺吋 >= 120cm, 即減$1"}</P> */}
+      <P style={disclaimerText}>*所有包裹均享有72小時免費存放</P>
+      <P style={disclaimerText}>
+        *10kg及以上包裹，若體積重大於實際重量，則按體積重計算重量。(體積重計算公式=長cmX寬cmX高cm/6000)
+      </P>
     </div>
   );
 }
@@ -210,11 +213,11 @@ function TextField({ label, onChangeValue, placeholder, target }) {
 }
 
 function generateSizeSumFee(numberOfRow) {
-  const base = 60;
+  const base = 20;
   const costBase = 2;
   const initialRow = (
     <tr>
-      <TableItem>0~60</TableItem>
+      <TableItem>0~20</TableItem>
       <TableItem>$1</TableItem>
     </tr>
   );

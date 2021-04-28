@@ -29,7 +29,10 @@ export default class AddressGenerator extends UserProfileComponent {
         show: true,
       },
     });
-    navigator.clipboard.writeText(value);
+    navigator.clipboard
+      .writeText(value)
+      .then(() => console.log("text copied"))
+      .catch((ex) => console.log(ex));
   };
 
   onClickRestart = () => {
