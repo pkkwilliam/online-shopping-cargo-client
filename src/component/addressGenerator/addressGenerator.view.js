@@ -5,6 +5,7 @@ import ApplicationTextButton from "online-shopping-cargo-parent/dist/application
 import ShopList from "../shopList/shopList";
 import InstructionText from "../common/instructionText";
 import ClientApplicationFormField from "../common/clientApplicationFormField";
+import P from "online-shopping-cargo-parent/dist/text/paragraph";
 
 export default class AddressGeneratorView extends ApplicationComponentView {
   render() {
@@ -75,8 +76,8 @@ function AddressCopyBoard({
           value={`广东省珠海香洲区南屏科技园三精实业 想送澳提仓 ${shopNumber} ${smsNumber}`}
         />
       </Form>
-
       <RestartButton onClickRestart={onClickRestart} />
+      <BannedItemsDisclaimer />
     </>
   );
 }
@@ -100,4 +101,13 @@ function CopyableTextField({
 
 function generateReadablePhoneNumber(phoneNumber) {
   return `${phoneNumber.slice(0, 4)}-${phoneNumber.slice(4)}`;
+}
+
+function BannedItemsDisclaimer(props) {
+  return (
+    <div style={{ marginTop: 15 }}>
+      <h5>禁運物品</h5>
+      <P style={{ color: "red", fontSize: 16 }}>*煙酒生鮮、仿牌、危化品</P>
+    </div>
+  );
 }
