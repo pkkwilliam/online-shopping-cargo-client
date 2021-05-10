@@ -2,7 +2,7 @@ import React from "react";
 import Carousel from "react-bootstrap/esm/Carousel";
 import ClientApplicationComponent from "../clientApplicationComponent";
 import { GET_GITHUB_JSON_CONTENT } from "online-shopping-cargo-parent/dist/service";
-import { SAVE_TO_DESKTOP, TUTORIAL } from "../../routes";
+import { ADDRESS_GENERATOR, SAVE_TO_DESKTOP, TUTORIAL } from "../../routes";
 
 import "./eyeCatch.css";
 
@@ -52,6 +52,9 @@ export default class EyeCatch extends ClientApplicationComponent {
 
 function onClickEyeCatch(action) {
   switch (action) {
+    case "DELIVERY":
+      window.location.href = ADDRESS_GENERATOR.url;
+      break;
     case "INSTALL":
       window.location.href = SAVE_TO_DESKTOP.url;
       break;

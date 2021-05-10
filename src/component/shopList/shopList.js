@@ -1,6 +1,7 @@
 import React from "react";
 import ClientApplicationComponent from "../clientApplicationComponent";
 import {
+  GET_GITHUB_JSON_CONTENT,
   GET_SHOPS,
   GITHUB_CONTENT_URL,
 } from "online-shopping-cargo-parent/dist/service";
@@ -12,7 +13,6 @@ import ApplicationButton from "online-shopping-cargo-parent/dist/applicationButt
 import ApplicationTextButton from "online-shopping-cargo-parent/dist/applicationTextButton";
 import View from "online-shopping-cargo-parent/dist/view";
 import InstructionText from "../common/instructionText";
-import Spinner from "react-bootstrap/esm/Spinner";
 
 export default class ShopList extends ClientApplicationComponent {
   state = {
@@ -35,24 +35,78 @@ export default class ShopList extends ClientApplicationComponent {
           flexDirection: "column",
         }}
       >
-        <InstructionText>點擊門店詳情生成收貨地址</InstructionText>
-
-        <Accordion>
-          <ShopsDisplay
-            shops={this.state.shops}
-            onSelectShop={this.props.onSelectShop}
-          />
-        </Accordion>
+        <ShopsDisplay
+          shops={this.state.shops}
+          onSelectShop={this.props.onSelectShop}
+        />
       </View>
     );
   }
 }
 
+function DeliveryShopDetail({ shopName, shopPhoneNumber, wechatId }) {
+  return (
+    <>
+      <P style={{ fontWeight: 600, marginTop: 8 }}>
+        {`收費方式: 首公斤$6 + 續重每公斤$4\n此收費不會與正常代收費用重覆計算。`}
+      </P>
+      <P style={{ color: "red", marginBottom: 8 }}>
+        *詳細收費公式將會在3天內公布，敬請留意。
+      </P>
+      <P>電話:{shopPhoneNumber}</P>
+      {wechatId ? <P>微信:{wechatId}</P> : null}
+    </>
+  );
+}
+
+function PickupShopDetail({
+  openingHour,
+  shopAddress,
+  shopName,
+  shopPhoneNumber,
+  wechatId,
+}) {
+  return (
+    <>
+      <P>店名:{shopName}</P>
+      <P>地址:{shopAddress}</P>
+      <P>營業時間:{openingHour}</P>
+      <P>電話:{shopPhoneNumber}</P>
+      {wechatId ? <P>微信:{wechatId}</P> : null}
+    </>
+  );
+}
+
 function ShopsDisplay({ shops, onSelectShop }) {
   shops.sort((shop1, shop2) => shop1.shopNumber - shop2.shopNumber);
-  return shops.map((shop, index) => (
+
+  const deliveryShops = [];
+  const pickupShops = [];
+
+  shops.forEach((shop) => {
+    if (shop.shopType === "DELIVERY") {
+      deliveryShops.push(shop);
+    } else {
+      pickupShops.push(shop);
+    }
+  });
+
+  const deliveryShopsCard = deliveryShops.map((shop, index) => (
     <ShopCard index={index + 1} shop={shop} onSelectShop={onSelectShop} />
   ));
+
+  const pickupShopsCard = pickupShops.map((shop, index) => (
+    <ShopCard index={index + 1} shop={shop} onSelectShop={onSelectShop} />
+  ));
+
+  return (
+    <>
+      <InstructionText>送貨上門</InstructionText>
+      <Accordion>{deliveryShopsCard}</Accordion>
+      <InstructionText>代收門店</InstructionText>
+      <Accordion>{pickupShopsCard}</Accordion>
+    </>
+  );
 }
 
 function ShopCard({ index, shop, onSelectShop }) {
@@ -65,8 +119,10 @@ function ShopCard({ index, shop, onSelectShop }) {
     shopName,
     shopNumber,
     shopPhoneNumber,
+    shopType,
     wechatId,
   } = shop;
+  const isPickupShop = shopType === "PICK_UP";
   const images = imageUrls.map((imageUrl) => (
     <ShopImage imageUrl={`${GITHUB_CONTENT_URL}${imageUrl}`} />
   ));
@@ -85,6 +141,12 @@ function ShopCard({ index, shop, onSelectShop }) {
       <Accordion.Collapse eventKey={index}>
         <div>
           <LineBreak style={{ marginBottom: 5, marginTop: 5 }} />
+          {isPickupShop ? (
+            <PickupShopDetail {...shop} />
+          ) : (
+            <DeliveryShopDetail {...shop} />
+          )}
+
           <ApplicationButton
             block
             onClick={() => onSelectShop(shop)}
@@ -92,11 +154,6 @@ function ShopCard({ index, shop, onSelectShop }) {
           >
             創建收貨地址
           </ApplicationButton>
-          <P>店名:{shopName}</P>
-          <P>地址:{shopAddress}</P>
-          <P>營業時間:{openingHour}</P>
-          <P>電話:{shopPhoneNumber}</P>
-          {wechatId ? <P>微信:{wechatId}</P> : null}
           {images}
         </div>
       </Accordion.Collapse>
@@ -105,5 +162,15 @@ function ShopCard({ index, shop, onSelectShop }) {
 }
 
 function ShopImage({ imageUrl }) {
-  return <img alt="shop_image" src={imageUrl} style={{ width: "100%" }} />;
+  return (
+    <img
+      alt="shop_image"
+      src={imageUrl}
+      style={{ borderRadius: 10, width: "100%" }}
+    />
+  );
+}
+
+function getDeliveryInfo() {
+  this.serviceExecutor.execute(GET_GITHUB_JSON_CONTENT());
 }
