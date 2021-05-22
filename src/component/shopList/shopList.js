@@ -50,9 +50,9 @@ function DeliveryShopDetail({ shopName, shopPhoneNumber, wechatId }) {
       <P style={{ fontWeight: 600, marginTop: 8 }}>
         {`收費方式: 首公斤$6 + 續重每公斤$4\n此收費不會與正常代收費用重覆計算。`}
       </P>
-      <P style={{ color: "red", marginBottom: 8 }}>
+      {/* <P style={{ color: "red", marginBottom: 8 }}>
         *詳細收費公式將會在3天內公布，敬請留意。
-      </P>
+      </P> */}
       <P>電話:{shopPhoneNumber}</P>
       {wechatId ? <P>微信:{wechatId}</P> : null}
     </>
