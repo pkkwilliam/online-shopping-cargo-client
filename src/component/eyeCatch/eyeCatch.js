@@ -68,7 +68,7 @@ function onClickEyeCatch(action) {
 
 const styles = {
   carousel: {
-    paddingTop: 55,
+    paddingTop: 40,
     paddingBottom: 10,
   },
 };

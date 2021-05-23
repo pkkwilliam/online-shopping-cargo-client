@@ -16,7 +16,7 @@ export default class PickupQRCodeView extends ApplicationComponentView {
           style={{
             backgroundColor: styleSchema.color.primaryLight,
             padding: 15,
-            paddingTop: 27,
+            paddingTop: 15,
           }}
         >
           <this.QRCodeSection {...this.props} />

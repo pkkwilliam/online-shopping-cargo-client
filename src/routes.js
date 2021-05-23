@@ -11,11 +11,17 @@ import {
   KeyFill,
   PersonCheck,
   PersonFill,
+  Signpost2,
   Shop,
   TextareaT,
   UpcScan,
 } from "react-bootstrap-icons";
 
+// icons https://icons.getbootstrap.com/
+export const EditAddress = React.lazy(() =>
+  import("./component/editAddress/editAddress")
+);
+export const Address = React.lazy(() => import("./component/address/address"));
 export const AllowedBy = React.lazy(() =>
   import("./component/thirdPersonPickup/allowedBy")
 );
@@ -72,6 +78,15 @@ export const styles = {
   },
 };
 
+export const ADDRESS = {
+  icon: <Signpost2 style={styles.icon} />,
+  component: <Address />,
+  disabledWhenUserTokenPresent: false,
+  hideCard: true,
+  label: "送貨上門地址",
+  sectionContainer: true,
+  url: "/address",
+};
 export const ADDRESS_GENERATOR = {
   icon: <TextareaT style={styles.icon} />,
   component: <AddressGenerator />,
@@ -108,7 +123,15 @@ export const CHANGE_PASSWORD = {
   sectionContainer: true,
   url: "/changePassword",
 };
-
+export const EDIT_ADDRESS = {
+  icon: <Signpost2 style={styles.icon} />,
+  component: <EditAddress />,
+  disabledWhenUserTokenPresent: false,
+  hideCard: true,
+  label: "地址",
+  sectionContainer: true,
+  url: "/editAddress",
+};
 export const LANDING_PAGE = {
   icon: <KeyFill style={styles.icon} />,
   component: <LandingPage />,
@@ -208,6 +231,8 @@ export const USER_PROFILE = {
 };
 
 export default [
+  ADDRESS,
+  EDIT_ADDRESS,
   LOGIN,
   THIRD_PERSON,
   ALLOWED_BY,

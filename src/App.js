@@ -16,7 +16,7 @@ export default function App(props) {
         backgroundColor: "#f3f3f3",
         display: "flex",
         flexDirection: "column",
-        minHeight: "-webkit-fill-available",
+        height: "100vh",
         overflow: "auto",
       }}
     >
@@ -39,6 +39,7 @@ function getRoutes() {
         <div
           style={{
             backgroundColor: backgroundColor ? backgroundColor : "#f3f3f3",
+            height: "inherit",
           }}
         >
           {sectionContainer ? (
