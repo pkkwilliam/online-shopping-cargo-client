@@ -10,7 +10,11 @@ export default function AddressView(props) {
   const { addresses, onClickAddress, onClickAddAddress, onClickEditAddress } =
     props;
   const AddressCards = addresses.map((address) => (
-    <Address address={address} onClickEditAddress={onClickEditAddress} />
+    <Address
+      address={address}
+      onClickAddress={onClickAddress}
+      onClickEditAddress={onClickEditAddress}
+    />
   ));
   return (
     <View
@@ -20,7 +24,7 @@ export default function AddressView(props) {
         justifyContent: "space-between",
       }}
     >
-      {AddressCards}
+      <View style={{ flexDirection: "column" }}>{AddressCards}</View>
       <AddAddress onClickAddAddress={onClickAddAddress} />
     </View>
   );
@@ -29,6 +33,7 @@ export default function AddressView(props) {
 function AddAddress({ onClickAddAddress }) {
   return (
     <ApplicationButton
+      block
       onClick={onClickAddAddress}
       style={{
         alignItems: "center",
@@ -43,17 +48,21 @@ function AddAddress({ onClickAddAddress }) {
   );
 }
 
-function Address({ address, onClickEditAddress }) {
+function Address({ address, onClickAddress, onClickEditAddress }) {
   const { contactName, defaultShipping, phoneNumber, street, unit } = address;
   return (
     <BackgroundCard
       style={{
         alignItems: "center",
-        justifyContent: "space-between",
         display: "flex",
+        justifyContent: "space-between",
+        marginBottom: 15,
       }}
     >
-      <View style={{ flexDirection: "column" }}>
+      <View
+        onClick={() => onClickAddress(address)}
+        style={{ flexDirection: "column" }}
+      >
         <P style={{ fontWeight: 500 }}>{`${contactName} ${phoneNumber}`}</P>
         <P>{`${street} ${unit}`}</P>
       </View>

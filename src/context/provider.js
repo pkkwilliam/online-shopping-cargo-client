@@ -27,7 +27,7 @@ export class Provider extends Component {
           address: {
             ...address,
             setAddress: this.setAddress,
-            setAddressDitry: this.setAddressDirty,
+            setAddressDirty: this.setAddressDirty,
           },
           notificationToken: {
             ...notificationToken,

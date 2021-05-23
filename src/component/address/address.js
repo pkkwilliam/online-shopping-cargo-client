@@ -37,15 +37,17 @@ class Address extends UserProfileComponent {
   };
 
   onClickEditAddress = (address) => {
-    this.goTo(EDIT_ADDRESS, address);
+    this.goTo(EDIT_ADDRESS, { address });
   };
 
   getAddress() {
-    this.serviceExecutor
-      .execute(GET_ALL_ADDRESS_BY_USER())
-      .then((addresses) => {
-        this.appState.address.setAddress(addresses);
-      });
+    if (this.appState.address.dirty) {
+      this.serviceExecutor
+        .execute(GET_ALL_ADDRESS_BY_USER())
+        .then((addresses) => {
+          this.appState.address.setAddress(addresses);
+        });
+    }
   }
 }
 
