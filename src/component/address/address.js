@@ -30,7 +30,10 @@ class Address extends UserProfileComponent {
     );
   }
 
-  onClickAddress = () => {};
+  onClickAddress = (address) => {
+    this.appState.address.setSelectedAddress(address);
+    this.goBack();
+  };
 
   onClickAddAddress = () => {
     this.goTo(EDIT_ADDRESS);

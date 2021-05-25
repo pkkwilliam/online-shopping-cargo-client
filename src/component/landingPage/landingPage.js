@@ -10,12 +10,18 @@ export default class LandingPage extends ClientApplicationComponent {
 
   componentDidMount() {
     super.componentDidMount();
-    this.setNotificationToken();
+    this.setAppParam();
     this.getImportantNotice();
   }
 
   render() {
-    return <LandingPageView userToken={this.userToken} {...this.state} />;
+    return (
+      <LandingPageView
+        isApp={this.isApp}
+        userToken={this.userToken}
+        {...this.state}
+      />
+    );
   }
 
   getImportantNotice() {
@@ -24,12 +30,18 @@ export default class LandingPage extends ClientApplicationComponent {
       .then((importantNotices) => this.setState({ importantNotices }));
   }
 
-  setNotificationToken() {
+  setAppParam() {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
+    const isApp = urlParams.get("isApp");
     const token = urlParams.get("notificationToken");
+    console.debug("app user", isApp);
+    console.debug("client notification token", token);
     if (token) {
       this.appState.notificationToken.setNotificationToken(token);
+    }
+    if (isApp) {
+      this.isApp = isApp === "true";
     }
   }
 }

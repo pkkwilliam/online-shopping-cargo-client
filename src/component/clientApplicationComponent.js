@@ -9,6 +9,7 @@ import {
 export default class ClientApplicationComponent extends ApplicationComponent {
   static contextType = CargoManagementContext;
 
+  static _isApp = false;
   static _notificationToken = "";
 
   _clientApplicationContext = new ClientApplicationContext();
@@ -26,6 +27,10 @@ export default class ClientApplicationComponent extends ApplicationComponent {
         this.appState.user.setUserProfile(userProfile);
       });
     }
+  }
+
+  goBack() {
+    window.history.back();
   }
 
   goTo(page, params = {}) {
@@ -58,8 +63,16 @@ export default class ClientApplicationComponent extends ApplicationComponent {
     return this.context;
   }
 
+  get isApp() {
+    return ClientApplicationComponent._isApp;
+  }
+
   get notificationToken() {
     return ClientApplicationComponent._notificationToken;
+  }
+
+  set isApp(isApp) {
+    ClientApplicationComponent._isApp = isApp;
   }
 
   set notificationToken(notificationToken) {

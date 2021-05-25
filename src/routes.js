@@ -14,6 +14,7 @@ import {
   Signpost2,
   Shop,
   TextareaT,
+  Truck,
   UpcScan,
 } from "react-bootstrap-icons";
 
@@ -51,6 +52,9 @@ export const Register = React.lazy(() =>
 );
 export const SaveToDesktop = React.lazy(() =>
   import("./component/saveToDesktop/saveToDesktop")
+);
+export const ShipToHome = React.lazy(() =>
+  import("./component/shipToHome/shipToHome")
 );
 export const ShopList = React.lazy(() =>
   import("./component/shopList/shopList")
@@ -192,6 +196,15 @@ export const SAVE_TO_DESKTOP = {
   sectionContainer: false,
   url: "/saveToDesktop",
 };
+export const SHIP_TO_HOME = {
+  icon: <Truck style={styles.icon} />,
+  component: <ShipToHome />,
+  disabledWhenUserTokenPresent: false,
+  hideCard: true,
+  label: "送貨上門",
+  sectionContainer: true,
+  url: "/shipToHome",
+};
 export const SHOP_LIST = {
   icon: <Shop style={styles.icon} />,
   component: <ShopList />,
@@ -243,6 +256,7 @@ export default [
   CALCULATOR,
   MATCH_BAD_PARCEL,
   SAVE_TO_DESKTOP,
+  SHIP_TO_HOME,
   SHOP_LIST,
   ADDRESS_GENERATOR,
   CHANGE_PASSWORD,
