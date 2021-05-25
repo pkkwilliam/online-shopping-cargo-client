@@ -11,7 +11,6 @@ import {
   DELETE_ADDRESS,
   UPDATE_ADDRESS,
 } from "online-shopping-cargo-parent/dist/service";
-import { ADDRESS } from "../../routes";
 import { getCountryObjectByCode } from "online-shopping-cargo-parent/dist/applicationPhoneNumberTextField";
 
 class EditAddress extends UserProfileComponent {
@@ -141,7 +140,7 @@ class EditAddress extends UserProfileComponent {
       },
     });
     this.appState.address.setAddressDirty();
-    setTimeout(() => this.goTo(ADDRESS), 1500);
+    setTimeout(() => this.goBack(), 1500);
   }
 }
 
