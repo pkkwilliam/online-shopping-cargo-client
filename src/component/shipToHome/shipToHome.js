@@ -47,7 +47,7 @@ class ShipToHome extends UserProfileComponent {
   async getShipToHomeParcels() {
     const parcelInfo = await this.serviceExecutor.execute(GET_PARCELS());
     const shipToHomeParcels = parcelInfo.parcels.filter(
-      (parcel) => parcel.parcelType === "SHIP_TO_HOME"
+      (parcel) => parcel.parcelType === "SHIP_TO_HOME" && parcel.active
     );
     this.setState({
       parcels: shipToHomeParcels,

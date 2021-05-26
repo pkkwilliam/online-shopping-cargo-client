@@ -29,7 +29,7 @@ export default function ShipToHomeView(props) {
           <AddressSection {...props} />
           <ParcelSection {...props} />
         </View>
-        <View>
+        <View style={{ bottom: 0, position: "sticky" }}>
           <BottomTab {...props} />
         </View>
       </View>
