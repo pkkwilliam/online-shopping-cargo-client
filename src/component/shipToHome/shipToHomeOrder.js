@@ -1,26 +1,28 @@
 import React from "react";
 import UserProfileComponent from "../common/userProfileComponent";
 import { withRouter } from "react-router-dom";
-import ShipToHomeView from "./shipToHome.view";
 import { ADDRESS } from "../../routes";
+import ShipToHomeOrderView from "./shipToHomeOrder.view";
 
-class ShipToHome extends UserProfileComponent {
+class ShipToHomeOrder extends UserProfileComponent {
   state = {
     ...this.state,
     cost: 0,
     loading: false,
+    parcels: [],
   };
 
   componentDidMount() {
     super.componentDidMount();
     this.appStateService.getAddress();
-    this.appStateService.getParcels();
+    this.appStateService.getShipToHomeOrders();
   }
 
   render() {
     const { address, parcel } = this.appState;
+
     return (
-      <ShipToHomeView
+      <ShipToHomeOrderView
         parcels={this.getShipToHomeParcels(parcel.parcels)}
         selectedAddress={address.selectedAddress}
         onClickParcel={this.onClickParcel}
@@ -33,9 +35,10 @@ class ShipToHome extends UserProfileComponent {
   }
 
   getShipToHomeParcels(parcels) {
-    return parcels.filter(
-      (parcel) => parcel.parcelType === "SHIP_TO_HOME" && parcel.active
-    );
+    return parcels;
+    // return parcels.filter(
+    //   (parcel) => parcel.parcelType === "SHIP_TO_HOME" && parcel.active
+    // );
   }
 
   calculateCost() {
@@ -65,4 +68,4 @@ class ShipToHome extends UserProfileComponent {
   };
 }
 
-export default withRouter(ShipToHome);
+export default withRouter(ShipToHomeOrder);

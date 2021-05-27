@@ -2,6 +2,7 @@ import { GET_GITHUB_JSON_CONTENT } from "online-shopping-cargo-parent/dist/servi
 import React from "react";
 import ClientApplicationComponent from "../clientApplicationComponent";
 import LandingPageView from "./landingPage.view";
+
 export default class LandingPage extends ClientApplicationComponent {
   state = {
     ...this.state,
@@ -10,7 +11,6 @@ export default class LandingPage extends ClientApplicationComponent {
 
   componentDidMount() {
     super.componentDidMount();
-    this.setAppParam();
     // this.getImportantNotice();
   }
 

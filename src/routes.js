@@ -7,6 +7,7 @@ import {
   ClipboardCheck,
   Check2Circle,
   Eyeglasses,
+  JournalText,
   Key,
   KeyFill,
   PersonCheck,
@@ -58,6 +59,9 @@ export const ShipToHome = React.lazy(() =>
 );
 export const ShipToHomeLandingPage = React.lazy(() =>
   import("./component/shipToHome/shipToHomeLandingPage")
+);
+export const ShipToHomeOrder = React.lazy(() =>
+  import("./component/shipToHome/shipToHomeOrder")
 );
 export const ShopList = React.lazy(() =>
   import("./component/shopList/shopList")
@@ -217,6 +221,15 @@ export const SHIP_TO_HOME_LANDING_PAGE = {
   sectionContainer: true,
   url: "/shipToHomeLandingPage",
 };
+export const SHIP_TO_HOME_ORDER = {
+  icon: <JournalText style={styles.icon} />,
+  component: <ShipToHomeOrder />,
+  disabledWhenUserTokenPresent: false,
+  hideCard: true,
+  label: "我的訂單",
+  sectionContainer: true,
+  url: "/shipToHomeOrder",
+};
 export const SHOP_LIST = {
   icon: <Shop style={styles.icon} />,
   component: <ShopList />,
@@ -270,6 +283,7 @@ export default [
   SAVE_TO_DESKTOP,
   SHIP_TO_HOME,
   SHIP_TO_HOME_LANDING_PAGE,
+  SHIP_TO_HOME_ORDER,
   SHOP_LIST,
   ADDRESS_GENERATOR,
   CHANGE_PASSWORD,

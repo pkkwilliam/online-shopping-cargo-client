@@ -14,8 +14,11 @@ export default class ClientApplicationComponent extends ApplicationComponent {
   _clientApplicationContext = new ClientApplicationContext();
 
   componentDidMount() {
-    this.appStateService.getUserProfile();
-    // notification token is very import, rather to run it everytime then miss it
+    if (this.userToken) {
+      console.log(this.userToken);
+      this.appStateService.getUserProfile();
+      // notification token is very import, rather to run it everytime then miss it
+    }
     this.setAppParam();
   }
 

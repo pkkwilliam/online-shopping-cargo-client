@@ -15,7 +15,7 @@ import ApplicationButton from "online-shopping-cargo-parent/dist/applicationButt
 import { Badge, Table } from "react-bootstrap";
 import ParcelDisplayUtil from "online-shopping-cargo-parent/dist/parcelDisplayUtil";
 
-export default function ShipToHomeView(props) {
+export default function ShipToHomeOrderView(props) {
   return (
     <ApplicationComponentView>
       <View
@@ -25,13 +25,14 @@ export default function ShipToHomeView(props) {
           justifyContent: "space-between",
         }}
       >
-        <View style={{ flexDirection: "column" }}>
+        我的訂單
+        {/* <View style={{ flexDirection: "column" }}>
           <AddressSection {...props} />
           <ParcelSection {...props} />
         </View>
         <View style={{ bottom: 0, position: "sticky" }}>
           <BottomTab {...props} />
-        </View>
+        </View> */}
       </View>
     </ApplicationComponentView>
   );
@@ -74,7 +75,7 @@ function AddressSection({ selectedAddress, onClickSelectAddressButton }) {
         {Address}
         <View onClick={onClickSelectAddressButton}>
           <ChevronRight
-            style={{ color: styleSchema.color.secondaryDark, fontSize: 18 }}
+            style={{ color: styleSchema.color.secondaryDark, fontSize: 28 }}
           />
         </View>
       </View>

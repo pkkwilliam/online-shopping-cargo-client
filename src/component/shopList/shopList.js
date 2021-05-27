@@ -2,7 +2,6 @@ import React from "react";
 import ClientApplicationComponent from "../clientApplicationComponent";
 import {
   GET_GITHUB_JSON_CONTENT,
-  GET_SHOPS,
   GITHUB_CONTENT_URL,
 } from "online-shopping-cargo-parent/dist/service";
 import LineBreak from "online-shopping-cargo-parent/dist/lineBreak";
@@ -17,15 +16,10 @@ import InstructionText from "../common/instructionText";
 export default class ShopList extends ClientApplicationComponent {
   state = {
     ...this.state,
-    shops: [],
   };
 
   componentDidMount() {
-    this.serviceExecutor.execute(GET_SHOPS()).then((shops) =>
-      this.setState({
-        shops,
-      })
-    );
+    this.appStateService.getShops();
   }
 
   render() {
@@ -36,7 +30,7 @@ export default class ShopList extends ClientApplicationComponent {
         }}
       >
         <ShopsDisplay
-          shops={this.state.shops}
+          shops={this.appState.shop.shops}
           onSelectShop={this.props.onSelectShop}
         />
       </View>
