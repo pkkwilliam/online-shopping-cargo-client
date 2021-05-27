@@ -14,7 +14,7 @@ import {
   CALCULATOR,
   ADDRESS_GENERATOR,
   SAVE_TO_DESKTOP,
-  SHIP_TO_HOME,
+  SHIP_TO_HOME_LANDING_PAGE,
 } from "../../routes";
 import { styleSchema } from "online-shopping-cargo-parent/dist/styleSchema";
 
@@ -85,7 +85,7 @@ function getMenuItems(isApp, userToken) {
     return [
       USER_PROFILE,
       PICKUP_QR_CODE,
-      SHIP_TO_HOME,
+      SHIP_TO_HOME_LANDING_PAGE,
       MY_PARCEL,
       TUTORIAL,
       CALCULATOR,

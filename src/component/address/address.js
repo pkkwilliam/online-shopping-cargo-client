@@ -1,4 +1,3 @@
-import { GET_ALL_ADDRESS_BY_USER } from "online-shopping-cargo-parent/dist/service";
 import React from "react";
 import UserProfileComponent from "../common/userProfileComponent";
 import AddressView from "./address.view";
@@ -15,7 +14,7 @@ class Address extends UserProfileComponent {
   }
 
   initialServiceRequest() {
-    this.getAddress();
+    this.appStateService.getAddress();
   }
 
   render() {
@@ -42,16 +41,6 @@ class Address extends UserProfileComponent {
   onClickEditAddress = (address) => {
     this.goTo(EDIT_ADDRESS, { address });
   };
-
-  getAddress() {
-    if (this.appState.address.dirty) {
-      this.serviceExecutor
-        .execute(GET_ALL_ADDRESS_BY_USER())
-        .then((addresses) => {
-          this.appState.address.setAddress(addresses);
-        });
-    }
-  }
 }
 
 export default withRouter(Address);

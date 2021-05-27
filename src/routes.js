@@ -3,7 +3,7 @@ import { styleSchema } from "online-shopping-cargo-parent/dist/styleSchema";
 import {
   BoxArrowInDown,
   BoxSeam,
-  CalculatorFill,
+  Calculator,
   ClipboardCheck,
   Check2Circle,
   Eyeglasses,
@@ -56,6 +56,9 @@ export const SaveToDesktop = React.lazy(() =>
 export const ShipToHome = React.lazy(() =>
   import("./component/shipToHome/shipToHome")
 );
+export const ShipToHomeLandingPage = React.lazy(() =>
+  import("./component/shipToHome/shipToHomeLandingPage")
+);
 export const ShopList = React.lazy(() =>
   import("./component/shopList/shopList")
 );
@@ -87,7 +90,7 @@ export const ADDRESS = {
   component: <Address />,
   disabledWhenUserTokenPresent: false,
   hideCard: true,
-  label: "送貨上門地址",
+  label: "我的地址",
   sectionContainer: true,
   url: "/address",
 };
@@ -110,7 +113,7 @@ export const ALLOWED_BY = {
   url: "/allowedBy",
 };
 export const CALCULATOR = {
-  icon: <CalculatorFill style={styles.icon} />,
+  icon: <Calculator style={styles.icon} />,
   component: <CostCalculator />,
   disabledWhenUserTokenPresent: false,
   hideCard: true,
@@ -205,6 +208,15 @@ export const SHIP_TO_HOME = {
   sectionContainer: true,
   url: "/shipToHome",
 };
+export const SHIP_TO_HOME_LANDING_PAGE = {
+  icon: <Truck style={styles.icon} />,
+  component: <ShipToHomeLandingPage />,
+  disabledWhenUserTokenPresent: false,
+  hideCard: true,
+  label: "送貨上門",
+  sectionContainer: true,
+  url: "/shipToHomeLandingPage",
+};
 export const SHOP_LIST = {
   icon: <Shop style={styles.icon} />,
   component: <ShopList />,
@@ -257,6 +269,7 @@ export default [
   MATCH_BAD_PARCEL,
   SAVE_TO_DESKTOP,
   SHIP_TO_HOME,
+  SHIP_TO_HOME_LANDING_PAGE,
   SHOP_LIST,
   ADDRESS_GENERATOR,
   CHANGE_PASSWORD,

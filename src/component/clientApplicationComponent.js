@@ -1,32 +1,22 @@
 import ApplicationComponent from "online-shopping-cargo-parent/dist/applicationComponent";
 import ClientApplicationContext from "./clientApplicationContext";
 import { CargoManagementContext } from "../context/provider";
-import {
-  GET_USER_PROFILE,
-  LINK_PUSH_NOTIFICATION_TOKEN,
-} from "online-shopping-cargo-parent/dist/service";
+import { LINK_PUSH_NOTIFICATION_TOKEN } from "online-shopping-cargo-parent/dist/service";
+import AppStateService from "./appStateService";
 
 export default class ClientApplicationComponent extends ApplicationComponent {
   static contextType = CargoManagementContext;
 
+  static _appStateService;
   static _isApp = false;
   static _notificationToken = "";
 
   _clientApplicationContext = new ClientApplicationContext();
 
   componentDidMount() {
-    if (this.userToken) {
-      this.getUserProfile();
-      this.linkNotificationToken();
-    }
-  }
-
-  async getUserProfile() {
-    if (this.appState.user.dirty) {
-      this.serviceExecutor.execute(GET_USER_PROFILE()).then((userProfile) => {
-        this.appState.user.setUserProfile(userProfile);
-      });
-    }
+    this.appStateService.getUserProfile();
+    // notification token is very import, rather to run it everytime then miss it
+    this.setAppParam();
   }
 
   goBack() {
@@ -42,17 +32,32 @@ export default class ClientApplicationComponent extends ApplicationComponent {
     });
   }
 
-  get routerParams() {
-    // import { withRouter } from 'react-router-dom'
-    // export default withRouter(MyComponent)
-    return this.props.location.state;
-  }
-
   async linkNotificationToken() {
     const { dirty, token } = this.appState.notificationToken;
     if (dirty && token) {
       this.serviceExecutor.execute(LINK_PUSH_NOTIFICATION_TOKEN(token));
     }
+  }
+
+  setAppParam() {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const isApp = urlParams.get("isApp");
+    const token = urlParams.get("notificationToken");
+    console.debug("app user", isApp);
+    console.debug("client notification token", token);
+    if (token) {
+      this.appStateService.linkNotificationToken(token);
+    }
+    if (isApp) {
+      this.isApp = isApp === "true";
+    }
+  }
+
+  get routerParams() {
+    // import { withRouter } from 'react-router-dom'
+    // export default withRouter(MyComponent)
+    return this.props.location.state;
   }
 
   get applicationContext() {
@@ -61,6 +66,16 @@ export default class ClientApplicationComponent extends ApplicationComponent {
 
   get appState() {
     return this.context;
+  }
+
+  get appStateService() {
+    if (!this._appStateService) {
+      this._appStateService = new AppStateService(
+        this.appState,
+        this.serviceExecutor
+      );
+    }
+    return this._appStateService;
   }
 
   get isApp() {

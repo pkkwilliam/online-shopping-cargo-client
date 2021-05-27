@@ -1,24 +1,20 @@
 import React from "react";
-import { GET_PARCELS } from "online-shopping-cargo-parent/dist/service";
 import ParcelDisplayUtil from "online-shopping-cargo-parent/dist/parcelDisplayUtil";
 import TrackingView from "./tracking.view";
 import UserProfileComponent from "../common/userProfileComponent";
 export default class Tracking extends UserProfileComponent {
   state = {
     ...this.state,
-    parcelResponses: {
-      parcels: [],
-    },
     showDetaiDisplayId: 0,
   };
 
   initialServiceRequest() {
-    this.onTrack();
+    this.appStateService.getParcels();
   }
 
   render() {
     const sortedParcels = new ParcelDisplayUtil().sortParcels(
-      this.state.parcelResponses?.parcels
+      this.appState.parcel.parcels
     );
     return (
       <TrackingView
@@ -45,12 +41,4 @@ export default class Tracking extends UserProfileComponent {
       header: "AWS 伺服器出錯 🤕🤕",
     });
   };
-
-  onTrack() {
-    this.serviceExecutor.execute(GET_PARCELS()).then((parcelResponses) =>
-      this.setState({
-        parcelResponses,
-      })
-    );
-  }
 }

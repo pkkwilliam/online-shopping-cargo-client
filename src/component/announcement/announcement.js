@@ -6,24 +6,20 @@ import Row from "react-bootstrap/esm/Row";
 import LineBreak from "online-shopping-cargo-parent/dist/lineBreak";
 import Accordion from "react-bootstrap/esm/Accordion";
 import ClientApplicationComponent from "../clientApplicationComponent";
-import { GET_GITHUB_JSON_CONTENT } from "online-shopping-cargo-parent/dist/service";
 export default class Announcement extends ClientApplicationComponent {
   state = {
     ...this.state,
-    announcements: [],
   };
 
   componentDidMount() {
-    this.serviceExecutor
-      .execute(GET_GITHUB_JSON_CONTENT("/label/accouncements.json"))
-      .then((announcements) => this.setState({ announcements }));
+    this.appStateService.getAnnouncement();
   }
 
   render() {
     return (
       <ClientCard header="公告">
         <Accordion>
-          <Contents contents={this.state.announcements} />
+          <Contents contents={this.appState.announcement.announcements} />
         </Accordion>
       </ClientCard>
     );

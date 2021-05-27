@@ -9,9 +9,30 @@ export class Provider extends Component {
       selectedAddress: {},
       dirty: true,
     },
+    announcement: {
+      announcements: [],
+      dirty: true,
+    },
+    eyeCatch: {
+      baseUrl: "",
+      dirty: true,
+      images: [],
+    },
     notificationToken: {
       dirty: true,
       token: undefined,
+    },
+    parcel: {
+      dirty: true,
+      parcels: [],
+    },
+    shipToHome: {
+      dirty: true,
+      shipToHomeOrders: [],
+    },
+    shop: {
+      dirty: true,
+      shops: [],
     },
     user: {
       dirty: true,
@@ -20,7 +41,16 @@ export class Provider extends Component {
   };
 
   render() {
-    const { address, notificationToken, user } = this.state;
+    const {
+      address,
+      announcement,
+      eyeCatch,
+      notificationToken,
+      parcel,
+      shipToHome,
+      shop,
+      user,
+    } = this.state;
     return (
       <CargoManagementContext.Provider
         value={{
@@ -30,10 +60,32 @@ export class Provider extends Component {
             setAddressDirty: this.setAddressDirty,
             setSelectedAddress: this.setSelectedAddress,
           },
+          announcement: {
+            ...announcement,
+            setAnnouncement: this.setAnnouncement,
+          },
+          eyeCatch: {
+            ...eyeCatch,
+            setEyeCatch: this.setEyeCatch,
+          },
           notificationToken: {
             ...notificationToken,
             setNotificationToken: this.setNotificationToken,
             setNotificationTokenDirty: this.setNotificationTokenDirty,
+          },
+          parcel: {
+            ...parcel,
+            setParcel: this.setParcel,
+            setParcelDirty: this.setParcelDirty,
+          },
+          shipToHome: {
+            ...shipToHome,
+            setShipToHome: this.setShipToHome,
+            setShipToHomeDirty: this.setShipToHomeDirty,
+          },
+          shop: {
+            ...shop,
+            setShop: this.setShop,
           },
           user: {
             ...user,
@@ -75,15 +127,37 @@ export class Provider extends Component {
     }));
   };
 
-  // Notification
-  setNotificationToken = (token) => {
-    console.log("set notification token:", token);
+  // Announcement
+  setAnnouncement = (announcements) => {
     this.setState({
-      notificationToken: {
-        dirty: true,
-        token,
+      announcement: {
+        announcements,
+        dirty: false,
       },
     });
+  };
+
+  // Eye Catch
+  setEyeCatch = (eyeCatchReesponse) => {
+    const { baseUrl, images } = eyeCatchReesponse;
+    this.setState({
+      eyeCatch: {
+        baseUrl,
+        dirty: false,
+        images,
+      },
+    });
+  };
+
+  // Notification
+  setNotificationToken = (token) => {
+    console.log(token);
+    this.setState((state) => ({
+      notificationToken: {
+        ...state.notificationToken,
+        token,
+      },
+    }));
   };
 
   setNotificationTokenDirty = (dirty) => {
@@ -93,6 +167,54 @@ export class Provider extends Component {
         dirty,
       },
     }));
+  };
+
+  // Parcels
+  setParcel = (parcels) => {
+    this.setState({
+      parcel: {
+        dirty: false,
+        parcels,
+      },
+    });
+  };
+
+  setParcelDirty = () => {
+    this.setState((state) => ({
+      parcels: {
+        ...state.parcel,
+        dirty: true,
+      },
+    }));
+  };
+
+  // Ship To Home
+  setShipToHome = (shipToHomeOrders) => {
+    this.setState({
+      shipToHome: {
+        dirty: false,
+        shipToHomeOrders,
+      },
+    });
+  };
+
+  setShipToHomeDirty = () => {
+    this.setState((state) => ({
+      shipToHome: {
+        ...state.shipToHome,
+        dirty: true,
+      },
+    }));
+  };
+
+  // Shop
+  setShop = (shops) => {
+    this.setState({
+      shop: {
+        dirty: false,
+        shops,
+      },
+    });
   };
 
   // User Profile
