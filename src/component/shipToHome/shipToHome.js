@@ -39,7 +39,7 @@ class ShipToHome extends UserProfileComponent {
   }
 
   calculateCost() {
-    const cost = this.state.parcels
+    const cost = this.appState.parcel.parcels
       .filter((parcel) => parcel.selected)
       .reduce((accmulator, currentValue) => accmulator + currentValue.cost, 0);
     this.setState({
@@ -48,15 +48,13 @@ class ShipToHome extends UserProfileComponent {
   }
 
   onClickParcel = (clickedParcel) => {
-    const parcels = this.state.parcels.map((parcel) => {
+    const parcels = this.appState.parcel.parcels.map((parcel) => {
       if (parcel.id === clickedParcel.id) {
         parcel.selected = !parcel.selected;
       }
       return parcel;
     });
-    this.setState({
-      parcels,
-    });
+    this.appState.parcel.setParcel(parcels);
     this.calculateCost();
   };
 

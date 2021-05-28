@@ -14,12 +14,14 @@ export default class ClientApplicationComponent extends ApplicationComponent {
   _clientApplicationContext = new ClientApplicationContext();
 
   componentDidMount() {
+    const { isApp, notificationToken } = this.getAppParam();
     if (this.userToken) {
-      console.log(this.userToken);
       this.appStateService.getUserProfile();
-      // notification token is very import, rather to run it everytime then miss it
     }
-    this.setAppParam();
+    if (this.userToken && notificationToken) {
+      this.appStateService.linkNotificationToken(notificationToken);
+    }
+    this.isApp = isApp === "true";
   }
 
   goBack() {
@@ -42,19 +44,14 @@ export default class ClientApplicationComponent extends ApplicationComponent {
     }
   }
 
-  setAppParam() {
+  getAppParam() {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const isApp = urlParams.get("isApp");
-    const token = urlParams.get("notificationToken");
+    const notificationToken = urlParams.get("notificationToken");
     console.debug("app user", isApp);
-    console.debug("client notification token", token);
-    if (token) {
-      this.appStateService.linkNotificationToken(token);
-    }
-    if (isApp) {
-      this.isApp = isApp === "true";
-    }
+    console.debug("client notification token", notificationToken);
+    return { isApp, notificationToken };
   }
 
   get routerParams() {
