@@ -3,9 +3,8 @@ import View from "online-shopping-cargo-parent/dist/view";
 import ApplicationComponentView from "online-shopping-cargo-parent/dist/functionalApplicationComponent.view";
 import BackgroundCard from "../common/backgroundCard";
 import P from "online-shopping-cargo-parent/dist/text/paragraph";
-import { ChevronRight, JournalText, Gear } from "react-bootstrap-icons";
+import { ChevronRight, Gear } from "react-bootstrap-icons";
 import { styleSchema } from "online-shopping-cargo-parent/dist/styleSchema";
-import { READY_FOR_COMBINE } from "online-shopping-cargo-parent/dist/parcelDisplayUtil";
 import LineBreak from "online-shopping-cargo-parent/dist/lineBreak";
 import {
   ADDRESS,
@@ -14,6 +13,8 @@ import {
   TUTORIAL,
 } from "../../routes";
 import ApplicationTextButton from "online-shopping-cargo-parent/dist/applicationTextButton";
+import Info from "../text/info";
+import { getShipToHomeParcels } from "./shipToHome";
 
 export default function ShipToHomeLandingView(props) {
   return (
@@ -56,9 +57,7 @@ function CardIconButton({ icon, onClick, text }) {
 }
 
 function CreateNewShipToHomeOrder({ onClickCreateShipToHome, parcels }) {
-  const waitingToCombineParcels = parcels.filter(
-    (parcel) => parcel.parcelStatus === READY_FOR_COMBINE.key
-  );
+  const waitingToCombineParcels = getShipToHomeParcels(parcels);
   return (
     <BackgroundCard
       style={{
@@ -80,9 +79,9 @@ function CreateNewShipToHomeOrder({ onClickCreateShipToHome, parcels }) {
           <P style={{ marginLeft: 8 }}>待處理包裹</P>
         </View>
         <View>
-          <P
+          <Info
             style={{ color: styleSchema.color.secondaryDark }}
-          >{`x${waitingToCombineParcels.length}`}</P>
+          >{`x${waitingToCombineParcels.length}`}</Info>
         </View>
       </View>
       <View
@@ -95,7 +94,6 @@ function CreateNewShipToHomeOrder({ onClickCreateShipToHome, parcels }) {
         <LineBreak />
       </View>
       <View
-        onClick={onClickCreateShipToHome}
         style={{
           alignItems: "center",
           display: "flex",
@@ -103,7 +101,10 @@ function CreateNewShipToHomeOrder({ onClickCreateShipToHome, parcels }) {
           width: "100%",
         }}
       >
-        <ApplicationTextButton disabled={waitingToCombineParcels.length === 0}>
+        <ApplicationTextButton
+          onClick={onClickCreateShipToHome}
+          disabled={waitingToCombineParcels.length === 0}
+        >
           合併包裹
         </ApplicationTextButton>
         <ChevronRight
@@ -129,7 +130,7 @@ function ManageAddress({ onClickManageAddress }) {
     <CardIconButton
       icon={ADDRESS.icon}
       onClick={onClickManageAddress}
-      text={ADDRESS.label}
+      text={`管理${ADDRESS.label}`}
     />
   );
 }
@@ -159,9 +160,9 @@ function ShipToHomeOrders({ onClickShipToHomeOrder, shipToHomeOrders }) {
         <P style={{ marginLeft: 8 }}>{SHIP_TO_HOME_ORDER.label}</P>
       </View>
       <View>
-        <P
+        <Info
           style={{ color: styleSchema.color.secondaryDark }}
-        >{`未完成: ${activeShipToHomeOrders.length}`}</P>
+        >{`未完成: ${activeShipToHomeOrders.length}`}</Info>
       </View>
     </BackgroundCard>
   );

@@ -7,13 +7,28 @@ import {
   ChevronRight,
   Check,
   Circle,
+  CreditCard,
   GeoAltFill,
   Truck,
 } from "react-bootstrap-icons";
 import { styleSchema } from "online-shopping-cargo-parent/dist/styleSchema";
 import ApplicationButton from "online-shopping-cargo-parent/dist/applicationButton";
-import { Badge, Table } from "react-bootstrap";
+import Badge from "react-bootstrap/esm/Badge";
 import ParcelDisplayUtil from "online-shopping-cargo-parent/dist/parcelDisplayUtil";
+import LineBreak from "online-shopping-cargo-parent/dist/lineBreak";
+import ApplicationTextButton from "online-shopping-cargo-parent/dist/applicationTextButton";
+import Info from "../text/info";
+import InfoBlack from "../text/infoBlack";
+
+const PAYMENT_CASH = {
+  key: "CASH",
+  label: "送貨時支付 (只限現金)",
+};
+
+const PAYMENT_M_PAY = {
+  key: "M_PAY",
+  label: "M-Pay (澳門錢包)",
+};
 
 export default function ShipToHomeView(props) {
   return (
@@ -27,7 +42,8 @@ export default function ShipToHomeView(props) {
       >
         <View style={{ flexDirection: "column" }}>
           <AddressSection {...props} />
-          <ParcelSection {...props} />
+          <PaymentSection {...props} />
+          <ParcelList {...props} />
         </View>
         <View style={{ bottom: 0, position: "sticky" }}>
           <BottomTab {...props} />
@@ -37,17 +53,19 @@ export default function ShipToHomeView(props) {
   );
 }
 
-function AddressSection({ selectedAddress, onClickSelectAddressButton }) {
+export function AddressSection({
+  onClickSelectAddressButton,
+  selectable = true,
+  selectedAddress,
+}) {
   let Address;
   if (selectedAddress) {
     const { contactName, phoneNumber, street, unit } = selectedAddress;
     Address = (
       <View style={{ alignItems: "center" }}>
-        <View
-          style={{ ...styles.iconFillBackground, padding: 8, marginRight: 8 }}
-        >
+        <CircularBackgroundIcon>
           <GeoAltFill style={{ ...styles.iconFill, fontSize: 18 }} />
-        </View>
+        </CircularBackgroundIcon>
         <View
           style={{
             flexDirection: "column",
@@ -63,6 +81,14 @@ function AddressSection({ selectedAddress, onClickSelectAddressButton }) {
       <Chooseable onClick={onClickSelectAddressButton} text="請選擇收貨地址" />
     );
   }
+  let ArrowRight = selectable ? (
+    <View onClick={onClickSelectAddressButton}>
+      <ChevronRight
+        style={{ color: styleSchema.color.secondaryDark, fontSize: 18 }}
+      />
+    </View>
+  ) : null;
+
   return (
     <BackgroundCard style={{ display: "flex", flexDirection: "column" }}>
       <View
@@ -72,17 +98,13 @@ function AddressSection({ selectedAddress, onClickSelectAddressButton }) {
         }}
       >
         {Address}
-        <View onClick={onClickSelectAddressButton}>
-          <ChevronRight
-            style={{ color: styleSchema.color.secondaryDark, fontSize: 18 }}
-          />
-        </View>
+        {ArrowRight}
       </View>
     </BackgroundCard>
   );
 }
 
-function BottomTab({ cost, parcels }) {
+function BottomTab({ cost, onClickSubmit, orderValid }) {
   return (
     <BackgroundCard
       style={{
@@ -104,22 +126,20 @@ function BottomTab({ cost, parcels }) {
             justifyContent: "center",
           }}
         >
-          <P
+          <Info
             style={{
               alignSelf: "flex-end",
-              color: styleSchema.color.secondaryDark,
-              fontSize: 12,
               marginRight: 5,
             }}
           >
             包含所有費用
-          </P>
+          </Info>
           <P>合計:</P>
           <P style={{ color: styleSchema.color.primaryDark, marginLeft: 3 }}>
             {`$${cost}`}
           </P>
         </View>
-        <ApplicationButton>
+        <ApplicationButton disabled={!orderValid} onClick={onClickSubmit}>
           <Truck style={{ marginRight: 5 }} />
           送貨
         </ApplicationButton>
@@ -139,17 +159,30 @@ function Chooseable({ onClick, text }) {
   );
 }
 
-function ParcelSection({ onClickParcel, parcels }) {
+function CircularBackgroundIcon({ children }) {
+  return (
+    <View style={{ ...styles.iconFillBackground, padding: 8, marginRight: 8 }}>
+      {children}
+    </View>
+  );
+}
+
+/**
+ * we either use ParcelList or ParcelTable, it is different implementation with different look
+ * @param {*} param0
+ */
+export function ParcelList({ onClickParcel, parcels, selectable = true }) {
   const parcelDisplayUtil = new ParcelDisplayUtil();
 
   const ParcelRows = parcels.map((parcel) => {
     const parcelStatusBageAndLabel =
       parcelDisplayUtil.getParcelStatusBageAndLabel(parcel.parcelStatus);
     return (
-      <ParcelRow
+      <ParcelListRow
         onClickParcel={onClickParcel}
         parcel={parcel}
         parcelStatusBageAndLabel={parcelStatusBageAndLabel}
+        selectable={selectable}
       />
     );
   });
@@ -161,64 +194,161 @@ function ParcelSection({ onClickParcel, parcels }) {
         marginTop: 15,
       }}
     >
-      <Table borderless>
-        <thead>
-          <tr className="text-center">
-            <th></th>
-            <th>狀態</th>
-            <th>單號</th>
-            <th>費用</th>
-          </tr>
-        </thead>
-        <tbody>{ParcelRows}</tbody>
-      </Table>
+      <View style={{ flexDirection: "column", width: "inherit" }}>
+        {ParcelRows}
+      </View>
     </BackgroundCard>
   );
 }
 
-function ParcelRow({ onClickParcel, parcel, parcelStatusBageAndLabel }) {
+function ParcelListRow({
+  onClickParcel,
+  parcel,
+  parcelStatusBageAndLabel,
+  selectable,
+}) {
   const {
+    createTime,
     cost,
-    displayId,
+    height,
+    length,
     originalTrackingNumber,
-    parcelLocation,
-    parcelStatus,
     selected,
+    volumeWeight,
+    weight,
+    width,
   } = parcel;
+  let SelectCheckBox = (
+    <View style={{ marginRight: 18 }}>
+      {selected ? (
+        <Check
+          style={{
+            ...styles.iconFill,
+            backgroundColor: styleSchema.color.primaryDark,
+            borderRadius: 30,
+          }}
+        />
+      ) : (
+        <Circle style={styles.icon} />
+      )}
+    </View>
+  );
+  if (!selectable) {
+    SelectCheckBox = null;
+  }
   return (
-    <tr
-      className="text-center"
-      onClick={() => {
-        onClickParcel(parcel);
+    <View
+      onClick={() => onClickParcel(parcel)}
+      style={{
+        alignItems: "center",
+        flexDirection: "row",
+        marginBottom: 8,
+        marginTop: 8,
       }}
     >
-      <td>
-        {selected ? (
-          <Check style={styles.iconFill} />
-        ) : (
-          <Circle style={styles.icon} />
-        )}
-      </td>
-      <td>
-        <Badge pill variant={parcelStatusBageAndLabel.badge}>
-          {parcelStatusBageAndLabel.label}
-        </Badge>
-      </td>
-      <td>{originalTrackingNumber}</td>
-      <td
-        style={{
-          color: styleSchema.color.primaryDark,
-          fontWeight: 300,
-        }}
-      >
-        {`$${cost}`}
-      </td>
-    </tr>
+      {SelectCheckBox}
+      <View style={{ flexDirection: "column", width: "100%" }}>
+        <View style={{ alignItems: "center" }}>
+          <Info>{createTime}</Info>
+        </View>
+        <View style={{ alignItems: "center" }}>
+          <Badge
+            pill
+            variant={parcelStatusBageAndLabel.badge}
+            style={{ marginRight: 8 }}
+          >
+            {parcelStatusBageAndLabel.label}
+          </Badge>
+          <InfoBlack style={{ fontSize: 12 }}>
+            {originalTrackingNumber}
+          </InfoBlack>
+        </View>
+        <View
+          style={{
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
+          <View style={{ alignItems: "center" }}>
+            <P>{`計費重量: ${
+              weight > volumeWeight ? weight : volumeWeight
+            } KG`}</P>
+          </View>
+          <View>
+            <P
+              style={{
+                color: styleSchema.color.primaryDark,
+                fontWeight: 300,
+              }}
+            >
+              {`$${cost}`}
+            </P>
+          </View>
+        </View>
+      </View>
+    </View>
   );
 }
 
-function PaymentSection() {
-  return <View>ParcelSection</View>;
+export function PaymentSection({
+  onClickShowPaymentType,
+  onClickSelectPaymentMethod,
+  selectedPaymentType,
+  showPaymentType,
+}) {
+  const Content = selectedPaymentType ? (
+    <View style={{ alignItems: "center" }}>
+      <CircularBackgroundIcon>
+        <CreditCard style={{ ...styles.iconFill, fontSize: 18 }} />
+      </CircularBackgroundIcon>
+      <P style={{ fontWeight: 300 }}>{selectedPaymentType.label}</P>
+    </View>
+  ) : (
+    <Chooseable text="請選擇付款方式" />
+  );
+  return (
+    <BackgroundCard
+      style={{ display: "flex", flexDirection: "column", marginTop: 15 }}
+    >
+      <View
+        onClick={onClickShowPaymentType}
+        style={{
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
+        {Content}
+      </View>
+      <PaymentSectionSelection
+        onClickSelectPaymentMethod={onClickSelectPaymentMethod}
+        showPaymentType={showPaymentType}
+      />
+    </BackgroundCard>
+  );
+}
+
+function PaymentSectionSelection({
+  onClickSelectPaymentMethod,
+  showPaymentType,
+}) {
+  if (!showPaymentType) {
+    return null;
+  } else {
+    const PaymentTypes = [PAYMENT_M_PAY, PAYMENT_CASH].map((type) => (
+      <ApplicationTextButton
+        onClick={() => onClickSelectPaymentMethod(type)}
+        style={{ fontSize: 14 }}
+      >
+        {type.label}
+      </ApplicationTextButton>
+    ));
+    return (
+      <>
+        <LineBreak />
+        {PaymentTypes}
+      </>
+    );
+  }
 }
 
 const styles = {
@@ -226,8 +356,6 @@ const styles = {
     color: styleSchema.color.secondaryDark,
   },
   iconFill: {
-    backgroundColor: styleSchema.color.primaryDark,
-    borderRadius: 30,
     color: styleSchema.color.white,
   },
   iconFillBackground: {
