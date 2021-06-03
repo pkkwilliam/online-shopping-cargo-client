@@ -20,10 +20,10 @@
   "scripts": {
     "start": "react-scripts start",
     "start-prod": "REACT_APP_SERVICE_URL=https://picktb.com/api yarn start",
-    "start-uat": "REACT_APP_SERVICE_URL=http://bitcode-service.ddns.net:8082 yarn start",
+    "start-uat": "REACT_APP_SERVICE_URL=https://api.oscm-uat.goowhere.com yarn start",
     "build": "react-scripts build",
     "build-prod": "REACT_APP_SERVICE_URL=https://picktb.com/api yarn build",
-    "build-uat": "REACT_APP_SERVICE_URL=http://bitcode-service.ddns.net:8082 yarn build",
+    "build-uat": "REACT_APP_SERVICE_URL=https://api.oscm-uat.goowhere.com yarn build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "update-parent": "npm install git+https://github.com/pkkwilliam/online-shopping-cargo-parent.git",
