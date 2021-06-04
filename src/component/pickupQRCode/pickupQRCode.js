@@ -2,8 +2,9 @@ import React from "react";
 import { GET_PICKUP_QR_CODE } from "online-shopping-cargo-parent/dist/service";
 import PickupQRCodeView from "./pickupQRCode.view";
 import UserProfileComponent from "../common/userProfileComponent";
+import { withRouter } from "react-router-dom";
 
-export default class PickupQRCode extends UserProfileComponent {
+export class PickupQRCode extends UserProfileComponent {
   qrCodeExpireCountDownInterval;
 
   state = {
@@ -73,3 +74,5 @@ export default class PickupQRCode extends UserProfileComponent {
     }, 1000);
   }
 }
+
+export default withRouter(PickupQRCode);

@@ -18,7 +18,7 @@
     "react-scripts": "3.4.3"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "REACT_APP_SERVICE_URL=http://localhost:8081 react-scripts start",
     "start-prod": "REACT_APP_SERVICE_URL=https://picktb.com/api yarn start",
     "start-uat": "REACT_APP_SERVICE_URL=https://api.oscm-uat.goowhere.com yarn start",
     "build": "react-scripts build",

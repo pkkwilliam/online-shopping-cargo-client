@@ -2,7 +2,9 @@ import React from "react";
 import ParcelDisplayUtil from "online-shopping-cargo-parent/dist/parcelDisplayUtil";
 import TrackingView from "./tracking.view";
 import UserProfileComponent from "../common/userProfileComponent";
-export default class Tracking extends UserProfileComponent {
+import { withRouter } from "react-router-dom";
+
+class Tracking extends UserProfileComponent {
   state = {
     ...this.state,
     showDetaiDisplayId: 0,
@@ -42,3 +44,5 @@ export default class Tracking extends UserProfileComponent {
     });
   };
 }
+
+export default withRouter(Tracking);

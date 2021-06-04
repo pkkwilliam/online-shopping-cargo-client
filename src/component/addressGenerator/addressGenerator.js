@@ -1,8 +1,9 @@
 import React from "react";
 import UserProfileComponent from "../common/userProfileComponent";
 import AddressGeneratorView from "./addressGenerator.view";
+import { withRouter } from "react-router-dom";
 
-export default class AddressGenerator extends UserProfileComponent {
+class AddressGenerator extends UserProfileComponent {
   state = {
     shopSelected: undefined,
   };
@@ -47,3 +48,5 @@ export default class AddressGenerator extends UserProfileComponent {
     });
   };
 }
+
+export default withRouter(AddressGenerator);

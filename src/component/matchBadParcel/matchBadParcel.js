@@ -2,8 +2,9 @@ import React from "react";
 import MatchBadParcelViev from "./matchBadParcel.view";
 import { MATCH_BAD_PARCEL } from "online-shopping-cargo-parent/dist/service";
 import UserProfileComponent from "../common/userProfileComponent";
+import { withRouter } from "react-router-dom";
 
-export default class MatchBadParcel extends UserProfileComponent {
+class MatchBadParcel extends UserProfileComponent {
   state = { ...this.state, originalTrackingNumber: "" };
 
   render() {
@@ -45,13 +46,8 @@ export default class MatchBadParcel extends UserProfileComponent {
 
   onSucess(parcelResponse) {
     const { originalTrackingNumber } = this.state;
-    const {
-      openingHour,
-      shopAddress,
-      shopName,
-      shopNumber,
-      shopPhoneNumber,
-    } = parcelResponse.shop;
+    const { openingHour, shopAddress, shopName, shopNumber, shopPhoneNumber } =
+      parcelResponse.shop;
     this.setState({
       modal: {
         body: `${originalTrackingNumber}已被成功認領\n\n-----以下詳細可在 "我的包裹" 再次查看-----\n\n取任站: ${shopNumber} ${shopName}\n取件地址: ${shopAddress}\n營業時間: ${openingHour}\n門店電話: ${shopPhoneNumber}`,
@@ -62,3 +58,5 @@ export default class MatchBadParcel extends UserProfileComponent {
     });
   }
 }
+
+export default withRouter(MatchBadParcel);

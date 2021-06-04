@@ -2,8 +2,9 @@ import { GET_GITHUB_JSON_CONTENT } from "online-shopping-cargo-parent/dist/servi
 import React from "react";
 import ClientApplicationComponent from "../clientApplicationComponent";
 import LandingPageView from "./landingPage.view";
+import { withRouter } from "react-router-dom";
 
-export default class LandingPage extends ClientApplicationComponent {
+class LandingPage extends ClientApplicationComponent {
   state = {
     ...this.state,
     importantNotices: [],
@@ -30,3 +31,5 @@ export default class LandingPage extends ClientApplicationComponent {
       .then((importantNotices) => this.setState({ importantNotices }));
   }
 }
+
+export default withRouter(LandingPage);

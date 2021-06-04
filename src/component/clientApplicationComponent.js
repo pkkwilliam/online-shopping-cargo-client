@@ -37,6 +37,15 @@ export default class ClientApplicationComponent extends ApplicationComponent {
     });
   }
 
+  goToReplace(page, params = {}) {
+    // import { withRouter } from 'react-router-dom'
+    // export default withRouter(MyComponent)
+    this.props.history.replace({
+      pathname: page.url,
+      state: params,
+    });
+  }
+
   async linkNotificationToken() {
     const { dirty, token } = this.appState.notificationToken;
     if (dirty && token) {

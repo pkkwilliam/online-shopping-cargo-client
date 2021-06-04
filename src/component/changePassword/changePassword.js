@@ -9,8 +9,9 @@ import {
   CHANGE_PASSWORD,
   REGISTER_USER_FOR_MISSING_PASSWORD,
 } from "online-shopping-cargo-parent/dist/service";
+import { withRouter } from "react-router-dom";
 
-export default class ChangePassword extends UserProfileComponent {
+class ChangePassword extends UserProfileComponent {
   state = {
     newPassword: "",
     newPassword2: "",
@@ -101,3 +102,5 @@ export default class ChangePassword extends UserProfileComponent {
     }
   }
 }
+
+export default withRouter(ChangePassword);
