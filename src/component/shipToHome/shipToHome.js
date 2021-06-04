@@ -3,7 +3,10 @@ import UserProfileComponent from "../common/userProfileComponent";
 import { withRouter } from "react-router-dom";
 import ShipToHomeView from "./shipToHome.view";
 import { ADDRESS } from "../../routes";
-import { READY_FOR_COMBINE } from "online-shopping-cargo-parent/dist/parcelDisplayUtil";
+import {
+  READY_FOR_COMBINE,
+  WAREHOUSE_RECEIVED,
+} from "online-shopping-cargo-parent/dist/parcelDisplayUtil";
 import { CREATE_SHIP_TO_HOME_ORDER } from "online-shopping-cargo-parent/dist/service";
 
 class ShipToHome extends UserProfileComponent {
@@ -131,7 +134,8 @@ export function getShipToHomeParcels(parcels) {
     (parcel) =>
       parcel.active &&
       parcel.parcelType === "SHIP_TO_HOME" &&
-      parcel.parcelStatus === READY_FOR_COMBINE.key
+      (parcel.parcelStatus === READY_FOR_COMBINE.key ||
+        parcel.parcelStatus === WAREHOUSE_RECEIVED.key)
   );
 }
 
