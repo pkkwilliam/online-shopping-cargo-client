@@ -4,9 +4,10 @@ import {
   GET_THIRD_PERSONS_ALLOWED_BY,
   GET_THIRD_PERSONS_PICKUP_CODE,
 } from "online-shopping-cargo-parent/dist/service";
-import PickupQRCode from "../pickupQRCode/pickupQRCode";
+import { PickupQRCode } from "../pickupQRCode/pickupQRCode";
+import { withRouter } from "react-router-dom";
 
-export default class AllowedBy extends PickupQRCode {
+class AllowedBy extends PickupQRCode {
   state = {
     ...this.state,
     allowedBy: [],
@@ -62,3 +63,5 @@ export default class AllowedBy extends PickupQRCode {
     });
   };
 }
+
+export default withRouter(AllowedBy);
