@@ -42,6 +42,7 @@ class MatchBadParcel extends UserProfileComponent {
       )
       .then((parcelResponse) => {
         this.onSucess(parcelResponse);
+        this.appState.parcel.setParcelDirty();
       });
   }
 
