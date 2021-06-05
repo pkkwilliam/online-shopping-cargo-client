@@ -5,7 +5,15 @@ import UserProfileComponent from "../common/userProfileComponent";
 import { withRouter } from "react-router-dom";
 
 class MatchBadParcel extends UserProfileComponent {
-  state = { ...this.state, originalTrackingNumber: "" };
+  state = {
+    ...this.state,
+    originalTrackingNumber: "",
+    shopSelected: undefined,
+  };
+
+  componentDidMount() {
+    this.appStateService.getShops();
+  }
 
   render() {
     return (
@@ -13,6 +21,8 @@ class MatchBadParcel extends UserProfileComponent {
         onChangeOriginalTrackingNumber={this.onChangeOriginalTrackingNumber}
         onClickSubmit={this.onClickSubmit}
         onCloseModal={this.onCloseError}
+        onSelectedShop={this.onSelectedShop}
+        shops={this.appState.shop.shops}
         {...this.state}
       />
     );
@@ -24,7 +34,12 @@ class MatchBadParcel extends UserProfileComponent {
 
   matchBadParcelServiceRequest() {
     this.serviceExecutor
-      .execute(MATCH_BAD_PARCEL(this.state.originalTrackingNumber))
+      .execute(
+        MATCH_BAD_PARCEL(
+          this.state.originalTrackingNumber,
+          this.state.shopSelected.shopNumber
+        )
+      )
       .then((parcelResponse) => {
         this.onSucess(parcelResponse);
       })
@@ -43,6 +58,10 @@ class MatchBadParcel extends UserProfileComponent {
       show: true,
     });
   }
+
+  onSelectedShop = (shop) => {
+    this.setState({ shopSelected: shop });
+  };
 
   onSucess(parcelResponse) {
     const { originalTrackingNumber } = this.state;
