@@ -11,6 +11,7 @@ import Dropdown from "react-bootstrap/esm/Dropdown";
 export default class MatchBadParcelView extends ApplicationComponentView {
   render() {
     const {
+      loading,
       onChangeOriginalTrackingNumber,
       onClickSubmit,
       originalTrackingNumber,
@@ -36,7 +37,7 @@ export default class MatchBadParcelView extends ApplicationComponentView {
           />
         </div>
         <SubmitButton
-          disabled={!originalTrackingNumber || !shopSelected}
+          disabled={loading || !originalTrackingNumber || !shopSelected}
           onClickSubmit={onClickSubmit}
         />
       </this.Wrapper>

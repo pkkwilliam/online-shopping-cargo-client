@@ -7,11 +7,13 @@ import { withRouter } from "react-router-dom";
 class MatchBadParcel extends UserProfileComponent {
   state = {
     ...this.state,
+    loading: false,
     originalTrackingNumber: "",
     shopSelected: undefined,
   };
 
   componentDidMount() {
+    super.componentDidMount();
     this.appStateService.getShops();
   }
 
@@ -33,6 +35,7 @@ class MatchBadParcel extends UserProfileComponent {
   };
 
   matchBadParcelServiceRequest() {
+    this.setState({ loading: true });
     this.serviceExecutor
       .execute(
         MATCH_BAD_PARCEL(
@@ -43,6 +46,11 @@ class MatchBadParcel extends UserProfileComponent {
       .then((parcelResponse) => {
         this.onSucess(parcelResponse);
         this.appState.parcel.setParcelDirty();
+      })
+      .finally(() => {
+        this.setState({
+          loading: false,
+        });
       });
   }
 
@@ -50,14 +58,14 @@ class MatchBadParcel extends UserProfileComponent {
     this.matchBadParcelServiceRequest();
   };
 
-  // setModal(exception) {
-  //   const { originalTrackingNumber } = this.state;
-  //   super.setModal({
-  //     body: `未能找到原號為${originalTrackingNumber}的包裹\n\n如遇困難，請與客服聯繫\n電話: 63530392\n微信:PickTB`,
-  //     header: "没有包裹🤕🤕",
-  //     show: true,
-  //   });
-  // }
+  setModal(exception) {
+    const { originalTrackingNumber } = this.state;
+    super.setModal({
+      body: `未能找到原號為${originalTrackingNumber}的包裹\n\n如遇困難，請與客服聯繫\n電話: 63530392\n微信:PickTB`,
+      header: "没有包裹🤕🤕",
+      show: true,
+    });
+  }
 
   onSelectedShop = (shop) => {
     this.setState({ shopSelected: shop });
