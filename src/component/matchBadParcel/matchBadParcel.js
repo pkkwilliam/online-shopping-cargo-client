@@ -50,14 +50,14 @@ class MatchBadParcel extends UserProfileComponent {
     this.matchBadParcelServiceRequest();
   };
 
-  setModal(exception) {
-    const { originalTrackingNumber } = this.state;
-    super.setModal({
-      body: `未能找到原號為${originalTrackingNumber}的包裹\n\n如遇困難，請與客服聯繫\n電話: 63530392\n微信:PickTB`,
-      header: "没有包裹🤕🤕",
-      show: true,
-    });
-  }
+  // setModal(exception) {
+  //   const { originalTrackingNumber } = this.state;
+  //   super.setModal({
+  //     body: `未能找到原號為${originalTrackingNumber}的包裹\n\n如遇困難，請與客服聯繫\n電話: 63530392\n微信:PickTB`,
+  //     header: "没有包裹🤕🤕",
+  //     show: true,
+  //   });
+  // }
 
   onSelectedShop = (shop) => {
     this.setState({ shopSelected: shop });
@@ -69,7 +69,7 @@ class MatchBadParcel extends UserProfileComponent {
       parcelResponse.shop;
     this.setState({
       modal: {
-        body: `${originalTrackingNumber}已被成功認領\n\n-----以下詳細可在 "我的包裹" 再次查看-----\n\n取任站: ${shopNumber} ${shopName}\n取件地址: ${shopAddress}\n營業時間: ${openingHour}\n門店電話: ${shopPhoneNumber}`,
+        body: `${originalTrackingNumber}已被成功認領\n\n詳細可在"我的包裹"查看\n\n取任站: ${shopNumber} ${shopName}\n取件地址: ${shopAddress}\n營業時間: ${openingHour}\n門店電話: ${shopPhoneNumber}`,
         header: "成功認領",
         show: true,
       },
