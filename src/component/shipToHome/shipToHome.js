@@ -128,10 +128,7 @@ class ShipToHome extends UserProfileComponent {
 
 export function getShipToHomeParcels(parcels) {
   return parcels.filter(
-    (parcel) =>
-      parcel.active &&
-      parcel.parcelType === "SHIP_TO_HOME" &&
-      parcel.parcelStatus === READY_FOR_COMBINE.key
+    (parcel) => parcel.active && parcel.parcelType === "SHIP_TO_HOME"
   );
 }
 
