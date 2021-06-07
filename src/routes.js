@@ -63,6 +63,9 @@ export const ShipToHomeLandingPage = React.lazy(() =>
 export const ShipToHomeOrder = React.lazy(() =>
   import("./component/shipToHome/shipToHomeOrder")
 );
+export const ShipToHomeOrderConfirmation = React.lazy(() =>
+  import("./component/shipToHome/shipToHomeOrderConfirmation")
+);
 export const ShipToHomeOrderDetail = React.lazy(() =>
   import("./component/shipToHome/shipToHomeOrderDetail")
 );
@@ -233,6 +236,15 @@ export const SHIP_TO_HOME_ORDER = {
   sectionContainer: true,
   url: "/shipToHomeOrder",
 };
+export const SHIP_TO_HOME_ORDER_CONFIRMATION = {
+  icon: <JournalText style={styles.icon} />,
+  component: <ShipToHomeOrderConfirmation />,
+  disabledWhenUserTokenPresent: false,
+  hideCard: true,
+  label: "訂單提交成功",
+  sectionContainer: true,
+  url: "/shipToHomeOrderConfirmation",
+};
 export const SHIP_TO_HOME_ORDER_DETAIL = {
   icon: <JournalText style={styles.icon} />,
   component: <ShipToHomeOrderDetail />,
@@ -296,6 +308,7 @@ export default [
   SHIP_TO_HOME,
   SHIP_TO_HOME_LANDING_PAGE,
   SHIP_TO_HOME_ORDER,
+  SHIP_TO_HOME_ORDER_CONFIRMATION,
   SHIP_TO_HOME_ORDER_DETAIL,
   SHOP_LIST,
   ADDRESS_GENERATOR,

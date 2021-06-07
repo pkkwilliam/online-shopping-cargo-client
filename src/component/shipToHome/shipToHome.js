@@ -2,14 +2,25 @@ import React from "react";
 import UserProfileComponent from "../common/userProfileComponent";
 import { withRouter } from "react-router-dom";
 import ShipToHomeView from "./shipToHome.view";
-import { ADDRESS } from "../../routes";
-import { READY_FOR_COMBINE } from "online-shopping-cargo-parent/dist/parcelDisplayUtil";
-import { CREATE_SHIP_TO_HOME_ORDER } from "online-shopping-cargo-parent/dist/service";
+import { ADDRESS, SHIP_TO_HOME_ORDER_CONFIRMATION } from "../../routes";
+import {
+  READY_FOR_COMBINE,
+  WAREHOUSE_RECEIVED,
+} from "online-shopping-cargo-parent/dist/parcelDisplayUtil";
+import {
+  CREATE_SHIP_TO_HOME_ORDER,
+  REQUEST_SHIPMENT_ESTIMATE,
+} from "online-shopping-cargo-parent/dist/service";
 
 class ShipToHome extends UserProfileComponent {
   state = {
     ...this.state,
-    loading: false,
+    shipToHomeCostEstimate: {
+      cost: 0,
+      discount: 0,
+      hasDiscount: false,
+      parcelCount: 0,
+    },
     selectedPaymentType: undefined,
     showPaymentType: false,
   };
@@ -24,7 +35,6 @@ class ShipToHome extends UserProfileComponent {
     const { address, parcel } = this.appState;
     return (
       <ShipToHomeView
-        cost={this.calculateCost(parcel.parcels)}
         orderValid={this.checkOrderValid(
           address,
           parcel.parcels,
@@ -44,17 +54,18 @@ class ShipToHome extends UserProfileComponent {
     );
   }
 
-  calculateCost(parcels) {
-    if (parcels) {
-      return parcels
-        .filter((parcel) => parcel.selected)
-        .reduce(
-          (accmulator, currentValue) => accmulator + currentValue.cost,
-          0
-        );
-    } else {
-      return 0;
-    }
+  async calculateCost() {
+    this.loadingStart();
+    const selectedParcels = this.appState.parcel.parcels.filter(
+      (parcel) => parcel.selected
+    );
+    const shipToHomeCostEstimate = await this.serviceExecutor.execute(
+      REQUEST_SHIPMENT_ESTIMATE(selectedParcels)
+    );
+    this.setState({
+      shipToHomeCostEstimate,
+    });
+    this.loadingEnd();
   }
 
   checkOrderValid(address, parcels, selectedPaymentType) {
@@ -98,10 +109,8 @@ class ShipToHome extends UserProfileComponent {
     });
   };
 
-  onClickSubmit = () => {
-    this.setState({
-      loading: true,
-    });
+  onClickSubmit = async () => {
+    this.setModalLoading({ show: true, text: "提交訂單中" });
     const { address, parcel } = this.appState;
     const { selectedPaymentType } = this.state;
     const selectedParcels = parcel.parcels.filter((parcel) => parcel.selected);
@@ -113,22 +122,23 @@ class ShipToHome extends UserProfileComponent {
       };
       this.serviceExecutor
         .execute(CREATE_SHIP_TO_HOME_ORDER(requestBody))
-        .then(() => {
+        .then((shipToHomeOrder) => {
           this.appState.parcel.setParcelDirty();
           this.appState.shipToHome.setShipToHomeDirty();
+          this.goTo(SHIP_TO_HOME_ORDER_CONFIRMATION, { shipToHomeOrder });
         })
-        .finally(() =>
-          this.setState({
-            loading: false,
-          })
-        );
+        .finally(() => this.setModalLoading({ show: false }));
     }
   };
 }
 
 export function getShipToHomeParcels(parcels) {
   return parcels.filter(
-    (parcel) => parcel.active && parcel.parcelType === "SHIP_TO_HOME"
+    (parcel) =>
+      parcel.active &&
+      parcel.parcelType === "SHIP_TO_HOME" &&
+      (parcel.parcelStatus === WAREHOUSE_RECEIVED.key ||
+        parcel.parcelStatus === READY_FOR_COMBINE.key)
   );
 }
 

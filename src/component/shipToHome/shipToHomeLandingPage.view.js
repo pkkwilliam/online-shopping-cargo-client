@@ -18,7 +18,7 @@ import { getShipToHomeParcels } from "./shipToHome";
 
 export default function ShipToHomeLandingView(props) {
   return (
-    <ApplicationComponentView>
+    <ApplicationComponentView {...props}>
       <View
         style={{
           flexDirection: "column",

@@ -19,6 +19,7 @@ import LineBreak from "online-shopping-cargo-parent/dist/lineBreak";
 import ApplicationTextButton from "online-shopping-cargo-parent/dist/applicationTextButton";
 import Info from "../text/info";
 import InfoBlack from "../text/infoBlack";
+import ApplicationModalLoading from "online-shopping-cargo-parent/dist/applicationModalLoading";
 
 const PAYMENT_CASH = {
   key: "CASH",
@@ -32,7 +33,8 @@ const PAYMENT_M_PAY = {
 
 export default function ShipToHomeView(props) {
   return (
-    <ApplicationComponentView>
+    <ApplicationComponentView {...props}>
+      <ApplicationModalLoading {...props.modalLoading} />
       <View
         style={{
           flexDirection: "column",
@@ -104,7 +106,21 @@ export function AddressSection({
   );
 }
 
-function BottomTab({ cost, onClickSubmit, orderValid }) {
+function BottomTab({
+  loading,
+  onClickSubmit,
+  orderValid,
+  shipToHomeCostEstimate,
+}) {
+  const { cost, discount, hasDiscount } = shipToHomeCostEstimate;
+  const DiscountText = hasDiscount ? (
+    <View>
+      <P>合併折扣:</P>
+      <P style={{ color: styleSchema.color.primaryDark, marginLeft: 3 }}>
+        {`$-${discount}`}
+      </P>
+    </View>
+  ) : null;
   return (
     <BackgroundCard
       style={{
@@ -120,26 +136,34 @@ function BottomTab({ cost, onClickSubmit, orderValid }) {
       <View style={{ alignItems: "center" }}>
         <View
           style={{
-            alignItems: "center",
+            alignItems: "flex-end",
+            flexDirection: "column",
             height: "min-conent",
             marginRight: 8,
             justifyContent: "center",
           }}
         >
-          <Info
-            style={{
-              alignSelf: "flex-end",
-              marginRight: 5,
-            }}
-          >
-            包含所有費用
-          </Info>
-          <P>合計:</P>
-          <P style={{ color: styleSchema.color.primaryDark, marginLeft: 3 }}>
-            {`$${cost}`}
-          </P>
+          {DiscountText}
+          <View>
+            <Info
+              style={{
+                alignSelf: "flex-end",
+                marginRight: 5,
+              }}
+            >
+              包含所有費用
+            </Info>
+            <P>合計:</P>
+            <P style={{ color: styleSchema.color.primaryDark, marginLeft: 3 }}>
+              {`$${cost}`}
+            </P>
+          </View>
         </View>
-        <ApplicationButton disabled={!orderValid} onClick={onClickSubmit}>
+        <ApplicationButton
+          disabled={!orderValid}
+          loading={loading}
+          onClick={onClickSubmit}
+        >
           <Truck style={{ marginRight: 5 }} />
           送貨
         </ApplicationButton>

@@ -5,6 +5,11 @@ import { LINK_PUSH_NOTIFICATION_TOKEN } from "online-shopping-cargo-parent/dist/
 import AppStateService from "./appStateService";
 
 export default class ClientApplicationComponent extends ApplicationComponent {
+  state = {
+    ...this.state,
+    loading: false,
+  };
+
   static contextType = CargoManagementContext;
 
   static _appStateService;
@@ -61,6 +66,16 @@ export default class ClientApplicationComponent extends ApplicationComponent {
     console.debug("app user", isApp);
     console.debug("client notification token", notificationToken);
     return { isApp, notificationToken };
+  }
+
+  loadingEnd() {
+    this.setState({ loading: false });
+  }
+
+  loadingStart() {
+    this.setState({
+      loading: true,
+    });
   }
 
   get routerParams() {
