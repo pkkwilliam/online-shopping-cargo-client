@@ -21,6 +21,11 @@ import Info from "../text/info";
 import InfoBlack from "../text/infoBlack";
 import ApplicationModalLoading from "online-shopping-cargo-parent/dist/applicationModalLoading";
 
+const PAYMENT_ALI_PAY = {
+  key: "ALI_PAY",
+  label: "支付寶",
+};
+
 const PAYMENT_CASH = {
   key: "CASH",
   label: "送貨時支付 (只限現金)",
@@ -30,6 +35,18 @@ const PAYMENT_M_PAY = {
   key: "M_PAY",
   label: "M-Pay (澳門錢包)",
 };
+
+const PAYMENT_WECHAT_PAY = {
+  key: "WECHAT_PAY",
+  label: "微信支付",
+};
+
+const PAYMENT_TYPES = [
+  PAYMENT_ALI_PAY,
+  PAYMENT_CASH,
+  PAYMENT_M_PAY,
+  PAYMENT_WECHAT_PAY,
+];
 
 export default function ShipToHomeView(props) {
   return (
@@ -114,12 +131,7 @@ function BottomTab({
 }) {
   const { cost, discount, hasDiscount } = shipToHomeCostEstimate;
   const DiscountText = hasDiscount ? (
-    <View>
-      <P>合併折扣:</P>
-      <P style={{ color: styleSchema.color.primaryDark, marginLeft: 3 }}>
-        {`$-${discount}`}
-      </P>
-    </View>
+    <PriceText cost={`-${discount}`} label="合併折扣:" />
   ) : null;
   return (
     <BackgroundCard
@@ -153,10 +165,7 @@ function BottomTab({
             >
               包含所有費用
             </Info>
-            <P>合計:</P>
-            <P style={{ color: styleSchema.color.primaryDark, marginLeft: 3 }}>
-              {`$${cost}`}
-            </P>
+            <PriceText cost={`${cost}`} label="合計:" />
           </View>
         </View>
         <ApplicationButton
@@ -358,7 +367,7 @@ function PaymentSectionSelection({
   if (!showPaymentType) {
     return null;
   } else {
-    const PaymentTypes = [PAYMENT_M_PAY, PAYMENT_CASH].map((type) => (
+    const PaymentTypes = PAYMENT_TYPES.map((type) => (
       <ApplicationTextButton
         onClick={() => onClickSelectPaymentMethod(type)}
         style={{ fontSize: 14 }}
@@ -372,6 +381,25 @@ function PaymentSectionSelection({
         {PaymentTypes}
       </>
     );
+  }
+}
+
+export function PriceText({ cost, label }) {
+  return (
+    <View>
+      <P>{label}</P>
+      <P style={{ color: styleSchema.color.primaryDark, marginLeft: 3 }}>
+        {`$${cost}`}
+      </P>
+    </View>
+  );
+}
+
+export function getPaymentTypeObject(paymentType) {
+  for (let index = 0; index < PAYMENT_TYPES.length; index++) {
+    if (paymentType === PAYMENT_TYPES[index].key) {
+      return PAYMENT_TYPES[index];
+    }
   }
 }
 

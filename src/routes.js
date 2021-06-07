@@ -241,7 +241,7 @@ export const SHIP_TO_HOME_ORDER_CONFIRMATION = {
   component: <ShipToHomeOrderConfirmation />,
   disabledWhenUserTokenPresent: false,
   hideCard: true,
-  label: "訂單提交成功",
+  label: "確認訂單",
   sectionContainer: true,
   url: "/shipToHomeOrderConfirmation",
 };

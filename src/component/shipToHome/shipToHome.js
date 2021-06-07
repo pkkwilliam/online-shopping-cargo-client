@@ -29,6 +29,8 @@ class ShipToHome extends UserProfileComponent {
     super.componentDidMount();
     this.appStateService.getAddress();
     this.appStateService.getParcels();
+    // call calculate cost again since once address is selected and coming back to current page, the total cost will lost because its in local state
+    this.calculateCost();
   }
 
   render() {
@@ -125,7 +127,9 @@ class ShipToHome extends UserProfileComponent {
         .then((shipToHomeOrder) => {
           this.appState.parcel.setParcelDirty();
           this.appState.shipToHome.setShipToHomeDirty();
-          this.goTo(SHIP_TO_HOME_ORDER_CONFIRMATION, { shipToHomeOrder });
+          this.goToReplace(SHIP_TO_HOME_ORDER_CONFIRMATION, {
+            shipToHomeOrder,
+          });
         })
         .finally(() => this.setModalLoading({ show: false }));
     }

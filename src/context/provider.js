@@ -181,7 +181,7 @@ export class Provider extends Component {
 
   setParcelDirty = () => {
     this.setState((state) => ({
-      parcels: {
+      parcel: {
         ...state.parcel,
         dirty: true,
       },
