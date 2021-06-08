@@ -12,7 +12,7 @@ import P from "online-shopping-cargo-parent/dist/text/paragraph";
 import { TotalCost } from "./shipToHomeOrderDetail.view";
 
 export default function ShipToHomeOrderConfirmationView(props) {
-  const { address, cost, discount, parcels, paymentType } =
+  const { address, cost, discount, id, parcels, paymentType } =
     props.shipToHomeOrder;
   return (
     <ApplicationComponentView>
@@ -22,7 +22,7 @@ export default function ShipToHomeOrderConfirmationView(props) {
           flexDirection: "column",
         }}
       >
-        <SuceedIcon>{"訂單提交成功"}</SuceedIcon>
+        <SuceedIcon>{`${id}訂單提交成功`}</SuceedIcon>
         <P style={{ marginBottom: 10 }}>專員會在24小時內聯繫你並安排送貨時間</P>
         <AddressSection selectable={false} selectedAddress={address} />
         <PaymentSection
