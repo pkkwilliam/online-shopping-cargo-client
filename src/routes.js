@@ -177,6 +177,7 @@ export const MY_PARCEL = {
   icon: <BoxSeam style={styles.icon} />,
   component: <Tracking />,
   disabledWhenUserTokenPresent: false,
+  hideCard: true,
   label: "我的包裹",
   sectionContainer: true,
   url: "/myParcel",

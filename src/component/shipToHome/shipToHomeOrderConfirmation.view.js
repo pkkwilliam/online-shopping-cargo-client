@@ -23,7 +23,7 @@ export default function ShipToHomeOrderConfirmationView(props) {
         }}
       >
         <SuceedIcon>{"訂單提交成功"}</SuceedIcon>
-        <P style={{ marginBottom: 10 }}>專員會左24小時內聯繫你並安排送貨時間</P>
+        <P style={{ marginBottom: 10 }}>專員會在24小時內聯繫你並安排送貨時間</P>
         <AddressSection selectable={false} selectedAddress={address} />
         <PaymentSection
           selectedPaymentType={getPaymentTypeObject(paymentType)}

@@ -3,6 +3,7 @@ import ParcelDisplayUtil from "online-shopping-cargo-parent/dist/parcelDisplayUt
 import TrackingView from "./tracking.view";
 import UserProfileComponent from "../common/userProfileComponent";
 import { withRouter } from "react-router-dom";
+import { SHIP_TO_HOME_LANDING_PAGE } from "../../routes";
 
 class Tracking extends UserProfileComponent {
   state = {
@@ -20,6 +21,7 @@ class Tracking extends UserProfileComponent {
     );
     return (
       <TrackingView
+        onClickShipToHome={this.onClickShipToHome}
         onClickShowDetail={this.onClickShowDetail}
         onCloseModal={this.onCloseError}
         showDetaiDisplayId={this.state.showDetaiDisplayId}
@@ -28,6 +30,10 @@ class Tracking extends UserProfileComponent {
       />
     );
   }
+
+  onClickShipToHome = () => {
+    this.goTo(SHIP_TO_HOME_LANDING_PAGE);
+  };
 
   onClickShowDetail = (displayId) => {
     this.setState((state) => ({

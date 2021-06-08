@@ -21,7 +21,7 @@ class ShipToHomeOrder extends UserProfileComponent {
     return (
       <ShipToHomeOrderView
         onClickOrderDetail={this.onClickOrderDetail}
-        shipToHomeOrders={shipToHome.shipToHomeOrders}
+        shipToHomeOrders={sortShipToHomeOrder(shipToHome.shipToHomeOrders)}
         onCloseModal={this.onCloseError}
         onCloseToast={this.onCloseToast}
         {...this.state}
@@ -32,6 +32,10 @@ class ShipToHomeOrder extends UserProfileComponent {
   onClickOrderDetail = (order) => {
     this.goTo(SHIP_TO_HOME_ORDER_DETAIL, { order });
   };
+}
+
+export function sortShipToHomeOrder(orders) {
+  return orders.sort((order1, order2) => order2.id - order1.id);
 }
 
 export default withRouter(ShipToHomeOrder);
