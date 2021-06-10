@@ -81,27 +81,37 @@ function ImportantNotice({ importantNotices }) {
 }
 
 function getMenuItems(isApp, userToken) {
-  if (isApp) {
-    return [
-      USER_PROFILE,
-      PICKUP_QR_CODE,
-      SHIP_TO_HOME_LANDING_PAGE,
-      MY_PARCEL,
-      TUTORIAL,
-      CALCULATOR,
-      MATCH_BAD_PARCEL,
-      ADDRESS_GENERATOR,
-    ];
-  } else {
-    return [
-      SAVE_TO_DESKTOP,
-      USER_PROFILE,
-      PICKUP_QR_CODE,
-      MY_PARCEL,
-      TUTORIAL,
-      CALCULATOR,
-      MATCH_BAD_PARCEL,
-      ADDRESS_GENERATOR,
-    ];
-  }
+  return [
+    SAVE_TO_DESKTOP,
+    USER_PROFILE,
+    PICKUP_QR_CODE,
+    MY_PARCEL,
+    TUTORIAL,
+    CALCULATOR,
+    MATCH_BAD_PARCEL,
+    ADDRESS_GENERATOR,
+  ];
+  // if (isApp) {
+  //   return [
+  //     USER_PROFILE,
+  //     PICKUP_QR_CODE,
+  //     SHIP_TO_HOME_LANDING_PAGE,
+  //     MY_PARCEL,
+  //     TUTORIAL,
+  //     CALCULATOR,
+  //     MATCH_BAD_PARCEL,
+  //     ADDRESS_GENERATOR,
+  //   ];
+  // } else {
+  //   return [
+  //     SAVE_TO_DESKTOP,
+  //     USER_PROFILE,
+  //     PICKUP_QR_CODE,
+  //     MY_PARCEL,
+  //     TUTORIAL,
+  //     CALCULATOR,
+  //     MATCH_BAD_PARCEL,
+  //     ADDRESS_GENERATOR,
+  //   ];
+  // }
 }

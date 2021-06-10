@@ -21,7 +21,7 @@
     "start": "REACT_APP_SERVICE_URL=http://localhost:8081 react-scripts start",
     "start-prod": "REACT_APP_SERVICE_URL=https://picktb.com/api react-scripts start",
     "start-uat": "REACT_APP_SERVICE_URL=https://api.oscm-uat.goowhere.com react-scripts start",
-    "build": "react-scripts build",
+    "build": "REACT_APP_SERVICE_URL=https://picktb.com/api react-scripts build",
     "build-prod": "REACT_APP_SERVICE_URL=https://picktb.com/api react-scripts build",
     "build-uat": "REACT_APP_SERVICE_URL=https://api.oscm-uat.goowhere.com react-scripts build",
     "test": "react-scripts test",
