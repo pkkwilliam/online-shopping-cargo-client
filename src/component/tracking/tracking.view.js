@@ -35,10 +35,10 @@ export default class TrackingView extends ApplicationComponentView {
 
     return (
       <this.Wrapper>
-        <ShipToHomeParcelsButton
+        {/* <ShipToHomeParcelsButton
           onClickShipToHome={onClickShipToHome}
           parcels={sortedParcels}
-        />
+        /> */}
         <BackgroundCard style={{ marginTop: 15 }}>
           <Table borderless>
             <thead>
