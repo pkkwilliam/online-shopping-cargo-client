@@ -1,27 +1,27 @@
 import React from "react";
-import { GET_PARCELS } from "online-shopping-cargo-parent/dist/service";
 import ParcelDisplayUtil from "online-shopping-cargo-parent/dist/parcelDisplayUtil";
 import TrackingView from "./tracking.view";
 import UserProfileComponent from "../common/userProfileComponent";
-export default class Tracking extends UserProfileComponent {
+import { withRouter } from "react-router-dom";
+import { SHIP_TO_HOME_LANDING_PAGE } from "../../routes";
+
+class Tracking extends UserProfileComponent {
   state = {
     ...this.state,
-    parcelResponses: {
-      parcels: [],
-    },
     showDetaiDisplayId: 0,
   };
 
   initialServiceRequest() {
-    this.onTrack();
+    this.appStateService.getParcels();
   }
 
   render() {
     const sortedParcels = new ParcelDisplayUtil().sortParcels(
-      this.state.parcelResponses?.parcels
+      this.appState.parcel.parcels
     );
     return (
       <TrackingView
+        onClickShipToHome={this.onClickShipToHome}
         onClickShowDetail={this.onClickShowDetail}
         onCloseModal={this.onCloseError}
         showDetaiDisplayId={this.state.showDetaiDisplayId}
@@ -30,6 +30,10 @@ export default class Tracking extends UserProfileComponent {
       />
     );
   }
+
+  onClickShipToHome = () => {
+    this.goTo(SHIP_TO_HOME_LANDING_PAGE);
+  };
 
   onClickShowDetail = (displayId) => {
     this.setState((state) => ({
@@ -45,12 +49,6 @@ export default class Tracking extends UserProfileComponent {
       header: "AWS 伺服器出錯 🤕🤕",
     });
   };
-
-  onTrack() {
-    this.serviceExecutor.execute(GET_PARCELS()).then((parcelResponses) =>
-      this.setState({
-        parcelResponses,
-      })
-    );
-  }
 }
+
+export default withRouter(Tracking);

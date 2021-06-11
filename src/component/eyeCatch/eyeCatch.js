@@ -1,7 +1,6 @@
 import React from "react";
 import Carousel from "react-bootstrap/esm/Carousel";
 import ClientApplicationComponent from "../clientApplicationComponent";
-import { GET_GITHUB_JSON_CONTENT } from "online-shopping-cargo-parent/dist/service";
 import { ADDRESS_GENERATOR, SAVE_TO_DESKTOP, TUTORIAL } from "../../routes";
 
 import "./eyeCatch.css";
@@ -16,17 +15,11 @@ export default class EyeCatch extends ClientApplicationComponent {
   };
 
   componentDidMount() {
-    this.serviceExecutor
-      .execute(GET_GITHUB_JSON_CONTENT("/label/eye_catch.json"))
-      .then((eyeCatchJsonContent) =>
-        this.setState({
-          eyeCatchJsonContent,
-        })
-      );
+    this.appStateService.getEyeCatch();
   }
 
   render() {
-    const { baseUrl, images } = this.state.eyeCatchJsonContent;
+    const { baseUrl, images } = this.appState.eyeCatch;
     const CarouselItems = images.map((image) => (
       <Carousel.Item onClick={() => onClickEyeCatch(image.onClick)}>
         <img
@@ -68,7 +61,7 @@ function onClickEyeCatch(action) {
 
 const styles = {
   carousel: {
-    paddingTop: 55,
+    paddingTop: 40,
     paddingBottom: 10,
   },
 };

@@ -6,8 +6,9 @@ import {
   REMOVE_THIRD_PERSON,
 } from "online-shopping-cargo-parent/dist/service";
 import UserProfileComponent from "../common/userProfileComponent";
+import { withRouter } from "react-router-dom";
 
-export default class ThirdPersonPickup extends UserProfileComponent {
+class ThirdPersonPickup extends UserProfileComponent {
   state = {
     ...this.state,
     confirmModal: {
@@ -88,3 +89,5 @@ export default class ThirdPersonPickup extends UserProfileComponent {
     });
   };
 }
+
+export default withRouter(ThirdPersonPickup);

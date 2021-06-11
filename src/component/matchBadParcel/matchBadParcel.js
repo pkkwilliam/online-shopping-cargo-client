@@ -2,9 +2,20 @@ import React from "react";
 import MatchBadParcelViev from "./matchBadParcel.view";
 import { MATCH_BAD_PARCEL } from "online-shopping-cargo-parent/dist/service";
 import UserProfileComponent from "../common/userProfileComponent";
+import { withRouter } from "react-router-dom";
 
-export default class MatchBadParcel extends UserProfileComponent {
-  state = { ...this.state, originalTrackingNumber: "" };
+class MatchBadParcel extends UserProfileComponent {
+  state = {
+    ...this.state,
+    loading: false,
+    originalTrackingNumber: "",
+    shopSelected: undefined,
+  };
+
+  componentDidMount() {
+    super.componentDidMount();
+    this.appStateService.getShops();
+  }
 
   render() {
     return (
@@ -12,6 +23,8 @@ export default class MatchBadParcel extends UserProfileComponent {
         onChangeOriginalTrackingNumber={this.onChangeOriginalTrackingNumber}
         onClickSubmit={this.onClickSubmit}
         onCloseModal={this.onCloseError}
+        onSelectedShop={this.onSelectedShop}
+        shops={this.appState.shop.shops}
         {...this.state}
       />
     );
@@ -22,12 +35,23 @@ export default class MatchBadParcel extends UserProfileComponent {
   };
 
   matchBadParcelServiceRequest() {
+    this.setState({ loading: true });
     this.serviceExecutor
-      .execute(MATCH_BAD_PARCEL(this.state.originalTrackingNumber))
+      .execute(
+        MATCH_BAD_PARCEL(
+          this.state.originalTrackingNumber,
+          this.state.shopSelected.shopNumber
+        )
+      )
       .then((parcelResponse) => {
         this.onSucess(parcelResponse);
+        this.appState.parcel.setParcelDirty();
       })
-      .catch((exception) => this.setModal(exception));
+      .finally(() => {
+        this.setState({
+          loading: false,
+        });
+      });
   }
 
   onClickSubmit = () => {
@@ -43,18 +67,17 @@ export default class MatchBadParcel extends UserProfileComponent {
     });
   }
 
+  onSelectedShop = (shop) => {
+    this.setState({ shopSelected: shop });
+  };
+
   onSucess(parcelResponse) {
     const { originalTrackingNumber } = this.state;
-    const {
-      openingHour,
-      shopAddress,
-      shopName,
-      shopNumber,
-      shopPhoneNumber,
-    } = parcelResponse.shop;
+    const { openingHour, shopAddress, shopName, shopNumber, shopPhoneNumber } =
+      parcelResponse.shop;
     this.setState({
       modal: {
-        body: `${originalTrackingNumber}已被成功認領\n\n-----以下詳細可在 "我的包裹" 再次查看-----\n\n取任站: ${shopNumber} ${shopName}\n取件地址: ${shopAddress}\n營業時間: ${openingHour}\n門店電話: ${shopPhoneNumber}`,
+        body: `${originalTrackingNumber}已被成功認領\n\n詳細可在"我的包裹"查看\n\n取任站: ${shopNumber} ${shopName}\n取件地址: ${shopAddress}\n營業時間: ${openingHour}\n門店電話: ${shopPhoneNumber}`,
         header: "成功認領",
         show: true,
       },
@@ -62,3 +85,5 @@ export default class MatchBadParcel extends UserProfileComponent {
     });
   }
 }
+
+export default withRouter(MatchBadParcel);

@@ -2,7 +2,9 @@ import { GET_GITHUB_JSON_CONTENT } from "online-shopping-cargo-parent/dist/servi
 import React from "react";
 import ClientApplicationComponent from "../clientApplicationComponent";
 import LandingPageView from "./landingPage.view";
-export default class LandingPage extends ClientApplicationComponent {
+import { withRouter } from "react-router-dom";
+
+class LandingPage extends ClientApplicationComponent {
   state = {
     ...this.state,
     importantNotices: [],
@@ -10,12 +12,17 @@ export default class LandingPage extends ClientApplicationComponent {
 
   componentDidMount() {
     super.componentDidMount();
-    this.setNotificationToken();
-    this.getImportantNotice();
+    // this.getImportantNotice();
   }
 
   render() {
-    return <LandingPageView userToken={this.userToken} {...this.state} />;
+    return (
+      <LandingPageView
+        isApp={this.isApp}
+        userToken={this.userToken}
+        {...this.state}
+      />
+    );
   }
 
   getImportantNotice() {
@@ -23,13 +30,6 @@ export default class LandingPage extends ClientApplicationComponent {
       .execute(GET_GITHUB_JSON_CONTENT("/label/important_notice.json"))
       .then((importantNotices) => this.setState({ importantNotices }));
   }
-
-  setNotificationToken() {
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    const token = urlParams.get("notificationToken");
-    if (token) {
-      this.appState.notificationToken.setNotificationToken(token);
-    }
-  }
 }
+
+export default withRouter(LandingPage);

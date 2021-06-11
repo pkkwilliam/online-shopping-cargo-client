@@ -10,7 +10,7 @@ const MARGIN_PADDING_SIZE = 15;
 export default function SectionContainer(props) {
   const { children, hideBackground, hideCard, pageName } = props;
   return (
-    <View style={{ minHeight: "-webkit-fill-available" }}>
+    <View style={{ height: "100%" }}>
       <Header>
         <View
           onClick={() => window.history.back()}
@@ -42,7 +42,7 @@ export default function SectionContainer(props) {
           width: "100%",
         }}
       >
-        <div style={{ paddingTop: 40 }}>
+        <div style={{ height: "100%", paddingTop: 55 }}>
           <ChildrenSection hideCard={hideCard}>{children}</ChildrenSection>
         </div>
       </View>
@@ -52,15 +52,7 @@ export default function SectionContainer(props) {
 
 function ChildrenSection({ children, hideCard }) {
   return (
-    <div style={{ marginTop: 3 }}>
-      {hideCard ? (
-        children
-      ) : (
-        <BackgroundCard style={{ marginTop: MARGIN_PADDING_SIZE }}>
-          {children}
-        </BackgroundCard>
-      )}
-    </div>
+    <>{hideCard ? children : <BackgroundCard>{children}</BackgroundCard>}</>
   );
 }
 

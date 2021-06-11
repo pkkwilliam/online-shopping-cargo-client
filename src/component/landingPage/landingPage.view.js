@@ -14,19 +14,9 @@ import {
   CALCULATOR,
   ADDRESS_GENERATOR,
   SAVE_TO_DESKTOP,
+  SHIP_TO_HOME_LANDING_PAGE,
 } from "../../routes";
 import { styleSchema } from "online-shopping-cargo-parent/dist/styleSchema";
-
-const MENU_ITEMS = [
-  SAVE_TO_DESKTOP,
-  USER_PROFILE,
-  PICKUP_QR_CODE,
-  MY_PARCEL,
-  TUTORIAL,
-  CALCULATOR,
-  MATCH_BAD_PARCEL,
-  ADDRESS_GENERATOR,
-];
 
 const Accouncement = React.lazy(() => import("../announcement/announcement"));
 const Menu = React.lazy(() => import("../menu/menu"));
@@ -36,6 +26,7 @@ const RegisterPromp = React.lazy(() =>
 
 export default class LandingPageView extends ApplicationComponentView {
   render() {
+    const { isApp, userToken } = this.props;
     return (
       <this.Wrapper>
         {/* <RegisterPromp /> */}
@@ -50,7 +41,11 @@ export default class LandingPageView extends ApplicationComponentView {
         <div style={{ padding: 10, marginBottom: 40 }}>
           <div>
             {/* <ImportantNotice {...this.props} /> */}
-            <Menu menuItems={MENU_ITEMS} userToken={this.userToken} />
+            <Menu
+              isApp={isApp}
+              menuItems={getMenuItems(isApp, userToken)}
+              userToken={userToken}
+            />
           </div>
           <div style={{ marginTop: 20 }}>
             <Accouncement />
@@ -83,4 +78,40 @@ function ImportantNotice({ importantNotices }) {
       </View>
     );
   });
+}
+
+function getMenuItems(isApp, userToken) {
+  return [
+    SAVE_TO_DESKTOP,
+    USER_PROFILE,
+    PICKUP_QR_CODE,
+    MY_PARCEL,
+    TUTORIAL,
+    CALCULATOR,
+    MATCH_BAD_PARCEL,
+    ADDRESS_GENERATOR,
+  ];
+  // if (isApp) {
+  //   return [
+  //     USER_PROFILE,
+  //     PICKUP_QR_CODE,
+  //     SHIP_TO_HOME_LANDING_PAGE,
+  //     MY_PARCEL,
+  //     TUTORIAL,
+  //     CALCULATOR,
+  //     MATCH_BAD_PARCEL,
+  //     ADDRESS_GENERATOR,
+  //   ];
+  // } else {
+  //   return [
+  //     SAVE_TO_DESKTOP,
+  //     USER_PROFILE,
+  //     PICKUP_QR_CODE,
+  //     MY_PARCEL,
+  //     TUTORIAL,
+  //     CALCULATOR,
+  //     MATCH_BAD_PARCEL,
+  //     ADDRESS_GENERATOR,
+  //   ];
+  // }
 }

@@ -4,7 +4,7 @@ import Col from "react-bootstrap/esm/Col";
 import P from "online-shopping-cargo-parent/dist/text/paragraph";
 import ListMenu from "../common/listMenu";
 import BackgroundCard from "../common/backgroundCard";
-import { CHANGE_PASSWORD, THIRD_PERSON } from "../../routes";
+import { ADDRESS, CHANGE_PASSWORD, THIRD_PERSON } from "../../routes";
 import ApplicationTextButton from "online-shopping-cargo-parent/dist/applicationTextButton";
 import View from "online-shopping-cargo-parent/dist/view";
 
@@ -12,7 +12,13 @@ export default function UserProfileView(props) {
   const { userProfile } = props;
   const { balance } = userProfile;
   return (
-    <View style={{ flexDirection: "column", justifyContent: "space-between" }}>
+    <View
+      style={{
+        flexDirection: "column",
+        height: "100%",
+        justifyContent: "space-between",
+      }}
+    >
       <View style={{ flexDirection: "column" }}>
         <CashPointSection balance={balance ?? 0} />
         <UsernameSection {...userProfile} />
@@ -27,7 +33,7 @@ export default function UserProfileView(props) {
 
 function CashPointSection({ balance }) {
   return (
-    <BackgroundCard style={{ marginTop: 15 }}>
+    <BackgroundCard>
       <Row>
         <Col>
           <P>賬戶餘額</P>
@@ -45,7 +51,7 @@ function CashPointSection({ balance }) {
 function ListMenuSection() {
   return (
     <ListMenu
-      items={[THIRD_PERSON, CHANGE_PASSWORD]}
+      items={[ADDRESS, THIRD_PERSON, CHANGE_PASSWORD]}
       style={{ marginTop: 15 }}
     />
   );

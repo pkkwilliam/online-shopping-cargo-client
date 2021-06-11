@@ -1,6 +1,5 @@
 import React from "react";
 import ApplicationComponentView from "online-shopping-cargo-parent/dist/applicationComponent.view";
-import Form from "react-bootstrap/esm/Form";
 import ApplicationTextField from "online-shopping-cargo-parent/dist/applicationTextField";
 import ApplicationButton from "online-shopping-cargo-parent/dist/applicationButton";
 import { UsernameSection } from "../userProfile/userProfile.view";

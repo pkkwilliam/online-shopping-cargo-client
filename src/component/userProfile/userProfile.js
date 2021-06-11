@@ -1,8 +1,9 @@
 import React from "react";
 import UserProfileView from "./userProfile.view";
 import UserProfileComponent from "../common/userProfileComponent";
+import { withRouter } from "react-router-dom";
 
-export default class UserProfile extends UserProfileComponent {
+class UserProfile extends UserProfileComponent {
   render() {
     return (
       <UserProfileView
@@ -17,3 +18,5 @@ export default class UserProfile extends UserProfileComponent {
     window.location.reload();
   };
 }
+
+export default withRouter(UserProfile);

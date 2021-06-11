@@ -3,19 +3,27 @@ import { styleSchema } from "online-shopping-cargo-parent/dist/styleSchema";
 import {
   BoxArrowInDown,
   BoxSeam,
-  CalculatorFill,
+  Calculator,
   ClipboardCheck,
   Check2Circle,
   Eyeglasses,
+  JournalText,
   Key,
   KeyFill,
   PersonCheck,
   PersonFill,
+  Signpost2,
   Shop,
   TextareaT,
+  Truck,
   UpcScan,
 } from "react-bootstrap-icons";
 
+// icons https://icons.getbootstrap.com/
+export const EditAddress = React.lazy(() =>
+  import("./component/editAddress/editAddress")
+);
+export const Address = React.lazy(() => import("./component/address/address"));
 export const AllowedBy = React.lazy(() =>
   import("./component/thirdPersonPickup/allowedBy")
 );
@@ -46,6 +54,21 @@ export const Register = React.lazy(() =>
 export const SaveToDesktop = React.lazy(() =>
   import("./component/saveToDesktop/saveToDesktop")
 );
+export const ShipToHome = React.lazy(() =>
+  import("./component/shipToHome/shipToHome")
+);
+export const ShipToHomeLandingPage = React.lazy(() =>
+  import("./component/shipToHome/shipToHomeLandingPage")
+);
+export const ShipToHomeOrder = React.lazy(() =>
+  import("./component/shipToHome/shipToHomeOrder")
+);
+export const ShipToHomeOrderConfirmation = React.lazy(() =>
+  import("./component/shipToHome/shipToHomeOrderConfirmation")
+);
+export const ShipToHomeOrderDetail = React.lazy(() =>
+  import("./component/shipToHome/shipToHomeOrderDetail")
+);
 export const ShopList = React.lazy(() =>
   import("./component/shopList/shopList")
 );
@@ -72,6 +95,15 @@ export const styles = {
   },
 };
 
+export const ADDRESS = {
+  icon: <Signpost2 style={styles.icon} />,
+  component: <Address />,
+  disabledWhenUserTokenPresent: false,
+  hideCard: true,
+  label: "我的地址",
+  sectionContainer: true,
+  url: "/address",
+};
 export const ADDRESS_GENERATOR = {
   icon: <TextareaT style={styles.icon} />,
   component: <AddressGenerator />,
@@ -91,7 +123,7 @@ export const ALLOWED_BY = {
   url: "/allowedBy",
 };
 export const CALCULATOR = {
-  icon: <CalculatorFill style={styles.icon} />,
+  icon: <Calculator style={styles.icon} />,
   component: <CostCalculator />,
   disabledWhenUserTokenPresent: false,
   hideCard: true,
@@ -108,7 +140,15 @@ export const CHANGE_PASSWORD = {
   sectionContainer: true,
   url: "/changePassword",
 };
-
+export const EDIT_ADDRESS = {
+  icon: <Signpost2 style={styles.icon} />,
+  component: <EditAddress />,
+  disabledWhenUserTokenPresent: false,
+  hideCard: true,
+  label: "地址",
+  sectionContainer: true,
+  url: "/editAddress",
+};
 export const LANDING_PAGE = {
   icon: <KeyFill style={styles.icon} />,
   component: <LandingPage />,
@@ -137,6 +177,7 @@ export const MY_PARCEL = {
   icon: <BoxSeam style={styles.icon} />,
   component: <Tracking />,
   disabledWhenUserTokenPresent: false,
+  hideCard: true,
   label: "我的包裹",
   sectionContainer: true,
   url: "/myParcel",
@@ -168,6 +209,51 @@ export const SAVE_TO_DESKTOP = {
   label: "安裝App",
   sectionContainer: false,
   url: "/saveToDesktop",
+};
+export const SHIP_TO_HOME = {
+  icon: <Truck style={styles.icon} />,
+  component: <ShipToHome />,
+  disabledWhenUserTokenPresent: false,
+  hideCard: true,
+  label: "送貨上門",
+  sectionContainer: true,
+  url: "/shipToHome",
+};
+export const SHIP_TO_HOME_LANDING_PAGE = {
+  icon: <Truck style={styles.icon} />,
+  component: <ShipToHomeLandingPage />,
+  disabledWhenUserTokenPresent: false,
+  hideCard: true,
+  label: "送貨上門",
+  sectionContainer: true,
+  url: "/shipToHomeLandingPage",
+};
+export const SHIP_TO_HOME_ORDER = {
+  icon: <JournalText style={styles.icon} />,
+  component: <ShipToHomeOrder />,
+  disabledWhenUserTokenPresent: false,
+  hideCard: true,
+  label: "我的訂單",
+  sectionContainer: true,
+  url: "/shipToHomeOrder",
+};
+export const SHIP_TO_HOME_ORDER_CONFIRMATION = {
+  icon: <JournalText style={styles.icon} />,
+  component: <ShipToHomeOrderConfirmation />,
+  disabledWhenUserTokenPresent: false,
+  hideCard: true,
+  label: "確認訂單",
+  sectionContainer: true,
+  url: "/shipToHomeOrderConfirmation",
+};
+export const SHIP_TO_HOME_ORDER_DETAIL = {
+  icon: <JournalText style={styles.icon} />,
+  component: <ShipToHomeOrderDetail />,
+  disabledWhenUserTokenPresent: false,
+  hideCard: true,
+  label: "訂單詳細",
+  sectionContainer: true,
+  url: "/shipToHomeOrderDetail",
 };
 export const SHOP_LIST = {
   icon: <Shop style={styles.icon} />,
@@ -208,6 +294,8 @@ export const USER_PROFILE = {
 };
 
 export default [
+  ADDRESS,
+  EDIT_ADDRESS,
   LOGIN,
   THIRD_PERSON,
   ALLOWED_BY,
@@ -218,6 +306,11 @@ export default [
   CALCULATOR,
   MATCH_BAD_PARCEL,
   SAVE_TO_DESKTOP,
+  SHIP_TO_HOME,
+  SHIP_TO_HOME_LANDING_PAGE,
+  SHIP_TO_HOME_ORDER,
+  SHIP_TO_HOME_ORDER_CONFIRMATION,
+  SHIP_TO_HOME_ORDER_DETAIL,
   SHOP_LIST,
   ADDRESS_GENERATOR,
   CHANGE_PASSWORD,

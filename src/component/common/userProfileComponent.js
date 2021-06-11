@@ -1,4 +1,5 @@
 import ClientApplicationComponent from "../clientApplicationComponent";
+import { LOGIN } from "../../routes";
 
 export default class UserProfileComponent extends ClientApplicationComponent {
   componentDidMount() {
@@ -10,7 +11,8 @@ export default class UserProfileComponent extends ClientApplicationComponent {
     if (this.userToken) {
       this.initialServiceRequest();
     } else {
-      window.location.replace("/login");
+      this.goToReplace(LOGIN);
+      // window.location.replace("/login");
     }
   }
 

@@ -16,12 +16,12 @@ const LineBreak = React.lazy(() =>
 export default class TrackingDetail extends Component {
   render() {
     const { onClickShowDetail, showDetaiDisplayId, parcel } = this.props;
-    const { displayId, parcelLocation, parcelStatus } = parcel;
+    const { displayId, originalTrackingNumber, parcelLocation, parcelStatus } =
+      parcel;
     const parcelDisplayUtil = new ParcelDisplayUtil();
     // const location = parcelDisplayUtil.getParcelLocation(parcelLocation);
-    const parcelStatusBageAndLabel = parcelDisplayUtil.getParcelStatusBageAndLabel(
-      parcelStatus
-    );
+    const parcelStatusBageAndLabel =
+      parcelDisplayUtil.getParcelStatusBageAndLabel(parcelStatus);
     const arrowColor = styleSchema.color.primaryMedium;
     return (
       <>
@@ -34,7 +34,7 @@ export default class TrackingDetail extends Component {
               {parcelStatusBageAndLabel.label}
             </Badge>
           </td>
-          <td style={styles.defaultText}>{displayId}</td>
+          <td style={styles.defaultText}>{originalTrackingNumber}</td>
           <td>
             {showDetaiDisplayId === displayId ? (
               <CaretUpFill style={{ color: arrowColor }} />
@@ -122,13 +122,8 @@ function SectionContainer({ header, children }) {
 }
 
 function ShopDetailSection({ shop }) {
-  const {
-    openingHour,
-    shopAddress,
-    shopName,
-    shopNumber,
-    shopPhoneNumber,
-  } = shop;
+  const { openingHour, shopAddress, shopName, shopNumber, shopPhoneNumber } =
+    shop;
   return (
     <SectionContainer header="門店資科">
       <Row>

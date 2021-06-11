@@ -1,9 +1,10 @@
 import React from "react";
 
 export default function BackgroundCard(props) {
-  const { children, style } = props;
+  const { children, onClick, style } = props;
   return (
     <div
+      onClick={onClick}
       style={{
         backgroundColor: "white",
         borderRadius: 15,

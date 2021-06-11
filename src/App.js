@@ -1,7 +1,7 @@
 import React, { Suspense } from "react";
 import View from "online-shopping-cargo-parent/dist/view";
 import Spinner from "react-bootstrap/esm/Spinner";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { HashRouter, Switch, Route } from "react-router-dom";
 import Routes from "./routes";
 import { Provider } from "./context/provider";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -16,15 +16,15 @@ export default function App(props) {
         backgroundColor: "#f3f3f3",
         display: "flex",
         flexDirection: "column",
-        minHeight: "-webkit-fill-available",
+        height: "100vh",
         overflow: "auto",
       }}
     >
       <Provider>
         <Suspense fallback={<SuspenseLoading />}>
-          <Router>
+          <HashRouter>
             <Switch>{getRoutes()}</Switch>
-          </Router>
+          </HashRouter>
         </Suspense>
       </Provider>
     </div>
@@ -39,6 +39,7 @@ function getRoutes() {
         <div
           style={{
             backgroundColor: backgroundColor ? backgroundColor : "#f3f3f3",
+            height: "inherit",
           }}
         >
           {sectionContainer ? (
