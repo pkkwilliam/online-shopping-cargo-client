@@ -27,15 +27,20 @@ export default function ShipToHomeOrderView(props) {
 
 function Order(props) {
   const { onClickOrderDetail, order } = props;
-  const { id, cost, parcels, shipToHomeStatus } = order;
+  const { id, cost, parcels, sendWantOrderNumber, shipToHomeStatus } = order;
   return (
     <BackgroundCard
       onClick={() => onClickOrderDetail(order)}
       style={{ marginBottom: 15 }}
     >
-      <View style={{ alignItems: "center", justifyContent: "space-between" }}>
-        <InfoBlack style={{ fontSize: 12 }}>{`送貨單號: ${id}`}</InfoBlack>
-        <P>{shipToHomeStatus}</P>
+      <View style={{ justifyContent: "space-between" }}>
+        <View style={{ flexDirection: "column" }}>
+          <InfoBlack style={{ fontSize: 12 }}>{`單號: ${id}`}</InfoBlack>
+          <InfoBlack
+            style={{ fontSize: 12 }}
+          >{`物流單號: ${sendWantOrderNumber}`}</InfoBlack>
+        </View>
+        <P>{getShipToHomeStatus(shipToHomeStatus)}</P>
       </View>
       <View
         style={{
@@ -57,4 +62,17 @@ function Order(props) {
       <View></View>
     </BackgroundCard>
   );
+}
+
+function getShipToHomeStatus(status) {
+  switch (status) {
+    case "DELIVERED":
+      return "送達";
+    case "ORDER_RECEIVED":
+      return "已接收訂單";
+    case "PREPARING":
+      return "正在打包";
+    default:
+      return "未知";
+  }
 }

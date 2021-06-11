@@ -12,8 +12,15 @@ import P from "online-shopping-cargo-parent/dist/text/paragraph";
 import { TotalCost } from "./shipToHomeOrderDetail.view";
 
 export default function ShipToHomeOrderConfirmationView(props) {
-  const { address, cost, discount, id, parcels, paymentType } =
-    props.shipToHomeOrder;
+  const {
+    address,
+    cost,
+    discount,
+    id,
+    parcels,
+    paymentType,
+    sendWantOrderNumber,
+  } = props.shipToHomeOrder;
   return (
     <ApplicationComponentView>
       <View
@@ -29,8 +36,10 @@ export default function ShipToHomeOrderConfirmationView(props) {
           selectedPaymentType={getPaymentTypeObject(paymentType)}
         />
         <ParcelList
+          id={id}
           onClickParcel={() => {}}
           parcels={parcels}
+          sendWantOrderNumber={sendWantOrderNumber}
           selectable={false}
         />
         <TotalCost cost={cost} discount={discount} parcels={parcels} />

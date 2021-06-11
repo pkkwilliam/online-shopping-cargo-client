@@ -13,7 +13,15 @@ import P from "online-shopping-cargo-parent/dist/text/paragraph";
 import LineBreak from "online-shopping-cargo-parent/dist/lineBreak";
 
 export default function ShipToHomeOrderDetailView(props) {
-  const { address, cost, discount, parcels, paymentType } = props.order;
+  const {
+    address,
+    cost,
+    discount,
+    id,
+    parcels,
+    paymentType,
+    sendWantOrderNumber,
+  } = props.order;
   return (
     <ApplicationComponentView>
       <View
@@ -27,9 +35,11 @@ export default function ShipToHomeOrderDetailView(props) {
         />
         <TotalCost cost={cost} discount={discount} parcels={parcels} />
         <ParcelList
+          id={id}
           onClickParcel={() => {}}
           parcels={parcels}
           selectable={false}
+          sendWantOrderNumber={sendWantOrderNumber}
         />
       </View>
     </ApplicationComponentView>

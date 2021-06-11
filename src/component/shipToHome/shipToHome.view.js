@@ -204,7 +204,13 @@ function CircularBackgroundIcon({ children }) {
  * we either use ParcelList or ParcelTable, it is different implementation with different look
  * @param {*} param0
  */
-export function ParcelList({ onClickParcel, parcels, selectable = true }) {
+export function ParcelList({
+  id,
+  onClickParcel,
+  parcels,
+  sendWantOrderNumber,
+  selectable = true,
+}) {
   const parcelDisplayUtil = new ParcelDisplayUtil();
 
   const ParcelRows = parcels.map((parcel) => {
@@ -228,6 +234,8 @@ export function ParcelList({ onClickParcel, parcels, selectable = true }) {
       }}
     >
       <View style={{ flexDirection: "column", width: "inherit" }}>
+        <P>單號: {id}</P>
+        <P>物流單號: {sendWantOrderNumber}</P>
         {ParcelRows}
       </View>
     </BackgroundCard>
