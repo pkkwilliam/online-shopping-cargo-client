@@ -19,7 +19,7 @@ export default class TrackingView extends ApplicationComponentView {
       sortedParcels,
     } = this.props;
     let parcelRows = sortedParcels
-      .filter((parcel) => parcel.parcelType === "STORE_PICKUP")
+      .filter((parcel) => parcel.parcelType !== "SHIP_TO_HOME")
       .map((parcel) => {
         return (
           <TrackingDetail
