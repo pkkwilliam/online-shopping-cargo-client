@@ -22,21 +22,25 @@ import InfoBlack from "../text/infoBlack";
 import ApplicationModalLoading from "online-shopping-cargo-parent/dist/applicationModalLoading";
 
 const PAYMENT_ALI_PAY = {
+  enabled: false,
   key: "ALI_PAY",
   label: "支付寶",
 };
 
 const PAYMENT_CASH = {
+  enabled: true,
   key: "CASH",
   label: "送貨時支付 (只限現金)",
 };
 
 const PAYMENT_M_PAY = {
+  enabled: false,
   key: "M_PAY",
   label: "M-Pay (澳門錢包)",
 };
 
 const PAYMENT_WECHAT_PAY = {
+  enabled: false,
   key: "WECHAT_PAY",
   label: "微信支付",
 };
@@ -377,6 +381,7 @@ function PaymentSectionSelection({
   } else {
     const PaymentTypes = PAYMENT_TYPES.map((type) => (
       <ApplicationTextButton
+        disabled={!type.enabled}
         onClick={() => onClickSelectPaymentMethod(type)}
         style={{ fontSize: 14 }}
       >
