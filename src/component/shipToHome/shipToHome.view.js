@@ -238,8 +238,13 @@ export function ParcelList({
       }}
     >
       <View style={{ flexDirection: "column", width: "inherit" }}>
-        <P>單號: {id}</P>
-        <P>物流單號: {sendWantOrderNumber}</P>
+        {id && sendWantOrderNumber ? (
+          <>
+            <P>單號: {id}</P>
+            <P>物流單號: {sendWantOrderNumber}</P>
+          </>
+        ) : null}
+
         {ParcelRows}
       </View>
     </BackgroundCard>
