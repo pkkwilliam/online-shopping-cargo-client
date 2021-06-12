@@ -1,18 +1,22 @@
 import React from "react";
 import P from "online-shopping-cargo-parent/dist/text/paragraph";
 import Container from "react-bootstrap/esm/Container";
-import Row from "react-bootstrap/esm/Row";
 import Col from "react-bootstrap/esm/Col";
 import View from "online-shopping-cargo-parent/dist/view";
 import LineBreak from "online-shopping-cargo-parent/dist/lineBreak";
 import ApplicationTextField from "online-shopping-cargo-parent/dist/applicationTextField";
 import ClientApplicationComponent from "../clientApplicationComponent";
 import ApplicationButton from "online-shopping-cargo-parent/dist/applicationButton";
-import { GET_PARCEL_ESTIMATE_COST } from "online-shopping-cargo-parent/dist/service";
+import {
+  GET_PARCEL_ESTIMATE_COST,
+  GET_SHIP_TO_HOME_PARCEL_ESTIMATE_COST,
+} from "online-shopping-cargo-parent/dist/service";
 import Table from "react-bootstrap/esm/Table";
 import Plus from "react-bootstrap-icons/dist/icons/plus";
 import BackgroundCard from "../common/backgroundCard";
 import InstructionText from "../common/instructionText";
+import Tab from "react-bootstrap/esm/Tab";
+import Tabs from "react-bootstrap/esm/Tabs";
 
 export default class CostCalculatorView extends ClientApplicationComponent {
   state = {
@@ -20,11 +24,13 @@ export default class CostCalculatorView extends ClientApplicationComponent {
     height: 0,
     length: 0,
     parcelResponse: undefined,
+    shipToHomeParcelResponse: undefined,
     weight: 0,
     width: 0,
   };
 
   render() {
+    const { parcelResponse, shipToHomeParcelResponse } = this.state;
     return (
       <Container>
         <InstructionText>請輸入包裹資料</InstructionText>
@@ -59,14 +65,17 @@ export default class CostCalculatorView extends ClientApplicationComponent {
           <SubmitButton onClick={this.onClickEsimateParcelCost}>
             計算
           </SubmitButton>
-          <EsimateCostResult parcelResponse={this.state.parcelResponse} />
+          <EsimateCostResult
+            parcelResponse={parcelResponse}
+            shipToHomeParcelResponse={shipToHomeParcelResponse}
+          />
         </BackgroundCard>
-        <CostTable />
+        <CostTabs />
       </Container>
     );
   }
 
-  onClickEsimateParcelCost = () => {
+  onClickEsimateParcelCost = async () => {
     const { dirty, weight } = this.state;
     if (!dirty) {
       return;
@@ -74,11 +83,18 @@ export default class CostCalculatorView extends ClientApplicationComponent {
     if (!weight || weight === 0) {
       alert("請輸入重量");
     } else {
-      this.serviceExecutor
-        .execute(GET_PARCEL_ESTIMATE_COST(this.state))
-        .then((parcelResponse) =>
-          this.setState({ dirty: false, parcelResponse })
-        );
+      const pickupCost = this.serviceExecutor.execute(
+        GET_PARCEL_ESTIMATE_COST(this.state)
+      );
+      const shipToHomeCost = this.serviceExecutor.execute(
+        GET_SHIP_TO_HOME_PARCEL_ESTIMATE_COST(this.state)
+      );
+      Promise.all([pickupCost, shipToHomeCost]).then((values) => {
+        this.setState({
+          parcelResponse: values[0],
+          shipToHomeParcelResponse: values[1],
+        });
+      });
     }
   };
 
@@ -111,20 +127,26 @@ export default class CostCalculatorView extends ClientApplicationComponent {
   };
 }
 
-function EsimateCostResult({ parcelResponse }) {
+function EsimateCostResult({ parcelResponse, shipToHomeParcelResponse }) {
   if (parcelResponse) {
-    const { cost, height, length, weight, width } = parcelResponse;
+    const { height, length, weight, width } = parcelResponse;
     return (
       <View
         style={{
           alignItems: "center",
-          justifyContent: "space-between",
+          flexDirection: "column",
           marginTop: 15,
         }}
       >
-        <P>長寬高總和: {length + width + height}cm</P>
-        <P>重量: {weight}kg</P>
-        <P style={{ fontWeight: "bold" }}>費用: ${cost}</P>
+        <View style={{ justifyContent: "space-evenly", width: "100%" }}>
+          <P>長寬高總和: {length + width + height}cm</P>
+          <P>重量: {weight}kg</P>
+        </View>
+        <LineBreak style={{ marginBottom: 5, marginTop: 5 }} />
+        <P style={{ fontWeight: "bold" }}>門店自提: ${parcelResponse.cost}</P>
+        <P style={{ fontWeight: "bold" }}>
+          送貨上門: ${shipToHomeParcelResponse.cost}
+        </P>
       </View>
     );
   } else {
@@ -137,6 +159,31 @@ function SubmitButton({ children, onClick }) {
     <ApplicationButton block onClick={onClick} style={{ marginTop: 10 }}>
       {children}
     </ApplicationButton>
+  );
+}
+
+export function CostTabs({ displayTab = "STORE_PICK_UP" }) {
+  return (
+    <div style={{ marginTop: 15 }}>
+      <Tabs
+        defaultActiveKey={displayTab}
+        style={{
+          display: "flex",
+          justifyContent: "space-evenly",
+        }}
+      >
+        <Tab
+          eventKey="STORE_PICK_UP"
+          title="門店自提"
+          style={{ width: "100%" }}
+        >
+          <CostTable />
+        </Tab>
+        <Tab eventKey="SHIP_TO_HOME" title="送貨上門">
+          <ShipToHomeCostTable />
+        </Tab>
+      </Tabs>
+    </div>
   );
 }
 
@@ -179,11 +226,35 @@ function CostTable() {
   );
 }
 
-function CostCalculatorTable({ children }) {
+function CostCalculatorTable({ children, style }) {
   return (
-    <Table striped bordered hover size="sm" style={{ width: "revert" }}>
+    <Table
+      striped
+      bordered
+      hover
+      size="sm"
+      style={{ width: "revert", ...style }}
+    >
       {children}
     </Table>
+  );
+}
+
+function ShipToHomeCostTable() {
+  return (
+    <div style={{ marginTop: 15 }}>
+      <h6>送貨費用</h6>
+      <P style={styles.disclaimerText}>
+        *若體積重大於實際重量，則按體積重計算重量。(體積重計算公式=長cm * 寬cm *
+        高cm / 6000)
+      </P>
+      <CostCalculatorTable style={{ marginTop: 15, width: "100%" }}>
+        <tr>
+          <TableHeaderItem>重量(kg)</TableHeaderItem>
+        </tr>
+        <tbody>{generateShipToHomeFee(10)}</tbody>
+      </CostCalculatorTable>
+    </div>
   );
 }
 
@@ -243,6 +314,29 @@ function generateSizeSumFee(numberOfRow) {
   }
 
   return [initialRow, rows, lastRow];
+}
+
+function generateShipToHomeFee(numberOfRow) {
+  const costPerUnit = 4;
+  const base = 2.0;
+  const discount = 0;
+  const lastRow = (
+    <tr>
+      <TableItem>每+1.0kg</TableItem>
+      <TableItem>+$4</TableItem>
+    </tr>
+  );
+  let rows = [];
+  for (let weightRow = 1; weightRow < numberOfRow; weightRow++) {
+    const row = (
+      <tr>
+        <TableItem>{`${weightRow}.0`}</TableItem>
+        <TableItem>{`$${weightRow * costPerUnit + base - discount}`}</TableItem>
+      </tr>
+    );
+    rows.push(row);
+  }
+  return [rows, lastRow];
 }
 
 function generateWeightFee(numberOfRow) {
