@@ -212,7 +212,7 @@ export function ParcelList({
   id,
   onClickParcel,
   parcels,
-  sendWantOrderNumber,
+  shippingProviderOrderNumber,
   selectable = true,
 }) {
   const parcelDisplayUtil = new ParcelDisplayUtil();
@@ -238,10 +238,10 @@ export function ParcelList({
       }}
     >
       <View style={{ flexDirection: "column", width: "inherit" }}>
-        {id && sendWantOrderNumber ? (
+        {id && shippingProviderOrderNumber ? (
           <>
             <P>單號: {id}</P>
-            <P>物流單號: {sendWantOrderNumber}</P>
+            <P>物流單號: {shippingProviderOrderNumber}</P>
           </>
         ) : null}
 

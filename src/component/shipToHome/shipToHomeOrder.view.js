@@ -27,7 +27,8 @@ export default function ShipToHomeOrderView(props) {
 
 function Order(props) {
   const { onClickOrderDetail, order } = props;
-  const { id, cost, parcels, sendWantOrderNumber, shipToHomeStatus } = order;
+  const { id, cost, parcels, shippingProviderOrderNumber, shipToHomeStatus } =
+    order;
   return (
     <BackgroundCard
       onClick={() => onClickOrderDetail(order)}
@@ -38,7 +39,7 @@ function Order(props) {
           <InfoBlack style={{ fontSize: 12 }}>{`單號: ${id}`}</InfoBlack>
           <InfoBlack
             style={{ fontSize: 12 }}
-          >{`物流單號: ${sendWantOrderNumber}`}</InfoBlack>
+          >{`物流單號: ${shippingProviderOrderNumber}`}</InfoBlack>
         </View>
         <P>{getShipToHomeStatus(shipToHomeStatus)}</P>
       </View>

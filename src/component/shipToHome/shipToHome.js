@@ -119,6 +119,7 @@ class ShipToHome extends UserProfileComponent {
     if (this.checkOrderValid(address, selectedParcels, selectedPaymentType)) {
       const requestBody = {
         address: address.selectedAddress,
+        destination: "MACAU",
         parcels: selectedParcels,
         paymentType: selectedPaymentType.key,
       };

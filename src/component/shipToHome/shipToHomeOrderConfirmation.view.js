@@ -19,7 +19,7 @@ export default function ShipToHomeOrderConfirmationView(props) {
     id,
     parcels,
     paymentType,
-    sendWantOrderNumber,
+    shippingProviderOrderNumber,
   } = props.shipToHomeOrder;
   return (
     <ApplicationComponentView>
@@ -39,7 +39,7 @@ export default function ShipToHomeOrderConfirmationView(props) {
           id={id}
           onClickParcel={() => {}}
           parcels={parcels}
-          sendWantOrderNumber={sendWantOrderNumber}
+          shippingProviderOrderNumber={shippingProviderOrderNumber}
           selectable={false}
         />
         <TotalCost cost={cost} discount={discount} parcels={parcels} />

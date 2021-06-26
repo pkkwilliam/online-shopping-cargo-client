@@ -20,7 +20,7 @@ export default function ShipToHomeOrderDetailView(props) {
     id,
     parcels,
     paymentType,
-    sendWantOrderNumber,
+    shippingProviderOrderNumber,
   } = props.order;
   return (
     <ApplicationComponentView>
@@ -39,7 +39,7 @@ export default function ShipToHomeOrderDetailView(props) {
           onClickParcel={() => {}}
           parcels={parcels}
           selectable={false}
-          sendWantOrderNumber={sendWantOrderNumber}
+          shippingProviderOrderNumber={shippingProviderOrderNumber}
         />
       </View>
     </ApplicationComponentView>
