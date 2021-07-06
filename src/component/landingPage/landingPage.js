@@ -18,7 +18,7 @@ class LandingPage extends ClientApplicationComponent {
   render() {
     return (
       <LandingPageView
-        isApp={this.isApp}
+        app={this.app}
         userToken={this.userToken}
         {...this.state}
       />

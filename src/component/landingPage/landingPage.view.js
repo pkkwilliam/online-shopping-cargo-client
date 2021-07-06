@@ -26,7 +26,7 @@ const RegisterPromp = React.lazy(() =>
 
 export default class LandingPageView extends ApplicationComponentView {
   render() {
-    const { isApp, userToken } = this.props;
+    const { app, userToken } = this.props;
     return (
       <this.Wrapper>
         {/* <RegisterPromp /> */}
@@ -42,8 +42,8 @@ export default class LandingPageView extends ApplicationComponentView {
           <div>
             {/* <ImportantNotice {...this.props} /> */}
             <Menu
-              isApp={isApp}
-              menuItems={getMenuItems(isApp, userToken)}
+              app={app}
+              menuItems={getMenuItems(app, userToken)}
               userToken={userToken}
             />
           </div>
@@ -80,8 +80,8 @@ function ImportantNotice({ importantNotices }) {
   });
 }
 
-function getMenuItems(isApp, userToken) {
-  if (isApp) {
+function getMenuItems(app, userToken) {
+  if (app) {
     return [
       USER_PROFILE,
       PICKUP_QR_CODE,
