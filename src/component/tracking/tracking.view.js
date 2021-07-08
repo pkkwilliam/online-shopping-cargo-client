@@ -9,6 +9,7 @@ import { styleSchema } from "online-shopping-cargo-parent/dist/styleSchema";
 import { Truck } from "react-bootstrap-icons";
 import { getShipToHomeParcels } from "../shipToHome/shipToHome";
 import Badge from "react-bootstrap/esm/Badge";
+import { SHIP_TO_HOME } from "online-shopping-cargo-parent/dist/parcelDisplayUtil";
 
 export default class TrackingView extends ApplicationComponentView {
   render() {
@@ -19,7 +20,7 @@ export default class TrackingView extends ApplicationComponentView {
       sortedParcels,
     } = this.props;
     let parcelRows = sortedParcels
-      .filter((parcel) => parcel.parcelType === "STORE_PICKUP")
+      .filter((parcel) => parcel.parcelType !== SHIP_TO_HOME.key)
       .map((parcel) => {
         return (
           <TrackingDetail

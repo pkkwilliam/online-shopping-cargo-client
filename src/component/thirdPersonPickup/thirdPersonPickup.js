@@ -11,12 +11,6 @@ import { withRouter } from "react-router-dom";
 class ThirdPersonPickup extends UserProfileComponent {
   state = {
     ...this.state,
-    confirmModal: {
-      body: "",
-      header: "",
-      onClickConfirm: () => {},
-      show: false,
-    },
     thirdPersons: [],
   };
 

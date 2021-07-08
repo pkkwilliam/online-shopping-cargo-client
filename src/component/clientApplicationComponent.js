@@ -7,6 +7,12 @@ import AppStateService from "./appStateService";
 export default class ClientApplicationComponent extends ApplicationComponent {
   state = {
     ...this.state,
+    confirmModal: {
+      body: "",
+      header: "",
+      onClickConfirm: () => {},
+      show: false,
+    },
     loading: false,
   };
 
@@ -77,6 +83,14 @@ export default class ClientApplicationComponent extends ApplicationComponent {
       loading: true,
     });
   }
+
+  onCloseConfirmModal = () => {
+    this.setState({
+      confirmModal: {
+        show: false,
+      },
+    });
+  };
 
   get routerParams() {
     // import { withRouter } from 'react-router-dom'

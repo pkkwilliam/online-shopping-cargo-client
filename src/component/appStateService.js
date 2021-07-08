@@ -8,9 +8,12 @@ import {
   LINK_PUSH_NOTIFICATION_TOKEN,
 } from "online-shopping-cargo-parent/dist/service";
 
+/**
+ * @deprecated
+ */
 export default class AppStateService {
-  _appState;
-  _serviceExecutor;
+  static _appState;
+  static _serviceExecutor;
 
   constructor(appState, serviceExecutor) {
     this._appState = appState;
@@ -55,8 +58,8 @@ export default class AppStateService {
     }
   }
 
-  getParcels() {
-    if (this.appState.parcel.dirty) {
+  getParcels(forceLoad = false) {
+    if (this.appState.parcel.dirty || forceLoad) {
       this.serviceExecutor
         .execute(GET_PARCELS())
         .then((parcelResponse) =>

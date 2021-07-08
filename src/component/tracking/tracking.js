@@ -13,6 +13,7 @@ class Tracking extends UserProfileComponent {
 
   initialServiceRequest() {
     this.appStateService.getParcels();
+    this.appStateService.getShops();
   }
 
   render() {

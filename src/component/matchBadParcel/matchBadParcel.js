@@ -4,7 +4,7 @@ import { MATCH_BAD_PARCEL } from "online-shopping-cargo-parent/dist/service";
 import UserProfileComponent from "../common/userProfileComponent";
 import { withRouter } from "react-router-dom";
 
-class MatchBadParcel extends UserProfileComponent {
+export class MatchBadParcel extends UserProfileComponent {
   state = {
     ...this.state,
     loading: false,

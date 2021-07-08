@@ -21,9 +21,6 @@ class EditAddress extends UserProfileComponent {
       street: "",
       unit: "",
     },
-    confirmModal: {
-      show: false,
-    },
     isEdit: false,
   };
 
