@@ -6,9 +6,6 @@ export default function FooterView(props) {
   return (
     <div style={styles.rootContainer}>
       <P style={{ fontSize: 11 }}>
-        微信: PICKTB 電話1: 63530392 電話2: 28719871 Fax: 28719872
-      </P>
-      <P style={{ fontSize: 11 }}>
         平台技術由
         <a href="https://pkkwilliam.github.io/bitcode-website/">
           澳門源代碼科技
