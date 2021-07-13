@@ -7,11 +7,10 @@ export default function FooterView(props) {
     <div style={styles.rootContainer}>
       <P style={{ fontSize: 11 }}>
         平台技術由
-        <a href="https://pkkwilliam.github.io/bitcode-website/">
-          澳門源代碼科技
-        </a>
+        <a href="https://bitcode.mo">源代碼科技</a>
         提供
       </P>
+      <P style={{ fontSize: 11 }}>微信客服: PickTB</P>
     </div>
   );
 }

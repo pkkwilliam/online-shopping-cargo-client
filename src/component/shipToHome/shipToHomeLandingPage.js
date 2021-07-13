@@ -5,10 +5,10 @@ import ShipToHomeLandingPageView from "./shipToHomeLandingPage.view";
 import {
   ADDRESS,
   CALCULATOR,
-  SHIP_TO_HOME,
   SHIP_TO_HOME_ORDER,
   TUTORIAL,
 } from "../../routes";
+import { SHIP_TO_HOME } from "../tutorial/tutorial";
 
 class ShipToHomeLandingPage extends UserProfileComponent {
   state = {
@@ -56,7 +56,7 @@ class ShipToHomeLandingPage extends UserProfileComponent {
   };
 
   onClickTutorial = () => {
-    this.goTo(TUTORIAL);
+    this.goTo(TUTORIAL, { displayTab: SHIP_TO_HOME });
   };
 }
 

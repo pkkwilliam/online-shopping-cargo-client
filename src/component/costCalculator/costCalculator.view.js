@@ -15,8 +15,7 @@ import Table from "react-bootstrap/esm/Table";
 import Plus from "react-bootstrap-icons/dist/icons/plus";
 import BackgroundCard from "../common/backgroundCard";
 import InstructionText from "../common/instructionText";
-import Tab from "react-bootstrap/esm/Tab";
-import Tabs from "react-bootstrap/esm/Tabs";
+import SegmentTab from "../segmentTab";
 
 export default class CostCalculatorView extends ClientApplicationComponent {
   state = {
@@ -164,26 +163,11 @@ function SubmitButton({ children, onClick }) {
 
 export function CostTabs({ displayTab = "STORE_PICK_UP" }) {
   return (
-    <div style={{ marginTop: 15 }}>
-      <Tabs
-        defaultActiveKey={displayTab}
-        style={{
-          display: "flex",
-          justifyContent: "space-evenly",
-        }}
-      >
-        <Tab
-          eventKey="STORE_PICK_UP"
-          title="門店自提"
-          style={{ width: "100%" }}
-        >
-          <CostTable />
-        </Tab>
-        <Tab eventKey="SHIP_TO_HOME" title="送貨上門">
-          <ShipToHomeCostTable />
-        </Tab>
-      </Tabs>
-    </div>
+    <SegmentTab
+      displayTab={displayTab}
+      shipToHomeComponent={<ShipToHomeCostTable />}
+      storePickupComponent={<CostTable />}
+    />
   );
 }
 

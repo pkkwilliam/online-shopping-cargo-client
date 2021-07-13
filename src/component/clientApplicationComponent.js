@@ -32,6 +32,7 @@ export default class ClientApplicationComponent extends ApplicationComponent {
     if (this.userToken && notificationToken) {
       this.appStateService.linkNotificationToken(notificationToken);
     }
+    this.appStateService.getShops();
     this.app = app === "true";
   }
 
