@@ -15,6 +15,7 @@ import {
   ADDRESS_GENERATOR,
   SAVE_TO_DESKTOP,
   SHIP_TO_HOME_LANDING_PAGE,
+  ONLINE_PAYMENT,
 } from "../../routes";
 import { styleSchema } from "online-shopping-cargo-parent/dist/styleSchema";
 
@@ -94,6 +95,7 @@ function getMenuItems(app, userToken) {
     ];
   } else {
     return [
+      ONLINE_PAYMENT,
       SAVE_TO_DESKTOP,
       USER_PROFILE,
       PICKUP_QR_CODE,
