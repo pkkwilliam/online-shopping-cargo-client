@@ -46,9 +46,6 @@ export const LandingPage = React.lazy(() =>
 export const MatchBadParcel = React.lazy(() =>
   import("./component/matchBadParcel/matchBadParcel")
 );
-export const OnlinePayment = React.lazy(() =>
-  import("./component/onlinePayment/onlinePayment")
-);
 export const PickupQRCode = React.lazy(() =>
   import("./component/pickupQRCode/pickupQRCode")
 );
@@ -186,15 +183,6 @@ export const MY_PARCEL = {
   sectionContainer: true,
   url: "/myParcel",
 };
-export const ONLINE_PAYMENT = {
-  icon: <CashCoin style={styles.icon} />,
-  component: <OnlinePayment />,
-  disabledWhenUserTokenPresent: false,
-  hideCard: true,
-  label: "線上支付",
-  sectionContainer: true,
-  url: "/onlinePayment",
-};
 export const PICKUP_QR_CODE = {
   backgroundColor: styleSchema.color.primaryLight,
   icon: <UpcScan style={styles.icon} />,
@@ -318,7 +306,6 @@ export default [
   TUTORIAL,
   CALCULATOR,
   MATCH_BAD_PARCEL,
-  ONLINE_PAYMENT,
   SAVE_TO_DESKTOP,
   SHIP_TO_HOME,
   SHIP_TO_HOME_LANDING_PAGE,

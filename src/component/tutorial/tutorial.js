@@ -9,15 +9,15 @@ import StorePickupTutorial from "./storePickupTutorial";
 import UserProfileComponent from "../common/userProfileComponent";
 import { withRouter } from "react-router-dom";
 
-export const SHIP_TO_HOME = "SHIP_TO_HOME";
-export const STORE_PICKUP = "STORE_PICKUP";
+export const SHIP_TO_HOME_TAB = "SHIP_TO_HOME_TAB";
+export const STORE_PICKUP_TAB = "STORE_PICKUP_TAB";
 
 class Tutorial extends UserProfileComponent {
   render() {
     const displayTab =
       this.routerParams && this.routerParams.displayTab
         ? this.routerParams.displayTab
-        : STORE_PICKUP;
+        : STORE_PICKUP_TAB;
     return (
       <SegmentTab
         displayTab={displayTab}

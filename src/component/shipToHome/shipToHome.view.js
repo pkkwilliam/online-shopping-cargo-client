@@ -20,32 +20,33 @@ import ApplicationTextButton from "online-shopping-cargo-parent/dist/application
 import Info from "../text/info";
 import InfoBlack from "../text/infoBlack";
 import ApplicationModalLoading from "online-shopping-cargo-parent/dist/applicationModalLoading";
+import { MpayForm } from "../onlinePayment/onlinePayment";
 
-const PAYMENT_ALI_PAY = {
-  enabled: false,
-  key: "ALI_PAY",
+export const PAYMENT_ALI_PAY = {
+  enabled: true,
+  key: "ALIPAY",
   label: "支付寶",
 };
 
-const PAYMENT_CASH = {
+export const PAYMENT_CASH = {
   enabled: true,
   key: "CASH",
   label: "送貨時支付 (只限現金)",
 };
 
-const PAYMENT_M_PAY = {
-  enabled: false,
+export const PAYMENT_M_PAY = {
+  enabled: true,
   key: "M_PAY",
   label: "M-Pay (澳門錢包)",
 };
 
-const PAYMENT_WECHAT_PAY = {
+export const PAYMENT_WECHAT_PAY = {
   enabled: false,
   key: "WECHAT_PAY",
   label: "微信支付",
 };
 
-const PAYMENT_TYPES = [
+export const PAYMENT_TYPES = [
   PAYMENT_ALI_PAY,
   PAYMENT_CASH,
   PAYMENT_M_PAY,
@@ -53,6 +54,13 @@ const PAYMENT_TYPES = [
 ];
 
 export default function ShipToHomeView(props) {
+  const {
+    formRequestParams,
+    isElectronicPaymentChannel,
+    loading,
+    onClickSubmit,
+    orderValid,
+  } = props;
   return (
     <ApplicationComponentView {...props}>
       <ApplicationModalLoading {...props.modalLoading} />
@@ -69,7 +77,15 @@ export default function ShipToHomeView(props) {
           <ParcelList {...props} />
         </View>
         <View style={{ bottom: 0, position: "sticky" }}>
-          <BottomTab {...props} />
+          <BottomTab {...props}>
+            <SubmitButton
+              formRequestParams={formRequestParams}
+              isElectronicPaymentChannel={isElectronicPaymentChannel}
+              loading={loading}
+              onClickSubmit={onClickSubmit}
+              orderValid={orderValid}
+            />
+          </BottomTab>
         </View>
       </View>
     </ApplicationComponentView>
@@ -127,12 +143,7 @@ export function AddressSection({
   );
 }
 
-function BottomTab({
-  loading,
-  onClickSubmit,
-  orderValid,
-  shipToHomeCostEstimate,
-}) {
+function BottomTab({ children, shipToHomeCostEstimate }) {
   const { cost, discount, hasDiscount } = shipToHomeCostEstimate;
   const DiscountText = hasDiscount ? (
     <PriceText cost={`-${discount}`} label="合併折扣:" />
@@ -172,14 +183,7 @@ function BottomTab({
             <PriceText cost={`${cost}`} label="合計:" />
           </View>
         </View>
-        <ApplicationButton
-          disabled={!orderValid}
-          loading={loading}
-          onClick={onClickSubmit}
-        >
-          <Truck style={{ marginRight: 5 }} />
-          送貨
-        </ApplicationButton>
+        {children}
       </View>
     </BackgroundCard>
   );
@@ -411,6 +415,29 @@ export function PriceText({ cost, label }) {
       </P>
     </View>
   );
+}
+
+export function SubmitButton({
+  formRequestParams,
+  isElectronicPaymentChannel,
+  loading,
+  onClickSubmit,
+  orderValid,
+}) {
+  if (isElectronicPaymentChannel) {
+    return <MpayForm formRequestParams={formRequestParams} />;
+  } else {
+    return (
+      <ApplicationButton
+        disabled={!orderValid}
+        loading={loading}
+        onClick={onClickSubmit}
+      >
+        <Truck style={{ marginRight: 5 }} />
+        送貨
+      </ApplicationButton>
+    );
+  }
 }
 
 export function getPaymentTypeObject(paymentType) {
