@@ -6,7 +6,7 @@ import {
   ParcelList,
   PaymentSection,
   PriceText,
-  getPaymentTypeObject,
+  getPaymentChannelObject,
 } from "./shipToHome.view";
 import BackgroundCard from "../common/backgroundCard";
 import P from "online-shopping-cargo-parent/dist/text/paragraph";
@@ -19,7 +19,7 @@ export default function ShipToHomeOrderDetailView(props) {
     discount,
     id,
     parcels,
-    paymentType,
+    paymentChannel,
     shippingProviderOrderNumber,
   } = props.order;
   return (
@@ -31,7 +31,7 @@ export default function ShipToHomeOrderDetailView(props) {
       >
         <AddressSection selectable={false} selectedAddress={address} />
         <PaymentSection
-          selectedPaymentType={getPaymentTypeObject(paymentType)}
+          selectedPaymentChannel={getPaymentChannelObject(paymentChannel)}
         />
         <TotalCost cost={cost} discount={discount} parcels={parcels} />
         <ParcelList

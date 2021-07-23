@@ -345,17 +345,17 @@ function ParcelListRow({
 }
 
 export function PaymentSection({
-  onClickShowPaymentType,
+  onClickShowPaymentChannel,
   onClickSelectPaymentMethod,
-  selectedPaymentType,
-  showPaymentType,
+  selectedPaymentChannel,
+  showPaymentChannel,
 }) {
-  const Content = selectedPaymentType ? (
+  const Content = selectedPaymentChannel ? (
     <View style={{ alignItems: "center" }}>
       <CircularBackgroundIcon>
         <CreditCard style={{ ...styles.iconFill, fontSize: 18 }} />
       </CircularBackgroundIcon>
-      <P style={{ fontWeight: 300 }}>{selectedPaymentType.label}</P>
+      <P style={{ fontWeight: 300 }}>{selectedPaymentChannel.label}</P>
     </View>
   ) : (
     <Chooseable text="請選擇付款方式" />
@@ -365,7 +365,7 @@ export function PaymentSection({
       style={{ display: "flex", flexDirection: "column", marginTop: 15 }}
     >
       <View
-        onClick={onClickShowPaymentType}
+        onClick={onClickShowPaymentChannel}
         style={{
           alignItems: "center",
           justifyContent: "space-between",
@@ -375,7 +375,7 @@ export function PaymentSection({
       </View>
       <PaymentSectionSelection
         onClickSelectPaymentMethod={onClickSelectPaymentMethod}
-        showPaymentType={showPaymentType}
+        showPaymentChannel={showPaymentChannel}
       />
     </BackgroundCard>
   );
@@ -383,12 +383,12 @@ export function PaymentSection({
 
 function PaymentSectionSelection({
   onClickSelectPaymentMethod,
-  showPaymentType,
+  showPaymentChannel,
 }) {
-  if (!showPaymentType) {
+  if (!showPaymentChannel) {
     return null;
   } else {
-    const PaymentTypes = PAYMENT_TYPES.map((type) => (
+    const PaymentChannels = PAYMENT_TYPES.map((type) => (
       <ApplicationTextButton
         disabled={!type.enabled}
         onClick={() => onClickSelectPaymentMethod(type)}
@@ -400,7 +400,7 @@ function PaymentSectionSelection({
     return (
       <>
         <LineBreak />
-        {PaymentTypes}
+        {PaymentChannels}
       </>
     );
   }
@@ -440,9 +440,9 @@ export function SubmitButton({
   }
 }
 
-export function getPaymentTypeObject(paymentType) {
+export function getPaymentChannelObject(paymentChannel) {
   for (let index = 0; index < PAYMENT_TYPES.length; index++) {
-    if (paymentType === PAYMENT_TYPES[index].key) {
+    if (paymentChannel === PAYMENT_TYPES[index].key) {
       return PAYMENT_TYPES[index];
     }
   }

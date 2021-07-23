@@ -11,7 +11,7 @@ class ShipToHomeOrderConfirmation extends UserProfileComponent {
       cost: 0,
       discount: 0,
       parcels: [],
-      paymentType: undefined,
+      paymentChannel: undefined,
     },
   };
 

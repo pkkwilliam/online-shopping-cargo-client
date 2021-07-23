@@ -21,8 +21,8 @@ class ShipToHome extends OnlinePayment {
       hasDiscount: false,
       parcelCount: 0,
     },
-    selectedPaymentType: undefined,
-    showPaymentType: false,
+    selectedPaymentChannel: undefined,
+    showPaymentChannel: false,
   };
 
   componentDidMount() {
@@ -42,7 +42,7 @@ class ShipToHome extends OnlinePayment {
         selectedAddress={address.selectedAddress}
         onClickParcel={this.onClickParcel}
         onClickSelectAddressButton={this.onClickSelectAddressButton}
-        onClickShowPaymentType={this.onClickShowPaymentType}
+        onClickShowPaymentChannel={this.onClickShowPaymentChannel}
         onClickSelectPaymentMethod={this.onClickSelectPaymentMethod}
         onClickSubmit={this.onClickSubmit}
         onCloseModal={this.onCloseError}
@@ -68,12 +68,12 @@ class ShipToHome extends OnlinePayment {
 
   checkOrderValid() {
     const { address, parcel } = this.appState;
-    const { selectedPaymentType } = this.state;
+    const { selectedPaymentChannel } = this.state;
     const selectedParcels = parcel.parcels.filter((parcel) => parcel.selected);
     if (
       address.selectedAddress &&
       selectedParcels.length > 0 &&
-      selectedPaymentType
+      selectedPaymentChannel
     ) {
       return true;
     } else {
@@ -83,13 +83,13 @@ class ShipToHome extends OnlinePayment {
 
   generateShipToHomeRequestBody() {
     const { address, parcel } = this.appState;
-    const { selectedPaymentType } = this.state;
+    const { selectedPaymentChannel } = this.state;
     const selectedParcels = parcel.parcels.filter((parcel) => parcel.selected);
     return {
       address: address.selectedAddress,
       destination: "MACAU",
       parcels: selectedParcels,
-      paymentChannel: selectedPaymentType.key,
+      paymentChannel: selectedPaymentChannel.key,
     };
   }
 
@@ -109,18 +109,18 @@ class ShipToHome extends OnlinePayment {
     this.goTo(ADDRESS);
   };
 
-  onClickShowPaymentType = () => {
+  onClickShowPaymentChannel = () => {
     this.setState((state) => ({
-      showPaymentType: !state.showPaymentType,
+      showPaymentChannel: !state.showPaymentChannel,
     }));
   };
 
-  onClickSelectPaymentMethod = (selectedPaymentType) => {
+  onClickSelectPaymentMethod = (selectedPaymentChannel) => {
     this.updateElectronicPaymentFormData();
     this.setState({
-      isElectronicPaymentChannel: selectedPaymentType !== PAYMENT_CASH,
-      selectedPaymentType,
-      showPaymentType: false,
+      isElectronicPaymentChannel: selectedPaymentChannel !== PAYMENT_CASH,
+      selectedPaymentChannel,
+      showPaymentChannel: false,
     });
   };
 
