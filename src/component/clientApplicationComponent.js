@@ -66,13 +66,17 @@ export default class ClientApplicationComponent extends ApplicationComponent {
   }
 
   getAppParam() {
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
+    const urlParams = this.getUrlParams();
     const app = urlParams.get("app");
     const notificationToken = urlParams.get("notificationToken");
     console.debug("app user", app);
     console.debug("client notification token", notificationToken);
     return { app, notificationToken };
+  }
+
+  getUrlParams() {
+    const queryString = window.location.search;
+    return new URLSearchParams(queryString);
   }
 
   loadingEnd() {

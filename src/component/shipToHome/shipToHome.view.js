@@ -20,7 +20,6 @@ import ApplicationTextButton from "online-shopping-cargo-parent/dist/application
 import Info from "../text/info";
 import InfoBlack from "../text/infoBlack";
 import ApplicationModalLoading from "online-shopping-cargo-parent/dist/applicationModalLoading";
-import { MpayForm } from "../onlinePayment/onlinePayment";
 
 export const PAYMENT_ALI_PAY = {
   enabled: true,
@@ -54,13 +53,8 @@ export const PAYMENT_TYPES = [
 ];
 
 export default function ShipToHomeView(props) {
-  const {
-    formRequestParams,
-    isElectronicPaymentChannel,
-    loading,
-    onClickSubmit,
-    orderValid,
-  } = props;
+  const { isElectronicPaymentChannel, loading, onClickSubmit, orderValid } =
+    props;
   return (
     <ApplicationComponentView {...props}>
       <ApplicationModalLoading {...props.modalLoading} />
@@ -79,7 +73,6 @@ export default function ShipToHomeView(props) {
         <View style={{ bottom: 0, position: "sticky" }}>
           <BottomTab {...props}>
             <SubmitButton
-              formRequestParams={formRequestParams}
               isElectronicPaymentChannel={isElectronicPaymentChannel}
               loading={loading}
               onClickSubmit={onClickSubmit}
@@ -418,26 +411,21 @@ export function PriceText({ cost, label }) {
 }
 
 export function SubmitButton({
-  formRequestParams,
   isElectronicPaymentChannel,
   loading,
   onClickSubmit,
   orderValid,
 }) {
-  if (isElectronicPaymentChannel) {
-    return <MpayForm formRequestParams={formRequestParams} />;
-  } else {
-    return (
-      <ApplicationButton
-        disabled={!orderValid}
-        loading={loading}
-        onClick={onClickSubmit}
-      >
-        <Truck style={{ marginRight: 5 }} />
-        送貨
-      </ApplicationButton>
-    );
-  }
+  return (
+    <ApplicationButton
+      disabled={!orderValid}
+      loading={loading}
+      onClick={onClickSubmit}
+    >
+      <Truck style={{ marginRight: 5 }} />
+      送貨
+    </ApplicationButton>
+  );
 }
 
 export function getPaymentChannelObject(paymentChannel) {

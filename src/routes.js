@@ -239,6 +239,10 @@ export const SHIP_TO_HOME_ORDER = {
   url: "/shipToHomeOrder",
 };
 export const SHIP_TO_HOME_ORDER_CONFIRMATION = {
+  backButton: {
+    action: "REPLACE",
+    component: LANDING_PAGE,
+  },
   icon: <JournalText style={styles.icon} />,
   component: <ShipToHomeOrderConfirmation />,
   disabledWhenUserTokenPresent: false,
