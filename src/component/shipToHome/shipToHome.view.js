@@ -7,7 +7,6 @@ import {
   ChevronRight,
   Check,
   Circle,
-  CreditCard,
   GeoAltFill,
   Truck,
 } from "react-bootstrap-icons";
@@ -16,41 +15,45 @@ import ApplicationButton from "online-shopping-cargo-parent/dist/applicationButt
 import Badge from "react-bootstrap/esm/Badge";
 import ParcelDisplayUtil from "online-shopping-cargo-parent/dist/parcelDisplayUtil";
 import LineBreak from "online-shopping-cargo-parent/dist/lineBreak";
-import ApplicationTextButton from "online-shopping-cargo-parent/dist/applicationTextButton";
 import Info from "../text/info";
 import InfoBlack from "../text/infoBlack";
 import ApplicationModalLoading from "online-shopping-cargo-parent/dist/applicationModalLoading";
+import { GITHUB_CONTENT_URL } from "online-shopping-cargo-parent/dist/service";
+import Image from "react-bootstrap/esm/Image";
 
 export const PAYMENT_ALI_PAY = {
+  description: "推薦支付寶中國內地實名用戶使用\n本服務由澳門通提供",
   enabled: true,
+  iconUrl: `${GITHUB_CONTENT_URL}/mpay/alipay_logo.png`,
   key: "ALIPAY",
-  label: "支付寶",
-};
-
-export const PAYMENT_CASH = {
-  enabled: true,
-  key: "CASH",
-  label: "送貨時支付 (只限現金)",
+  header: "支付寶",
 };
 
 export const PAYMENT_M_PAY = {
+  description: "推薦 MPay 用戶使用",
   enabled: true,
+  iconUrl: `${GITHUB_CONTENT_URL}/mpay/mpay_logo.png`,
   key: "M_PAY",
-  label: "M-Pay (澳門錢包)",
+  header: "M-Pay (澳門錢包)",
+};
+
+export const PAYMENT_CASH = {
+  description: "只限現金",
+  enabled: true,
+  iconUrl: `${GITHUB_CONTENT_URL}/mpay/cash_logo.png`,
+  key: "CASH",
+  header: "送貨時支付",
 };
 
 export const PAYMENT_WECHAT_PAY = {
+  description: "推薦微信中國內地實名用戶使用\n本服務由澳門通提供",
   enabled: false,
+  iconUrl: `${GITHUB_CONTENT_URL}/mpay/wechat_logo.png`,
   key: "WECHAT_PAY",
-  label: "微信支付",
+  header: "微信支付",
 };
 
-export const PAYMENT_TYPES = [
-  PAYMENT_ALI_PAY,
-  PAYMENT_CASH,
-  PAYMENT_M_PAY,
-  PAYMENT_WECHAT_PAY,
-];
+export const PAYMENT_TYPES = [PAYMENT_M_PAY, PAYMENT_ALI_PAY, PAYMENT_CASH];
 
 export default function ShipToHomeView(props) {
   const { isElectronicPaymentChannel, loading, onClickSubmit, orderValid } =
@@ -345,10 +348,7 @@ export function PaymentSection({
 }) {
   const Content = selectedPaymentChannel ? (
     <View style={{ alignItems: "center" }}>
-      <CircularBackgroundIcon>
-        <CreditCard style={{ ...styles.iconFill, fontSize: 18 }} />
-      </CircularBackgroundIcon>
-      <P style={{ fontWeight: 300 }}>{selectedPaymentChannel.label}</P>
+      <PaymentDisplay type={selectedPaymentChannel} />
     </View>
   ) : (
     <Chooseable text="請選擇付款方式" />
@@ -381,15 +381,16 @@ function PaymentSectionSelection({
   if (!showPaymentChannel) {
     return null;
   } else {
-    const PaymentChannels = PAYMENT_TYPES.map((type) => (
-      <ApplicationTextButton
-        disabled={!type.enabled}
-        onClick={() => onClickSelectPaymentMethod(type)}
-        style={{ fontSize: 14 }}
-      >
-        {type.label}
-      </ApplicationTextButton>
-    ));
+    const PaymentChannels = PAYMENT_TYPES.map((type) => {
+      return (
+        <div style={{ marginTop: 15 }}>
+          <PaymentDisplay
+            onClickSelectPaymentMethod={onClickSelectPaymentMethod}
+            type={type}
+          />
+        </div>
+      );
+    });
     return (
       <>
         <LineBreak />
@@ -397,6 +398,32 @@ function PaymentSectionSelection({
       </>
     );
   }
+}
+
+export function PaymentDisplay({
+  onClickSelectPaymentMethod = () => {},
+  type,
+}) {
+  const { description, header, iconUrl } = type;
+  return (
+    <View onClick={() => onClickSelectPaymentMethod(type)}>
+      <View>
+        <Image
+          src={iconUrl}
+          style={{ borderRadius: 30, width: 50, height: 50 }}
+        />
+      </View>
+      <View
+        style={{
+          marginLeft: 15,
+          flexDirection: "column",
+        }}
+      >
+        <P style={{ fontSize: 16, fontWeight: 400 }}>{header}</P>
+        <Info>{description}</Info>
+      </View>
+    </View>
+  );
 }
 
 export function PriceText({ cost, label }) {

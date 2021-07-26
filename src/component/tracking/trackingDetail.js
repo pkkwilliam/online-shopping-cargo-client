@@ -17,6 +17,7 @@ import { MatchBadParcel } from "../matchBadParcel/matchBadParcel";
 import { ShopList } from "../matchBadParcel/matchBadParcel.view";
 import ApplicationButton from "online-shopping-cargo-parent/dist/applicationButton";
 import { CONFIRM_BAD_PARCEL_SHOP_NUMBER } from "online-shopping-cargo-parent/dist/service";
+import { getDisplayTime } from "../../util/dateUtil";
 
 const ApplicationConfirmModal = React.lazy(() =>
   import("online-shopping-cargo-parent/dist/applicationConfirmModal")
@@ -256,7 +257,9 @@ function TimeSection({ createTime, readyToPickupDate, updateTime }) {
   const ReadyToPickUp = readyToPickupDate ? (
     <Row>
       <Col>
-        <P>{`到達門店: ${readyToPickupDate ? readyToPickupDate : "未到達"}`}</P>
+        <P>{`到達門店: ${
+          readyToPickupDate ? getDisplayTime(readyToPickupDate) : "未到達"
+        }`}</P>
       </Col>
     </Row>
   ) : null;
@@ -264,7 +267,7 @@ function TimeSection({ createTime, readyToPickupDate, updateTime }) {
     <SectionContainer header="時間詳細">
       <Row>
         <Col>
-          <P>{`入庫時間: ${createTime}`}</P>
+          <P>{`入庫時間: ${getDisplayTime(createTime)}`}</P>
         </Col>
       </Row>
       {ReadyToPickUp}

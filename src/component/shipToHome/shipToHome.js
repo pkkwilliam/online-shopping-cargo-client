@@ -12,7 +12,7 @@ import {
 } from "online-shopping-cargo-parent/dist/service";
 import OnlinePayment from "../onlinePayment/onlinePayment";
 
-class ShipToHome extends OnlinePayment {
+export class ShipToHome extends OnlinePayment {
   state = {
     ...this.state,
     shipToHomeCostEstimate: {
@@ -127,19 +127,19 @@ class ShipToHome extends OnlinePayment {
 
   onClickSubmit = async () => {
     const { isElectronicPaymentChannel } = this.state;
+    const requestBody = this.generateShipToHomeRequestBody();
     if (!this.checkOrderValid()) {
       return;
     }
     if (isElectronicPaymentChannel) {
-      this.submitElectronicPaymentChannelOrder();
+      this.submitElectronicPaymentChannelOrder(requestBody);
     } else {
-      this.submitCastPaymentOrder();
+      this.submitCashPaymentOrder(requestBody);
     }
   };
 
-  submitCastPaymentOrder() {
+  submitCashPaymentOrder(requestBody) {
     this.setModalLoading({ show: true, text: "提交訂單中" });
-    const requestBody = this.generateShipToHomeRequestBody();
     this.serviceExecutor
       .execute(CREATE_SHIP_TO_HOME_ORDER(requestBody))
       .then((shipToHomeOrder) => {
@@ -152,10 +152,9 @@ class ShipToHome extends OnlinePayment {
       .finally(() => this.setModalLoading({ show: false }));
   }
 
-  async submitElectronicPaymentChannelOrder() {
+  async submitElectronicPaymentChannelOrder(requestBody) {
     this.setModalLoading({ show: true, text: "提交訂單中" });
-    const shipToHome = this.generateShipToHomeRequestBody();
-    await this.requestShipToHomeMpayPaymentFormParams(shipToHome);
+    await this.requestShipToHomeMpayPaymentFormParams(requestBody);
     this.submitMpayForm();
   }
 }

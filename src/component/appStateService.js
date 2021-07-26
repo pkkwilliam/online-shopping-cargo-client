@@ -68,13 +68,14 @@ export default class AppStateService {
     }
   }
 
-  getShipToHomeOrders() {
-    if (this.appState.shipToHome.dirty) {
+  getShipToHomeOrders(forceLoad = false, { callback = () => {} } = {}) {
+    if (this.appState.shipToHome.dirty || forceLoad) {
       this.serviceExecutor
         .execute(GET_SHIP_TO_HOME_ALL())
-        .then((shipToHomeOrders) =>
-          this.appState.shipToHome.setShipToHome(shipToHomeOrders)
-        );
+        .then((shipToHomeOrders) => {
+          this.appState.shipToHome.setShipToHome(shipToHomeOrders);
+          callback();
+        });
     }
   }
 

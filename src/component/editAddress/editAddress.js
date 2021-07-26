@@ -38,7 +38,6 @@ class EditAddress extends UserProfileComponent {
   }
 
   render() {
-    console.log(this.state);
     return (
       <EditAddressView
         onChangeValue={this.onChangeValue}
