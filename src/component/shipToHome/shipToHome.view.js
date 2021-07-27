@@ -20,6 +20,7 @@ import InfoBlack from "../text/infoBlack";
 import ApplicationModalLoading from "online-shopping-cargo-parent/dist/applicationModalLoading";
 import { GITHUB_CONTENT_URL } from "online-shopping-cargo-parent/dist/service";
 import Image from "react-bootstrap/esm/Image";
+import { getDisplayTime } from "../../util/dateUtil";
 
 export const PAYMENT_ALI_PAY = {
   description: "推薦支付寶中國內地實名用戶使用\n本服務由澳門通提供",
@@ -299,7 +300,7 @@ function ParcelListRow({
       {SelectCheckBox}
       <View style={{ flexDirection: "column", width: "100%" }}>
         <View style={{ alignItems: "center" }}>
-          <Info>{createTime}</Info>
+          <Info>{getDisplayTime(createTime)}</Info>
         </View>
         <View style={{ alignItems: "center" }}>
           <Badge
