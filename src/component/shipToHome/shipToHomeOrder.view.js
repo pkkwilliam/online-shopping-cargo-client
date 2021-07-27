@@ -133,7 +133,7 @@ function OrderStatus({ paid, paymentChannel, shipToHomeStatus }) {
 
 function PaymentInfo({ paid, paymentChannel }) {
   const paymentType = PAYMENT_TYPES.find((type) => type.key === paymentChannel);
-  return <Info>支付方式: {paymentType.label}</Info>;
+  return <Info>支付方式: {paymentType.header}</Info>;
 }
 
 function ShipToHomeOrderButtonRow({
