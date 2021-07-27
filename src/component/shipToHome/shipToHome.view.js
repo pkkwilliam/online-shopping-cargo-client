@@ -35,7 +35,7 @@ export const PAYMENT_M_PAY = {
   enabled: true,
   iconUrl: `${GITHUB_CONTENT_URL}/mpay/mpay_logo.png`,
   key: "M_PAY",
-  header: "M-Pay (澳門錢包)",
+  header: "M-Pay",
 };
 
 export const PAYMENT_CASH = {
