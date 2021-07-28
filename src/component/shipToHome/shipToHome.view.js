@@ -65,7 +65,6 @@ export default function ShipToHomeView(props) {
       <View
         style={{
           flexDirection: "column",
-          height: "inherit",
           justifyContent: "space-between",
         }}
       >
