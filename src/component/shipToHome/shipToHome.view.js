@@ -35,7 +35,7 @@ export const PAYMENT_M_PAY = {
   enabled: true,
   iconUrl: `${GITHUB_CONTENT_URL}/mpay/mpay_logo.png`,
   key: "M_PAY",
-  header: "M-Pay",
+  header: "MPay",
 };
 
 export const PAYMENT_CASH = {
