@@ -2,6 +2,7 @@ import React from "react";
 import View from "online-shopping-cargo-parent/dist/view";
 import ApplicationComponentView from "online-shopping-cargo-parent/dist/functionalApplicationComponent.view";
 import BackgroundCard from "../common/backgroundCard";
+import Form from "react-bootstrap/esm/Form";
 import P from "online-shopping-cargo-parent/dist/text/paragraph";
 import {
   ChevronRight,
@@ -21,10 +22,11 @@ import ApplicationModalLoading from "online-shopping-cargo-parent/dist/applicati
 import { GITHUB_CONTENT_URL } from "online-shopping-cargo-parent/dist/service";
 import Image from "react-bootstrap/esm/Image";
 import { getDisplayTime } from "../../util/dateUtil";
+import Button from "react-bootstrap/esm/Button";
 
 export const PAYMENT_ALI_PAY = {
   description: "推薦支付寶中國內地實名用戶使用\n本服務由澳門通提供",
-  enabled: true,
+  enabled: false,
   iconUrl: `${GITHUB_CONTENT_URL}/mpay/alipay_logo.png`,
   key: "ALIPAY",
   header: "支付寶",
@@ -32,7 +34,7 @@ export const PAYMENT_ALI_PAY = {
 
 export const PAYMENT_M_PAY = {
   description: "推薦 MPay 用戶使用",
-  enabled: true,
+  enabled: false,
   iconUrl: `${GITHUB_CONTENT_URL}/mpay/mpay_logo.png`,
   key: "M_PAY",
   header: "MPay",
@@ -43,7 +45,7 @@ export const PAYMENT_CASH = {
   enabled: true,
   iconUrl: `${GITHUB_CONTENT_URL}/mpay/cash_logo.png`,
   key: "CASH",
-  header: "送貨時支付",
+  header: "貨到付款",
 };
 
 export const PAYMENT_WECHAT_PAY = {
@@ -71,6 +73,7 @@ export default function ShipToHomeView(props) {
         <View style={{ flexDirection: "column" }}>
           <AddressSection {...props} />
           <PaymentSection {...props} />
+          <ShippingPreference {...props} />
           <ParcelList {...props} />
         </View>
         <View style={{ bottom: 0, position: "sticky" }}>
@@ -383,12 +386,14 @@ function PaymentSectionSelection({
   } else {
     const PaymentChannels = PAYMENT_TYPES.map((type) => {
       return (
-        <div style={{ marginTop: 15 }}>
-          <PaymentDisplay
-            onClickSelectPaymentMethod={onClickSelectPaymentMethod}
-            type={type}
-          />
-        </div>
+        <Button
+          disabled={!type.enabled}
+          onClick={() => onClickSelectPaymentMethod(type)}
+          style={{ marginTop: 15 }}
+          variant="none"
+        >
+          <PaymentDisplay type={type} />
+        </Button>
       );
     });
     return (
@@ -400,13 +405,10 @@ function PaymentSectionSelection({
   }
 }
 
-export function PaymentDisplay({
-  onClickSelectPaymentMethod = () => {},
-  type,
-}) {
+export function PaymentDisplay({ type }) {
   const { description, header, iconUrl } = type;
   return (
-    <View onClick={() => onClickSelectPaymentMethod(type)}>
+    <View>
       <View>
         <Image
           src={iconUrl}
@@ -415,12 +417,13 @@ export function PaymentDisplay({
       </View>
       <View
         style={{
+          alignItems: "flex-start",
           marginLeft: 15,
           flexDirection: "column",
         }}
       >
         <P style={{ fontSize: 16, fontWeight: 400 }}>{header}</P>
-        <Info>{description}</Info>
+        <Info style={{ textAlign: "left" }}>{description}</Info>
       </View>
     </View>
   );
@@ -434,6 +437,25 @@ export function PriceText({ cost, label }) {
         {`$${cost}`}
       </P>
     </View>
+  );
+}
+
+export function ShippingPreference({ onChangeRemark = () => {}, remark }) {
+  return (
+    <BackgroundCard style={{ marginTop: 15 }}>
+      <Form>
+        <Form.Group style={{ margin: 0 }}>
+          <Form.Control
+            as="textarea"
+            onChange={(event) => onChangeRemark(event.target.value)}
+            placeholder="備註-配送時間偏好，如：星期一上午10:00-12:00配送"
+            rows={2}
+            style={{ border: "none", resize: "none" }}
+            value={remark}
+          />
+        </Form.Group>
+      </Form>
+    </BackgroundCard>
   );
 }
 

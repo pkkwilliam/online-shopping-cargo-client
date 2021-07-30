@@ -15,6 +15,7 @@ import OnlinePayment from "../onlinePayment/onlinePayment";
 export class ShipToHome extends OnlinePayment {
   state = {
     ...this.state,
+    remark: "",
     shipToHomeCostEstimate: {
       cost: 0,
       discount: 0,
@@ -42,6 +43,7 @@ export class ShipToHome extends OnlinePayment {
           orderValid={this.checkOrderValid()}
           parcels={getShipToHomeParcels(parcel.parcels)}
           selectedAddress={address.selectedAddress}
+          onChangeRemark={this.onChangeRemark}
           onClickParcel={this.onClickParcel}
           onClickSelectAddressButton={this.onClickSelectAddressButton}
           onClickShowPaymentChannel={this.onClickShowPaymentChannel}
@@ -86,15 +88,22 @@ export class ShipToHome extends OnlinePayment {
 
   generateShipToHomeRequestBody() {
     const { address, parcel } = this.appState;
-    const { selectedPaymentChannel } = this.state;
+    const { remark, selectedPaymentChannel } = this.state;
     const selectedParcels = parcel.parcels.filter((parcel) => parcel.selected);
     return {
       address: address.selectedAddress,
       destination: "MACAU",
       parcels: selectedParcels,
       paymentChannel: selectedPaymentChannel.key,
+      remark,
     };
   }
+
+  onChangeRemark = (remark) => {
+    this.setState({
+      remark,
+    });
+  };
 
   onClickParcel = (clickedParcel) => {
     const parcels = this.appState.parcel.parcels.map((parcel) => {

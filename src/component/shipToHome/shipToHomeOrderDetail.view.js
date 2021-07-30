@@ -6,6 +6,7 @@ import {
   ParcelList,
   PaymentSection,
   PriceText,
+  ShippingPreference,
   getPaymentChannelObject,
 } from "./shipToHome.view";
 import BackgroundCard from "../common/backgroundCard";
@@ -20,6 +21,7 @@ export default function ShipToHomeOrderDetailView(props) {
     id,
     parcels,
     paymentChannel,
+    remark,
     shippingProviderOrderNumber,
   } = props.order;
   return (
@@ -33,6 +35,7 @@ export default function ShipToHomeOrderDetailView(props) {
         <PaymentSection
           selectedPaymentChannel={getPaymentChannelObject(paymentChannel)}
         />
+        <RemarkSection remark={remark} />
         <TotalCost cost={cost} discount={discount} parcels={parcels} />
         <ParcelList
           id={id}
@@ -44,6 +47,13 @@ export default function ShipToHomeOrderDetailView(props) {
       </View>
     </ApplicationComponentView>
   );
+}
+
+export function RemarkSection({ remark }) {
+  if (!remark) {
+    return null;
+  }
+  return <ShippingPreference remark={remark} />;
 }
 
 export function TotalCost({ cost, discount, parcels }) {
