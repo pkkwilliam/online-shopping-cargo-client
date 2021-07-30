@@ -6,14 +6,24 @@ import {
   ParcelList,
   PaymentSection,
   PriceText,
-  getPaymentTypeObject,
+  ShippingPreference,
+  getPaymentChannelObject,
 } from "./shipToHome.view";
 import BackgroundCard from "../common/backgroundCard";
 import P from "online-shopping-cargo-parent/dist/text/paragraph";
 import LineBreak from "online-shopping-cargo-parent/dist/lineBreak";
 
 export default function ShipToHomeOrderDetailView(props) {
-  const { address, cost, discount, parcels, paymentType } = props.order;
+  const {
+    address,
+    cost,
+    discount,
+    id,
+    parcels,
+    paymentChannel,
+    remark,
+    shippingProviderOrderNumber,
+  } = props.order;
   return (
     <ApplicationComponentView>
       <View
@@ -23,17 +33,27 @@ export default function ShipToHomeOrderDetailView(props) {
       >
         <AddressSection selectable={false} selectedAddress={address} />
         <PaymentSection
-          selectedPaymentType={getPaymentTypeObject(paymentType)}
+          selectedPaymentChannel={getPaymentChannelObject(paymentChannel)}
         />
+        <RemarkSection remark={remark} />
         <TotalCost cost={cost} discount={discount} parcels={parcels} />
         <ParcelList
+          id={id}
           onClickParcel={() => {}}
           parcels={parcels}
           selectable={false}
+          shippingProviderOrderNumber={shippingProviderOrderNumber}
         />
       </View>
     </ApplicationComponentView>
   );
+}
+
+export function RemarkSection({ remark }) {
+  if (!remark) {
+    return null;
+  }
+  return <ShippingPreference remark={remark} />;
 }
 
 export function TotalCost({ cost, discount, parcels }) {

@@ -26,7 +26,7 @@ const RegisterPromp = React.lazy(() =>
 
 export default class LandingPageView extends ApplicationComponentView {
   render() {
-    const { isApp, userToken } = this.props;
+    const { app, userToken } = this.props;
     return (
       <this.Wrapper>
         {/* <RegisterPromp /> */}
@@ -42,8 +42,8 @@ export default class LandingPageView extends ApplicationComponentView {
           <div>
             {/* <ImportantNotice {...this.props} /> */}
             <Menu
-              isApp={isApp}
-              menuItems={getMenuItems(isApp, userToken)}
+              app={app}
+              menuItems={getMenuItems(app, userToken)}
               userToken={userToken}
             />
           </div>
@@ -80,38 +80,15 @@ function ImportantNotice({ importantNotices }) {
   });
 }
 
-function getMenuItems(isApp, userToken) {
+function getMenuItems(app, userToken) {
   return [
-    SAVE_TO_DESKTOP,
     USER_PROFILE,
     PICKUP_QR_CODE,
+    SHIP_TO_HOME_LANDING_PAGE,
     MY_PARCEL,
     TUTORIAL,
     CALCULATOR,
     MATCH_BAD_PARCEL,
     ADDRESS_GENERATOR,
   ];
-  // if (isApp) {
-  //   return [
-  //     USER_PROFILE,
-  //     PICKUP_QR_CODE,
-  //     SHIP_TO_HOME_LANDING_PAGE,
-  //     MY_PARCEL,
-  //     TUTORIAL,
-  //     CALCULATOR,
-  //     MATCH_BAD_PARCEL,
-  //     ADDRESS_GENERATOR,
-  //   ];
-  // } else {
-  //   return [
-  //     SAVE_TO_DESKTOP,
-  //     USER_PROFILE,
-  //     PICKUP_QR_CODE,
-  //     MY_PARCEL,
-  //     TUTORIAL,
-  //     CALCULATOR,
-  //     MATCH_BAD_PARCEL,
-  //     ADDRESS_GENERATOR,
-  //   ];
-  // }
 }

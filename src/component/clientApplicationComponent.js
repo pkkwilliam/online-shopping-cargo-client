@@ -7,26 +7,33 @@ import AppStateService from "./appStateService";
 export default class ClientApplicationComponent extends ApplicationComponent {
   state = {
     ...this.state,
+    confirmModal: {
+      body: "",
+      header: "",
+      onClickConfirm: () => {},
+      show: false,
+    },
     loading: false,
   };
 
   static contextType = CargoManagementContext;
 
   static _appStateService;
-  static _isApp = false;
+  static _app = false;
   static _notificationToken = "";
 
   _clientApplicationContext = new ClientApplicationContext();
 
   componentDidMount() {
-    const { isApp, notificationToken } = this.getAppParam();
+    const { app, notificationToken } = this.getAppParam();
     if (this.userToken) {
       this.appStateService.getUserProfile();
     }
     if (this.userToken && notificationToken) {
       this.appStateService.linkNotificationToken(notificationToken);
     }
-    this.isApp = isApp === "true";
+    this.appStateService.getShops();
+    this.app = app === "true";
   }
 
   goBack() {
@@ -59,13 +66,17 @@ export default class ClientApplicationComponent extends ApplicationComponent {
   }
 
   getAppParam() {
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    const isApp = urlParams.get("isApp");
+    const urlParams = this.getUrlParams();
+    const app = urlParams.get("app");
     const notificationToken = urlParams.get("notificationToken");
-    console.debug("app user", isApp);
+    console.debug("app user", app);
     console.debug("client notification token", notificationToken);
-    return { isApp, notificationToken };
+    return { app, notificationToken };
+  }
+
+  getUrlParams() {
+    const queryString = window.location.search;
+    return new URLSearchParams(queryString);
   }
 
   loadingEnd() {
@@ -77,6 +88,14 @@ export default class ClientApplicationComponent extends ApplicationComponent {
       loading: true,
     });
   }
+
+  onCloseConfirmModal = () => {
+    this.setState({
+      confirmModal: {
+        show: false,
+      },
+    });
+  };
 
   get routerParams() {
     // import { withRouter } from 'react-router-dom'
@@ -102,16 +121,16 @@ export default class ClientApplicationComponent extends ApplicationComponent {
     return this._appStateService;
   }
 
-  get isApp() {
-    return ClientApplicationComponent._isApp;
+  get app() {
+    return ClientApplicationComponent._app;
   }
 
   get notificationToken() {
     return ClientApplicationComponent._notificationToken;
   }
 
-  set isApp(isApp) {
-    ClientApplicationComponent._isApp = isApp;
+  set app(app) {
+    ClientApplicationComponent._app = app;
   }
 
   set notificationToken(notificationToken) {

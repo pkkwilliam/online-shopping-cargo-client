@@ -4,7 +4,7 @@ import { MATCH_BAD_PARCEL } from "online-shopping-cargo-parent/dist/service";
 import UserProfileComponent from "../common/userProfileComponent";
 import { withRouter } from "react-router-dom";
 
-class MatchBadParcel extends UserProfileComponent {
+export class MatchBadParcel extends UserProfileComponent {
   state = {
     ...this.state,
     loading: false,
@@ -61,7 +61,7 @@ class MatchBadParcel extends UserProfileComponent {
   setModal(exception) {
     const { originalTrackingNumber } = this.state;
     super.setModal({
-      body: `未能找到原號為${originalTrackingNumber}的包裹\n\n如遇困難，請與客服聯繫\n電話: 63530392\n微信:PickTB`,
+      body: `未能找到原號為${originalTrackingNumber}的包裹\n\n如遇困難，請與客服聯繫\n微信:PickTB`,
       header: "没有包裹🤕🤕",
       show: true,
     });

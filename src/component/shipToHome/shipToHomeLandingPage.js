@@ -56,7 +56,7 @@ class ShipToHomeLandingPage extends UserProfileComponent {
   };
 
   onClickTutorial = () => {
-    this.goTo(TUTORIAL);
+    this.goTo(TUTORIAL, { displayTab: SHIP_TO_HOME });
   };
 }
 

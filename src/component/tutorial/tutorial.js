@@ -3,19 +3,32 @@ import { GITHUB_CONTENT_URL } from "online-shopping-cargo-parent/dist/service";
 import AddressGenerator from "../addressGenerator/addressGenerator";
 import BackgroundCard from "../common/backgroundCard";
 import ApplicationSmsAuth from "../common/applicationSmsAuth";
+import SegmentTab from "../segmentTab";
+import ShipToHomeTutorial from "./shipToHomeTutorial";
+import StorePickupTutorial from "./storePickupTutorial";
+import UserProfileComponent from "../common/userProfileComponent";
+import { withRouter } from "react-router-dom";
 
-export default function Tutorial(props) {
-  return (
-    <div>
-      <LoginSection />
-      <GenerateAddressSection />
-      <AddAddressToEcommerce />
-      <MessageNotificationSection />
-    </div>
-  );
+export const SHIP_TO_HOME_TAB = "SHIP_TO_HOME_TAB";
+export const STORE_PICKUP_TAB = "STORE_PICKUP_TAB";
+
+class Tutorial extends UserProfileComponent {
+  render() {
+    const displayTab =
+      this.routerParams && this.routerParams.displayTab
+        ? this.routerParams.displayTab
+        : STORE_PICKUP_TAB;
+    return (
+      <SegmentTab
+        displayTab={displayTab}
+        shipToHomeComponent={<ShipToHomeTutorial />}
+        storePickupComponent={<StorePickupTutorial />}
+      />
+    );
+  }
 }
 
-function AddAddressToEcommerce() {
+export function AddAddressToEcommerce() {
   return (
     <TutorialCard header="第三步: 添加地址到淘寶">
       <TutorialImage src="/assert/add_address_sw_1.png" />
@@ -23,15 +36,15 @@ function AddAddressToEcommerce() {
   );
 }
 
-function GenerateAddressSection() {
+export function GenerateAddressSection({ shopSelected = undefined }) {
   return (
     <TutorialCard header="第二步: 收貨地址">
-      <AddressGenerator />
+      <AddressGenerator shopSelected={shopSelected} />
     </TutorialCard>
   );
 }
 
-function LoginSection() {
+export function LoginSection() {
   return (
     <TutorialCard header="第一步: 登入">
       <ApplicationSmsAuth onSuceed={() => {}} />
@@ -39,7 +52,7 @@ function LoginSection() {
   );
 }
 
-function MessageNotificationSection() {
+export function MessageNotificationSection() {
   return (
     <TutorialCard header="第四步: App推送通知提取包裹">
       <TutorialImage src="/assert/push_notification_1.png" />
@@ -47,7 +60,7 @@ function MessageNotificationSection() {
   );
 }
 
-function TutorialCard({ children, header }) {
+export function TutorialCard({ children, header }) {
   return (
     <BackgroundCard style={{ marginTop: 20 }}>
       <h5>{header}</h5>
@@ -56,12 +69,14 @@ function TutorialCard({ children, header }) {
   );
 }
 
-function TutorialImage({ src }) {
+export function TutorialImage({ src, style }) {
   return (
     <img
       alt="tutorial_image"
       src={GITHUB_CONTENT_URL + src}
-      style={{ width: "100%" }}
+      style={{ width: "100%", ...style }}
     />
   );
 }
+
+export default withRouter(Tutorial);

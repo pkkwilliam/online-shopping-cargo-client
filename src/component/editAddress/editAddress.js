@@ -21,9 +21,6 @@ class EditAddress extends UserProfileComponent {
       street: "",
       unit: "",
     },
-    confirmModal: {
-      show: false,
-    },
     isEdit: false,
   };
 
@@ -41,7 +38,6 @@ class EditAddress extends UserProfileComponent {
   }
 
   render() {
-    console.log(this.state);
     return (
       <EditAddressView
         onChangeValue={this.onChangeValue}

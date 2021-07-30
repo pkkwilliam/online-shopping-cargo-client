@@ -5,15 +5,22 @@ import {
   AddressSection,
   ParcelList,
   PaymentSection,
-  getPaymentTypeObject,
+  getPaymentChannelObject,
 } from "./shipToHome.view";
 import SuceedIcon from "../common/suceedIcon";
 import P from "online-shopping-cargo-parent/dist/text/paragraph";
 import { TotalCost } from "./shipToHomeOrderDetail.view";
 
 export default function ShipToHomeOrderConfirmationView(props) {
-  const { address, cost, discount, id, parcels, paymentType } =
-    props.shipToHomeOrder;
+  const {
+    address,
+    cost,
+    discount,
+    id,
+    parcels,
+    paymentChannel,
+    shippingProviderOrderNumber,
+  } = props.shipToHomeOrder;
   return (
     <ApplicationComponentView>
       <View
@@ -26,11 +33,13 @@ export default function ShipToHomeOrderConfirmationView(props) {
         <P style={{ marginBottom: 10 }}>專員會在24小時內聯繫你並安排送貨時間</P>
         <AddressSection selectable={false} selectedAddress={address} />
         <PaymentSection
-          selectedPaymentType={getPaymentTypeObject(paymentType)}
+          selectedPaymentChannel={getPaymentChannelObject(paymentChannel)}
         />
         <ParcelList
+          id={id}
           onClickParcel={() => {}}
           parcels={parcels}
+          shippingProviderOrderNumber={shippingProviderOrderNumber}
           selectable={false}
         />
         <TotalCost cost={cost} discount={discount} parcels={parcels} />

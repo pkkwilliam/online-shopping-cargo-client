@@ -59,8 +59,13 @@ function OriginalTrackingNumberTextField({
   );
 }
 
-function ShopList(props) {
-  const { onSelectedShop, shops, shopSelected } = props;
+export function ShopList(props) {
+  const {
+    headerLabel = "自提門店",
+    onSelectedShop,
+    shops,
+    shopSelected,
+  } = props;
   const ShopDropdownItems = shops.map((shop) => {
     return (
       <Dropdown.Item onSelect={() => onSelectedShop(shop)}>
@@ -72,7 +77,7 @@ function ShopList(props) {
     <View>
       <Form style={{ width: "100%" }}>
         <Form.Group controlId="exampleForm.ControlSelect2">
-          <Form.Label>自提門店</Form.Label>
+          <Form.Label>{headerLabel}</Form.Label>
           <Dropdown>
             <Dropdown.Toggle variant="light" style={{ width: "100%" }}>
               {shopSelected

@@ -1,7 +1,6 @@
 import React from "react";
-import UserProfileComponent from "../common/userProfileComponent";
 import { withRouter } from "react-router-dom";
-import ShipToHomeView from "./shipToHome.view";
+import ShipToHomeView, { PAYMENT_CASH } from "./shipToHome.view";
 import { ADDRESS, SHIP_TO_HOME_ORDER_CONFIRMATION } from "../../routes";
 import {
   READY_FOR_COMBINE,
@@ -11,18 +10,20 @@ import {
   CREATE_SHIP_TO_HOME_ORDER,
   REQUEST_SHIPMENT_ESTIMATE,
 } from "online-shopping-cargo-parent/dist/service";
+import OnlinePayment from "../onlinePayment/onlinePayment";
 
-class ShipToHome extends UserProfileComponent {
+export class ShipToHome extends OnlinePayment {
   state = {
     ...this.state,
+    remark: "",
     shipToHomeCostEstimate: {
       cost: 0,
       discount: 0,
       hasDiscount: false,
       parcelCount: 0,
     },
-    selectedPaymentType: undefined,
-    showPaymentType: false,
+    selectedPaymentChannel: undefined,
+    showPaymentChannel: false,
   };
 
   componentDidMount() {
@@ -36,23 +37,23 @@ class ShipToHome extends UserProfileComponent {
   render() {
     const { address, parcel } = this.appState;
     return (
-      <ShipToHomeView
-        orderValid={this.checkOrderValid(
-          address,
-          parcel.parcels,
-          this.state.selectedPaymentType
-        )}
-        parcels={getShipToHomeParcels(parcel.parcels)}
-        selectedAddress={address.selectedAddress}
-        onClickParcel={this.onClickParcel}
-        onClickSelectAddressButton={this.onClickSelectAddressButton}
-        onClickShowPaymentType={this.onClickShowPaymentType}
-        onClickSelectPaymentMethod={this.onClickSelectPaymentMethod}
-        onClickSubmit={this.onClickSubmit}
-        onCloseModal={this.onCloseError}
-        onCloseToast={this.onCloseToast}
-        {...this.state}
-      />
+      <>
+        <this.MpayForm />
+        <ShipToHomeView
+          orderValid={this.checkOrderValid()}
+          parcels={getShipToHomeParcels(parcel.parcels)}
+          selectedAddress={address.selectedAddress}
+          onChangeRemark={this.onChangeRemark}
+          onClickParcel={this.onClickParcel}
+          onClickSelectAddressButton={this.onClickSelectAddressButton}
+          onClickShowPaymentChannel={this.onClickShowPaymentChannel}
+          onClickSelectPaymentMethod={this.onClickSelectPaymentMethod}
+          onClickSubmit={this.onClickSubmit}
+          onCloseModal={this.onCloseError}
+          onCloseToast={this.onCloseToast}
+          {...this.state}
+        />
+      </>
     );
   }
 
@@ -70,18 +71,39 @@ class ShipToHome extends UserProfileComponent {
     this.loadingEnd();
   }
 
-  checkOrderValid(address, parcels, selectedPaymentType) {
-    const selectedParcels = parcels.filter((parcel) => parcel.selected);
+  checkOrderValid() {
+    const { address, parcel } = this.appState;
+    const { selectedPaymentChannel } = this.state;
+    const selectedParcels = parcel.parcels.filter((parcel) => parcel.selected);
     if (
       address.selectedAddress &&
       selectedParcels.length > 0 &&
-      selectedPaymentType
+      selectedPaymentChannel
     ) {
       return true;
     } else {
       return false;
     }
   }
+
+  generateShipToHomeRequestBody() {
+    const { address, parcel } = this.appState;
+    const { remark, selectedPaymentChannel } = this.state;
+    const selectedParcels = parcel.parcels.filter((parcel) => parcel.selected);
+    return {
+      address: address.selectedAddress,
+      destination: "MACAU",
+      parcels: selectedParcels,
+      paymentChannel: selectedPaymentChannel.key,
+      remark,
+    };
+  }
+
+  onChangeRemark = (remark) => {
+    this.setState({
+      remark,
+    });
+  };
 
   onClickParcel = (clickedParcel) => {
     const parcels = this.appState.parcel.parcels.map((parcel) => {
@@ -98,42 +120,52 @@ class ShipToHome extends UserProfileComponent {
     this.goTo(ADDRESS);
   };
 
-  onClickShowPaymentType = () => {
+  onClickShowPaymentChannel = () => {
     this.setState((state) => ({
-      showPaymentType: !state.showPaymentType,
+      showPaymentChannel: !state.showPaymentChannel,
     }));
   };
 
-  onClickSelectPaymentMethod = (selectedPaymentType) => {
+  onClickSelectPaymentMethod = (selectedPaymentChannel) => {
     this.setState({
-      selectedPaymentType,
-      showPaymentType: false,
+      isElectronicPaymentChannel: selectedPaymentChannel !== PAYMENT_CASH,
+      selectedPaymentChannel,
+      showPaymentChannel: false,
     });
   };
 
   onClickSubmit = async () => {
-    this.setModalLoading({ show: true, text: "提交訂單中" });
-    const { address, parcel } = this.appState;
-    const { selectedPaymentType } = this.state;
-    const selectedParcels = parcel.parcels.filter((parcel) => parcel.selected);
-    if (this.checkOrderValid(address, selectedParcels, selectedPaymentType)) {
-      const requestBody = {
-        address: address.selectedAddress,
-        parcels: selectedParcels,
-        paymentType: selectedPaymentType.key,
-      };
-      this.serviceExecutor
-        .execute(CREATE_SHIP_TO_HOME_ORDER(requestBody))
-        .then((shipToHomeOrder) => {
-          this.appState.parcel.setParcelDirty();
-          this.appState.shipToHome.setShipToHomeDirty();
-          this.goToReplace(SHIP_TO_HOME_ORDER_CONFIRMATION, {
-            shipToHomeOrder,
-          });
-        })
-        .finally(() => this.setModalLoading({ show: false }));
+    const { isElectronicPaymentChannel } = this.state;
+    const requestBody = this.generateShipToHomeRequestBody();
+    if (!this.checkOrderValid()) {
+      return;
+    }
+    if (isElectronicPaymentChannel) {
+      this.submitElectronicPaymentChannelOrder(requestBody);
+    } else {
+      this.submitCashPaymentOrder(requestBody);
     }
   };
+
+  submitCashPaymentOrder(requestBody) {
+    this.setModalLoading({ show: true, text: "提交訂單中" });
+    this.serviceExecutor
+      .execute(CREATE_SHIP_TO_HOME_ORDER(requestBody))
+      .then((shipToHomeOrder) => {
+        this.appState.parcel.setParcelDirty();
+        this.appState.shipToHome.setShipToHomeDirty();
+        this.goToReplace(SHIP_TO_HOME_ORDER_CONFIRMATION, {
+          shipToHomeOrder,
+        });
+      })
+      .finally(() => this.setModalLoading({ show: false }));
+  }
+
+  async submitElectronicPaymentChannelOrder(requestBody) {
+    this.setModalLoading({ show: true, text: "提交訂單中" });
+    await this.requestShipToHomeMpayPaymentFormParams(requestBody);
+    this.submitMpayForm();
+  }
 }
 
 export function getShipToHomeParcels(parcels) {

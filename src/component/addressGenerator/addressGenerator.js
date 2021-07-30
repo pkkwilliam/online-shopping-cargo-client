@@ -8,6 +8,12 @@ class AddressGenerator extends UserProfileComponent {
     shopSelected: undefined,
   };
 
+  componentDidMount() {
+    this.setState({
+      shopSelected: this.props.shopSelected,
+    });
+  }
+
   render() {
     const { userProfile } = this.appState.user;
     return (
