@@ -6,6 +6,7 @@ import {
   ParcelList,
   PaymentSection,
   getPaymentChannelObject,
+  ShippingPreference,
 } from "./shipToHome.view";
 import SuceedIcon from "../common/suceedIcon";
 import P from "online-shopping-cargo-parent/dist/text/paragraph";
@@ -19,6 +20,7 @@ export default function ShipToHomeOrderConfirmationView(props) {
     id,
     parcels,
     paymentChannel,
+    remark,
     shippingProviderOrderNumber,
   } = props.shipToHomeOrder;
   return (
@@ -35,6 +37,7 @@ export default function ShipToHomeOrderConfirmationView(props) {
         <PaymentSection
           selectedPaymentChannel={getPaymentChannelObject(paymentChannel)}
         />
+        <ShippingPreference remark={remark} />
         <ParcelList
           id={id}
           onClickParcel={() => {}}
