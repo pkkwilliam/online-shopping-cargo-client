@@ -14,6 +14,7 @@ import {
   ADDRESS_GENERATOR,
   SHIP_TO_HOME_LANDING_PAGE,
 } from "../../routes";
+import Advertisement from "../advertisement/advertisement";
 
 const Accouncement = React.lazy(() => import("../announcement/announcement"));
 const InstallApp = React.lazy(() => import("../installApp/installApp"));
@@ -45,6 +46,7 @@ export default class LandingPageView extends ApplicationComponentView {
               userToken={userToken}
             />
           </div>
+          <Advertisement />
           <div style={{ marginTop: 20 }}>
             <Accouncement />
           </div>
