@@ -24,8 +24,7 @@ export default class InstallApp extends ClientApplicationComponent {
         style={{
           alignItems: "center",
           flex: 1,
-          justifyContent: "center",
-          margin: 50,
+          justifyContent: "space-around",
         }}
       >
         <PlatformSelection {...this.state.installAppContent} />
@@ -47,13 +46,10 @@ function PlatformSelection({ androidAPK, baseUrl, ios }) {
 
 function DownloadButton({ baseUrl, contentUrl, description, imageUrl, type }) {
   return (
-    <View
-      style={{ alignItems: "center", flexDirection: "column", padding: 10 }}
-    >
+    <View style={{ alignItems: "center", flexDirection: "column" }}>
       <a href={contentUrl}>
-        <img src={baseUrl + imageUrl} style={{ width: "11rem" }} />
+        <img src={baseUrl + imageUrl} style={{ width: "8rem" }} />
       </a>
-      <p>{description}</p>
     </View>
   );
 }

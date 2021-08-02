@@ -4,7 +4,6 @@ import EyeCatch from "../eyeCatch/eyeCatch";
 import Header from "../header/header";
 import FooterView from "../footer/footer.view";
 import { GITHUB_CONTENT_URL } from "online-shopping-cargo-parent/dist/service";
-import View from "online-shopping-cargo-parent/dist/view";
 import {
   MY_PARCEL,
   PICKUP_QR_CODE,
@@ -13,12 +12,11 @@ import {
   MATCH_BAD_PARCEL,
   CALCULATOR,
   ADDRESS_GENERATOR,
-  SAVE_TO_DESKTOP,
   SHIP_TO_HOME_LANDING_PAGE,
 } from "../../routes";
-import { styleSchema } from "online-shopping-cargo-parent/dist/styleSchema";
 
 const Accouncement = React.lazy(() => import("../announcement/announcement"));
+const InstallApp = React.lazy(() => import("../installApp/installApp"));
 const Menu = React.lazy(() => import("../menu/menu"));
 const RegisterPromp = React.lazy(() =>
   import("../registerPromp/registerPromp")
@@ -39,8 +37,8 @@ export default class LandingPageView extends ApplicationComponentView {
         </Header>
         <EyeCatch />
         <div style={{ padding: 10, marginBottom: 40 }}>
+          <DownloadApp isApp={app} />
           <div>
-            {/* <ImportantNotice {...this.props} /> */}
             <Menu
               app={app}
               menuItems={getMenuItems(app, userToken)}
@@ -57,27 +55,16 @@ export default class LandingPageView extends ApplicationComponentView {
   }
 }
 
-function ImportantNotice({ importantNotices }) {
-  return importantNotices.map((importantNotice) => {
-    const { detail } = importantNotice;
+function DownloadApp({ isApp }) {
+  if (!isApp) {
     return (
-      <View
-        style={{
-          border: styleSchema.color.primaryDark,
-          borderStyle: "solid",
-          padding: 15,
-          borderRadius: 5,
-          borderWidth: 3,
-        }}
-      >
-        <div
-          dangerouslySetInnerHTML={{
-            __html: detail,
-          }}
-        />
-      </View>
+      <div style={{ marginBottom: 15 }}>
+        <InstallApp />
+      </div>
     );
-  });
+  } else {
+    return null;
+  }
 }
 
 function getMenuItems(app, userToken) {
