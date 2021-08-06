@@ -221,6 +221,7 @@ export const SHIP_TO_HOME = {
   url: "/shipToHome",
 };
 export const SHIP_TO_HOME_LANDING_PAGE = {
+  buttonBackgroundColor: "#f73a47",
   icon: <Truck style={styles.icon} />,
   component: <ShipToHomeLandingPage />,
   disabledWhenUserTokenPresent: false,
