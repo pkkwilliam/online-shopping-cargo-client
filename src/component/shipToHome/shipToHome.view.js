@@ -26,7 +26,7 @@ import Button from "react-bootstrap/esm/Button";
 
 export const PAYMENT_ALI_PAY = {
   description: "推薦支付寶中國內地實名用戶使用\n本服務由澳門通提供",
-  enabled: false,
+  enabled: true,
   iconUrl: `${GITHUB_CONTENT_URL}/mpay/alipay_logo.png`,
   key: "ALIPAY",
   header: "支付寶",
@@ -34,7 +34,7 @@ export const PAYMENT_ALI_PAY = {
 
 export const PAYMENT_M_PAY = {
   description: "推薦 MPay 用戶使用",
-  enabled: false,
+  enabled: true,
   iconUrl: `${GITHUB_CONTENT_URL}/mpay/mpay_logo.png`,
   key: "M_PAY",
   header: "MPay",
