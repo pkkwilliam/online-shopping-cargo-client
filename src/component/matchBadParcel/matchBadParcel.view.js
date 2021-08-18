@@ -107,5 +107,5 @@ function SubmitButton(props) {
 }
 
 function generateShopNumberAndName(shop) {
-  return `${shop.shopNumber} - ${shop.shopName}`;
+  return `${shop.shopNumber} - ${shop.areaShopName}`;
 }

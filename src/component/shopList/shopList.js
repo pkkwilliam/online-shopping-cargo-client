@@ -38,7 +38,7 @@ export default class ShopList extends ClientApplicationComponent {
   }
 }
 
-function DeliveryShopDetail({ shopName, shopPhoneNumber, wechatId }) {
+function DeliveryShopDetail({ areaShopName, shopPhoneNumber, wechatId }) {
   return (
     <>
       <P style={{ fontWeight: 600, marginTop: 8 }}>
@@ -56,13 +56,13 @@ function DeliveryShopDetail({ shopName, shopPhoneNumber, wechatId }) {
 function PickupShopDetail({
   openingHour,
   shopAddress,
-  shopName,
+  areaShopName,
   shopPhoneNumber,
   wechatId,
 }) {
   return (
     <>
-      <P>店名:{shopName}</P>
+      <P>店名:{areaShopName}</P>
       <P>地址:{shopAddress}</P>
       <P>營業時間:{openingHour}</P>
       <P>電話:{shopPhoneNumber}</P>
@@ -110,7 +110,6 @@ function ShopCard({ index, shop, onSelectShop }) {
     openingHour,
     shopAddress,
     imageUrls,
-    shopName,
     shopNumber,
     shopPhoneNumber,
     shopType,
