@@ -193,13 +193,13 @@ function ParcelDetailSection({
   );
 }
 
-function ParcelStatusBadge({ parcelStatus, parcelType }) {
+function ParcelStatusBadge({ parcelStatus, parcelType, shop }) {
   let variant, label;
   if (parcelType === STORE_PICKUP.key) {
     const parcelDisplayUtil = new ParcelDisplayUtil();
     // const location = parcelDisplayUtil.getParcelLocation(parcelLocation);
     const parcelStatusBadgeAndLabel =
-      parcelDisplayUtil.getParcelStatusBageAndLabel(parcelStatus);
+      parcelDisplayUtil.getParcelStatusBageAndLabel(parcelStatus, shop.area);
     variant = parcelStatusBadgeAndLabel.badge;
     label = parcelStatusBadgeAndLabel.label;
   } else {
