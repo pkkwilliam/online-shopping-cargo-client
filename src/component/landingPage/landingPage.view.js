@@ -14,7 +14,7 @@ import {
   ADDRESS_GENERATOR,
   SHIP_TO_HOME_LANDING_PAGE,
 } from "../../routes";
-import Advertisement from "../advertisement/advertisement";
+import Advertisement from "../advertisement";
 
 const Accouncement = React.lazy(() => import("../announcement/announcement"));
 const InstallApp = React.lazy(() => import("../installApp/installApp"));

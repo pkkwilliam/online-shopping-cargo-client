@@ -9,6 +9,10 @@ export class Provider extends Component {
       selectedAddress: {},
       dirty: true,
     },
+    advertisement: {
+      content: { row: [] },
+      dirty: true,
+    },
     announcement: {
       announcements: [],
       dirty: true,
@@ -43,6 +47,7 @@ export class Provider extends Component {
   render() {
     const {
       address,
+      advertisement,
       announcement,
       eyeCatch,
       notificationToken,
@@ -59,6 +64,10 @@ export class Provider extends Component {
             setAddress: this.setAddress,
             setAddressDirty: this.setAddressDirty,
             setSelectedAddress: this.setSelectedAddress,
+          },
+          advertisement: {
+            ...advertisement,
+            setAdvertisement: this.setAdvertisement,
           },
           announcement: {
             ...announcement,
@@ -125,6 +134,16 @@ export class Provider extends Component {
         selectedAddress: address,
       },
     }));
+  };
+
+  // Advertisement
+  setAdvertisement = (advertisement) => {
+    this.setState({
+      advertisement: {
+        content: advertisement,
+        dirty: false,
+      },
+    });
   };
 
   // Announcement
