@@ -39,6 +39,7 @@ function AdvertisementRow({ baseUrl, onClickAdvertisement, row }) {
       onClickAdvertisement={onClickAdvertisement}
       imageUrl={image.url}
       isLastIndex={index === row.length - 1}
+      isSingle={row.length === 1}
       onClick={image.onClick}
     />
   ));
@@ -52,6 +53,7 @@ function ImageContainer({
   onClick,
   onClickAdvertisement,
   isLastIndex,
+  isSingle,
 }) {
   return (
     <Image
@@ -64,7 +66,7 @@ function ImageContainer({
         height: 100,
         objectFit: "cover",
         marginRight: isLastIndex ? 0 : 8,
-        width: "100%",
+        width: isSingle ? "100%" : null,
       }}
     />
   );
