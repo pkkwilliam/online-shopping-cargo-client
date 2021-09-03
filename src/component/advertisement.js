@@ -43,7 +43,13 @@ function AdvertisementRow({ baseUrl, onClickAdvertisement, row }) {
       onClick={image.onClick}
     />
   ));
-  return <View style={{ width: "100%", marginTop: 10 }}>{RowContent}</View>;
+  return (
+    <View
+      style={{ width: "100%", justifyContent: "space-around", marginTop: 10 }}
+    >
+      {RowContent}
+    </View>
+  );
 }
 
 function ImageContainer({
@@ -66,7 +72,7 @@ function ImageContainer({
         height: 100,
         objectFit: "cover",
         marginRight: isLastIndex ? 0 : 8,
-        width: isSingle ? "100%" : null,
+        width: isSingle ? "100%" : {},
       }}
     />
   );
