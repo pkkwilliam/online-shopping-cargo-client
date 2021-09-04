@@ -9,6 +9,7 @@ import {
   SHIP_TO_HOME_ORDER,
   TUTORIAL,
 } from "../../routes";
+import { SHIP_TO_HOME_TAB } from "../tutorial/tutorial";
 
 class ShipToHomeLandingPage extends UserProfileComponent {
   state = {
@@ -56,7 +57,7 @@ class ShipToHomeLandingPage extends UserProfileComponent {
   };
 
   onClickTutorial = () => {
-    this.goTo(TUTORIAL, { displayTab: SHIP_TO_HOME });
+    this.goTo(TUTORIAL, { displayTab: SHIP_TO_HOME_TAB });
   };
 }
 

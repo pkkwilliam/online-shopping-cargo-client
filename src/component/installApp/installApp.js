@@ -3,6 +3,8 @@ import View from "online-shopping-cargo-parent/dist/view";
 import ClientApplicationComponent from "../clientApplicationComponent";
 import { GET_GITHUB_JSON_CONTENT } from "online-shopping-cargo-parent/dist/service";
 import determinePlatform, { IPAD, IPHONE } from "../common/determinePlatform";
+import Clickable from "../common/clickable";
+import Image from "react-bootstrap/esm/Image";
 
 export default class InstallApp extends ClientApplicationComponent {
   state = {
@@ -46,10 +48,12 @@ function PlatformSelection({ androidAPK, baseUrl, ios }) {
 
 function DownloadButton({ baseUrl, contentUrl, description, imageUrl, type }) {
   return (
-    <View style={{ alignItems: "center", flexDirection: "column" }}>
-      <a href={contentUrl}>
-        <img src={baseUrl + imageUrl} style={{ width: "8rem" }} />
-      </a>
-    </View>
+    <Clickable>
+      <View style={{ alignItems: "center", flexDirection: "column" }}>
+        <a href={contentUrl}>
+          <Image src={baseUrl + imageUrl} style={{ width: "8rem" }} />
+        </a>
+      </View>
+    </Clickable>
   );
 }

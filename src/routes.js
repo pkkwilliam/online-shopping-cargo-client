@@ -43,6 +43,7 @@ export const CostCalculator = React.lazy(() =>
 export const LandingPage = React.lazy(() =>
   import("./component/landingPage/landingPage")
 );
+export const Info = React.lazy(() => import("./component/info/info"));
 export const MatchBadParcel = React.lazy(() =>
   import("./component/matchBadParcel/matchBadParcel")
 );
@@ -150,6 +151,15 @@ export const EDIT_ADDRESS = {
   sectionContainer: true,
   url: "/editAddress",
 };
+export const INFO = {
+  icon: <p style={{ ...styles.icon, ...styles.labelIcon }}>領</p>,
+  component: <Info />,
+  disabledWhenUserTokenPresent: false,
+  hideCard: true,
+  label: "",
+  sectionContainer: true,
+  url: "/info",
+};
 export const LANDING_PAGE = {
   icon: <KeyFill style={styles.icon} />,
   component: <LandingPage />,
@@ -221,6 +231,7 @@ export const SHIP_TO_HOME = {
   url: "/shipToHome",
 };
 export const SHIP_TO_HOME_LANDING_PAGE = {
+  buttonBackgroundColor: "#f73a47",
   icon: <Truck style={styles.icon} />,
   component: <ShipToHomeLandingPage />,
   disabledWhenUserTokenPresent: false,
@@ -301,6 +312,7 @@ export const USER_PROFILE = {
 export default [
   ADDRESS,
   EDIT_ADDRESS,
+  INFO,
   LOGIN,
   THIRD_PERSON,
   ALLOWED_BY,
@@ -322,3 +334,20 @@ export default [
   REGISTER,
   LANDING_PAGE,
 ];
+
+export function getRouteByKey(action) {
+  switch (action) {
+    case "DELIVERY":
+      return SHIP_TO_HOME_LANDING_PAGE;
+    case "INFO":
+      return INFO;
+    case "INSTALL":
+      return SAVE_TO_DESKTOP;
+    case "SHOP_LIST":
+      return SHOP_LIST;
+    case "TUTORIAL":
+      return TUTORIAL;
+    default:
+      console.debug("no action");
+  }
+}

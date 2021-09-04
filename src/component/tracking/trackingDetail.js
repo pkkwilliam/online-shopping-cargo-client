@@ -79,7 +79,7 @@ export default class TrackingDetail extends MatchBadParcel {
     };
     this.setState({
       confirmModal: {
-        body: `是否把該包裹送往${shopSelected.shopNumber}${shopSelected.shopName}`,
+        body: `是否把該包裹送往${shopSelected.shopNumber}${shopSelected.areaShopName}`,
         header: "確認店號",
         onClickConfirm: onClickConfirm,
         show: true,
@@ -193,13 +193,13 @@ function ParcelDetailSection({
   );
 }
 
-function ParcelStatusBadge({ parcelStatus, parcelType }) {
+function ParcelStatusBadge({ parcelStatus, parcelType, shop }) {
   let variant, label;
   if (parcelType === STORE_PICKUP.key) {
     const parcelDisplayUtil = new ParcelDisplayUtil();
     // const location = parcelDisplayUtil.getParcelLocation(parcelLocation);
     const parcelStatusBadgeAndLabel =
-      parcelDisplayUtil.getParcelStatusBageAndLabel(parcelStatus);
+      parcelDisplayUtil.getParcelStatusBageAndLabel(parcelStatus, shop.area);
     variant = parcelStatusBadgeAndLabel.badge;
     label = parcelStatusBadgeAndLabel.label;
   } else {
@@ -225,13 +225,18 @@ function SectionContainer({ header, children }) {
 }
 
 function ShopDetailSection({ shop }) {
-  const { openingHour, shopAddress, shopName, shopNumber, shopPhoneNumber } =
-    shop;
+  const {
+    openingHour,
+    shopAddress,
+    areaShopName,
+    shopNumber,
+    shopPhoneNumber,
+  } = shop;
   return (
     <SectionContainer header="門店資科">
       <Row>
         <Col>
-          <P>{`店名: ${shopName} ${shopNumber}`}</P>
+          <P>{`店名: ${areaShopName} ${shopNumber}`}</P>
         </Col>
       </Row>
       <Row>

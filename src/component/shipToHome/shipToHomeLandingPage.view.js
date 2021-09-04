@@ -44,11 +44,16 @@ export default function ShipToHomeLandingView(props) {
   );
 }
 
-function CardIconButton({ icon, onClick, text }) {
+function CardIconButton({ backgroundColor = "#FFFFFF", icon, onClick, text }) {
+  console.log(backgroundColor);
   return (
     <BackgroundCard
       onClick={onClick}
-      style={{ alignItems: "center", display: "flex" }}
+      style={{
+        alignItems: "center",
+        backgroundColor: backgroundColor,
+        display: "flex",
+      }}
     >
       {icon}
       <P style={{ fontSize: 16, fontWeight: 600, marginLeft: 8 }}>{text}</P>
@@ -171,6 +176,7 @@ function ShipToHomeOrders({ onClickShipToHomeOrder, shipToHomeOrders }) {
 function Tutorial({ onClickTutorial }) {
   return (
     <CardIconButton
+      backgroundColor="rgb(177, 204, 52, 0.8)"
       icon={TUTORIAL.icon}
       onClick={onClickTutorial}
       text={TUTORIAL.label}

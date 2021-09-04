@@ -86,18 +86,6 @@ export function UsernameSection({
           <P>使用區域: {countryCode === "853" ? "澳門" : "中國"}</P>
         </Col>
       </Row>
-      <Row>
-        <Col>
-          <P>會員號碼: {zyId}</P>
-        </Col>
-      </Row>
-      {preferredShop ? (
-        <Row>
-          <Col>
-            <P>常用站點: {preferredShop.areaShopName}</P>
-          </Col>
-        </Row>
-      ) : null}
     </BackgroundCard>
   );
 }
