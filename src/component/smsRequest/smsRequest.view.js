@@ -69,7 +69,7 @@ export function Container({
             style={{ marginLeft: 15 }}
           />
           <MiniButton
-            disabled={countdown > 0}
+            disabled={countdown > 0 || !credential.smsNumber}
             onClick={() => onClickRequestVerification(credential)}
             style={{ marginLeft: 8 }}
           >
@@ -131,6 +131,7 @@ export function VerificationCode({ onChangeVerificationCode }) {
 
 export function MiniButton(props) {
   const backgroundColor = props.disabled ? "#9F9F9F" : "#28a745";
+  const onClick = props.disabled ? () => {} : props.onClick;
   return (
     <P
       {...props}
@@ -144,6 +145,7 @@ export function MiniButton(props) {
         paddingRight: 8,
         ...props.style,
       }}
+      onClick={onClick}
     >
       {props.children}
     </P>

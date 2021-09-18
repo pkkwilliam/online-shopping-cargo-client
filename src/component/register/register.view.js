@@ -1,11 +1,12 @@
 import React from "react";
-import ApplicationComponentView from "online-shopping-cargo-parent/dist/applicationComponent.view";
+import SmsRequestView, { Container } from "../smsRequest/smsRequest.view";
 
-export default class RegisterView extends ApplicationComponentView {
+export default class RegisterView extends SmsRequestView {
   render() {
     return (
       <this.Wrapper>
-        <p>RegisterView</p>
+        <h3>澳提註冊</h3>
+        <Container submitLabel="註冊" style={{ padding: 30 }} {...this.props} />
       </this.Wrapper>
     );
   }
