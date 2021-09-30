@@ -1,17 +1,17 @@
-import React from "react";
-import RegisterView from "./register.view";
-import SmsRequest from "../smsRequest/smsRequest";
 import {
-  REQUEST_VERIFICATION,
-  VERIFY,
+  FORGOT_PASSWORD_REQUEST_VERIFICATION,
+  FORGOT_PASSWORD_VERIFY,
 } from "online-shopping-cargo-parent/dist/service";
+import React from "react";
+import SmsRequest from "../smsRequest/smsRequest";
 import { withRouter } from "react-router-dom";
 import { LANDING_PAGE } from "../../routes";
+import ForgotPasswordView from "./forgotPassword.view";
 
-class Register extends SmsRequest {
+class ForgotPassword extends SmsRequest {
   render() {
     return (
-      <RegisterView
+      <ForgotPasswordView
         onCloseModal={this.onCloseError}
         onClickRequestVerification={this.onClickRequestVerification}
         onClickSubmit={this.onClickSubmit}
@@ -21,14 +21,16 @@ class Register extends SmsRequest {
   }
 
   onRequestVerification(credential) {
-    return this.serviceExecutor.execute(REQUEST_VERIFICATION(credential));
+    return this.serviceExecutor.execute(
+      FORGOT_PASSWORD_REQUEST_VERIFICATION(credential)
+    );
   }
 
   onSubmit(credential) {
-    return this.serviceExecutor
-      .execute(VERIFY(credential))
+    this.serviceExecutor
+      .execute(FORGOT_PASSWORD_VERIFY(credential))
       .then(() => this.goToReplace(LANDING_PAGE));
   }
 }
 
-export default withRouter(Register);
+export default withRouter(ForgotPassword);

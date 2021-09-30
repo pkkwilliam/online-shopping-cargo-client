@@ -40,6 +40,9 @@ export const ChangePassword = React.lazy(() =>
 export const CostCalculator = React.lazy(() =>
   import("./component/costCalculator/costCalculator.view")
 );
+export const ForgotPassword = React.lazy(() =>
+  import("./component/forgotPassword/forgotPassword")
+);
 export const LandingPage = React.lazy(() =>
   import("./component/landingPage/landingPage")
 );
@@ -49,6 +52,9 @@ export const MatchBadParcel = React.lazy(() =>
 );
 export const PickupQRCode = React.lazy(() =>
   import("./component/pickupQRCode/pickupQRCode")
+);
+export const RedPocket = React.lazy(() =>
+  import("./component/redPocket/redPocket")
 );
 export const Register = React.lazy(() =>
   import("./component/register/register")
@@ -151,6 +157,15 @@ export const EDIT_ADDRESS = {
   sectionContainer: true,
   url: "/editAddress",
 };
+export const FORGOT_PASSWORD = {
+  icon: <ClipboardCheck style={styles.icon} />,
+  component: <ForgotPassword />,
+  disabledWhenUserTokenPresent: false,
+  hideCard: true,
+  label: "忘記密碼",
+  sectionContainer: true,
+  url: "/forgotPassowrd",
+};
 export const INFO = {
   icon: <p style={{ ...styles.icon, ...styles.labelIcon }}>領</p>,
   component: <Info />,
@@ -204,12 +219,19 @@ export const PICKUP_QR_CODE = {
   sectionContainer: true,
   url: "/myPickupQRCode",
 };
+export const RED_POCKET = {
+  icon: <ClipboardCheck style={styles.icon} />,
+  component: <RedPocket />,
+  label: "紅包",
+  sectionContainer: true,
+  url: "/redPocket",
+};
 export const REGISTER = {
   icon: <ClipboardCheck style={styles.icon} />,
   component: <Register />,
   disabledWhenUserTokenPresent: false,
   hideCard: true,
-  label: "注冊",
+  label: "註冊",
   sectionContainer: true,
   url: "/register",
 };
@@ -331,6 +353,8 @@ export default [
   SHOP_LIST,
   ADDRESS_GENERATOR,
   CHANGE_PASSWORD,
+  FORGOT_PASSWORD,
+  RED_POCKET,
   REGISTER,
   LANDING_PAGE,
 ];
@@ -343,6 +367,8 @@ export function getRouteByKey(action) {
       return INFO;
     case "INSTALL":
       return SAVE_TO_DESKTOP;
+    case "RED_POCKET":
+      return RED_POCKET;
     case "SHOP_LIST":
       return SHOP_LIST;
     case "TUTORIAL":

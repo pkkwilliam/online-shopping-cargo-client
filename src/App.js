@@ -38,7 +38,7 @@ function getRoutes() {
       <Route path={url}>
         <div
           style={{
-            backgroundColor: backgroundColor ? backgroundColor : "#f3f3f3",
+            backgroundColor: backgroundColor ? backgroundColor : "#F8F8F8",
             height: "inherit",
           }}
         >
