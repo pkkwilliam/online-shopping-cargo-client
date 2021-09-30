@@ -2,6 +2,7 @@ import React from "react";
 import Carousel from "react-bootstrap/esm/Carousel";
 import ClientApplicationComponent from "../clientApplicationComponent";
 import {
+  RED_POCKET,
   SAVE_TO_DESKTOP,
   SHIP_TO_HOME_LANDING_PAGE,
   TUTORIAL,
@@ -57,6 +58,9 @@ class EyeCatch extends ClientApplicationComponent {
         break;
       case "TUTORIAL":
         this.goTo(TUTORIAL);
+        break;
+      case "RED_POCKET":
+        this.goTo(RED_POCKET);
         break;
       default:
         console.debug("no action");
