@@ -2,14 +2,20 @@ import React from "react";
 import UserProfileComponent from "../common/userProfileComponent";
 import AddressGeneratorView from "./addressGenerator.view";
 import { withRouter } from "react-router-dom";
+import { GET_GITHUB_JSON_CONTENT } from "online-shopping-cargo-parent/dist/service";
 
 class AddressGenerator extends UserProfileComponent {
   state = {
+    receiveAddress: undefined,
     shopSelected: undefined,
   };
 
-  componentDidMount() {
+  async componentDidMount() {
+    const receiveAddress = await this.serviceExecutor.execute(
+      GET_GITHUB_JSON_CONTENT("/receiveAddress/receiveAddress.json")
+    );
     this.setState({
+      receiveAddress,
       shopSelected: this.props.shopSelected,
     });
   }

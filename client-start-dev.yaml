@@ -1,0 +1,6 @@
+version: "3"
+services:
+  client:
+    image: picktb-client
+    ports:
+      - 3000:3000
