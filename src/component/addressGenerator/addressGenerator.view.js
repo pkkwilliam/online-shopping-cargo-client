@@ -13,6 +13,7 @@ export default class AddressGeneratorView extends ApplicationComponentView {
       onClickCopyableTextField,
       onClickRestart,
       onSelectShop,
+      receiveAddress,
       shopSelected,
       userProfile,
     } = this.props;
@@ -21,6 +22,7 @@ export default class AddressGeneratorView extends ApplicationComponentView {
         {shopSelected ? (
           <AddressCopyBoard
             onClickCopyableTextField={onClickCopyableTextField}
+            receiveAddress={receiveAddress}
             onClickRestart={onClickRestart}
             shopSelected={shopSelected}
             userProfile={userProfile}
@@ -47,10 +49,20 @@ function RestartButton({ onClickRestart }) {
 
 function AddressCopyBoard({
   userProfile,
+  receiveAddress,
   shopSelected,
   onClickCopyableTextField,
   onClickRestart,
 }) {
+  const {
+    city,
+    district,
+    province,
+    receiverNumber,
+    receiverPrefix,
+    remark,
+    street,
+  } = receiveAddress;
   const smsNumber = generateReadablePhoneNumber(userProfile.smsNumber);
   const { shopNumber } = shopSelected;
   return (
@@ -58,28 +70,41 @@ function AddressCopyBoard({
       <InstructionText>
         請逐個複製以下欄位並複製至購物平台收貨地址處
       </InstructionText>
+      <AddressRemark remark={remark} />
       <Form style={{ marginTop: 15 }}>
         <CopyableTextField
           label={"收件人"}
           onClickCopyableTextField={onClickCopyableTextField}
-          value={`OT-${shopNumber} ${smsNumber}`}
+          value={`${receiverPrefix}-${shopNumber} ${smsNumber}`}
         />
         <CopyableTextField
           label={"收貨人電話"}
           onClickCopyableTextField={onClickCopyableTextField}
-          value={"13392543914"}
+          value={receiverNumber}
         />
         <CopyableTextField
           label={"收貨地址"}
           onClickCopyableTextField={onClickCopyableTextField}
           textarea
-          value={`广东省珠海香洲区南屏科技园三精实业 想送澳提仓 ${shopNumber} ${smsNumber}`}
+          value={`${province}${city}${district}${street} ${shopNumber} ${smsNumber}`}
         />
       </Form>
       <RestartButton onClickRestart={onClickRestart} />
       <BannedItemsDisclaimer />
     </>
   );
+}
+
+function AddressRemark({ remark }) {
+  if (remark) {
+    return (
+      <div style={{ marginTop: 15 }}>
+        <h5>註意</h5>
+        <P style={{ color: "red", fontSize: 16 }}>{remark}</P>
+      </div>
+    );
+  }
+  return null;
 }
 
 function CopyableTextField({
